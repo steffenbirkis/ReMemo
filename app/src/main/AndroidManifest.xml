@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FeedActivity" />
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".AppealingActivity"></activity>
+        <activity android:name=".Activities.FeedActivity" />
+        <activity android:name=".Activities.ContactActivity" />
+        <activity android:name=".Activities.LoginActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.AppealingActivity"></activity>
     </application>
 
 </manifest>

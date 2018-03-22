@@ -1,7 +1,9 @@
-package com.example.steffen.rememo;
+package com.example.steffen.rememo.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.steffen.rememo.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
