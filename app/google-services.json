@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1014658213284",
+    "firebase_url": "https://rememo-b2645.firebaseio.com",
+    "project_id": "rememo-b2645",
+    "storage_bucket": "rememo-b2645.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014658213284:android:57aea0b33bf5da4e",
+        "android_client_info": {
+          "package_name": "com.example.steffen.rememo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014658213284-j9plmkn41jbkn7c98vsitfen3l3hpr6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.steffen.rememo",
+            "certificate_hash": "7ebd04fdc2256ccf0f8737fdcf8b352a1fdcf681"
+          }
+        },
+        {
+          "client_id": "1014658213284-lkcp0pkrhonhfr1asrugr1nq3pipdtf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqTvd3u4o7j7PBc6LmfwnqxWpwJCN-lKQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014658213284-lkcp0pkrhonhfr1asrugr1nq3pipdtf9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
