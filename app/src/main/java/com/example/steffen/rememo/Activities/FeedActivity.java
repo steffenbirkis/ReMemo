@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.steffen.rememo.Activities.Logic.User;
+import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 
 import java.util.ArrayList;

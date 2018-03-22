@@ -1,4 +1,4 @@
-package com.example.steffen.rememo.Activities.Logic;
+package com.example.steffen.rememo.Logic;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

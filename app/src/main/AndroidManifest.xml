@@ -18,7 +18,7 @@
         <activity android:name=".Activities.ContactActivity" />
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.AppealingActivity"></activity>
+        <activity android:name=".Activities.AppealingActivity" />
     </application>
 
 </manifest>
