@@ -28,16 +28,20 @@ public class AppealingActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_feed:
-                    setContentView(R.layout.activity_feed);
+                    Intent myIntent = new Intent(getApplicationContext(), FeedActivity.class);
+                    startActivityForResult(myIntent, 0);
                     return true;
                 case R.id.navigation_appealing:
-                    setContentView(R.layout.activity_appealing);
+                    Intent myIntent2 = new Intent(getApplicationContext(), AppealingActivity.class);
+                    startActivityForResult(myIntent2, 0);
                     return true;
                 case R.id.navigation_contacts:
-                    setContentView(R.layout.activity_contact);
+                    Intent myIntent3 = new Intent(getApplicationContext(), ContactActivity.class);
+                    startActivityForResult(myIntent3, 0);
                     return true;
                 case R.id.navigation_profile:
-                    setContentView(R.layout.activity_profile);
+                    Intent myIntent4 = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivityForResult(myIntent4, 0);
                     return true;
             }
             return false;
