@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.steffen.rememo.Activities.Logic.User;
 import com.example.steffen.rememo.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -13,6 +17,13 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        List <String> liste=new ArrayList<>();
+
+        liste.add("Kevin");
+        liste.add("Steph");
+
+        User Steffen=new User("steffen Birkeland","bilde","arbeidsplass","rolle",liste,"41046505");
+        Steffen.pushUser(Steffen);
     }
 
     public void onHome(View view) {
