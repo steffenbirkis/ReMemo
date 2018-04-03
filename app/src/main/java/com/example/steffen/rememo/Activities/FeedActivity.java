@@ -29,7 +29,7 @@ public class FeedActivity extends AppCompatActivity {
 
         User Steffen = new User("steffen Birkeland", "bilde", "arbeidsplass", "rolle", liste, "41046505");
         Steffen.pushUser(Steffen);
-
+       //heeeeei
     }
 
 
