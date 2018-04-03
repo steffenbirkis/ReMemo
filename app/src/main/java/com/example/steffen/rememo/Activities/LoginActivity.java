@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText role;
     private EditText password;
     private EditText retypePassword;
-    private Button create;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.et_password);
         retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createUser();
-                List<String> liste = new ArrayList<>();
 
-                liste.add("empty");
-                User user = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste, phone.getText().toString());
-                user.pushUser(user);
-            }
-        });
+
     }
 
-    public void createUser() {
+
+
+    public void createUser(){
         String temp_email = email.getText().toString();
         String temp_password = password.getText().toString();
         mAuth.createUserWithEmailAndPassword(temp_email, temp_password)
@@ -119,6 +112,15 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.activity_feed);
         }
+    }
+
+    public void Ninja(View view) {
+        createUser();
+        List<String> liste = new ArrayList<>();
+
+        liste.add("empty");
+        User user = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste, phone.getText().toString());
+        user.pushUser(user);
     }
 }
 
