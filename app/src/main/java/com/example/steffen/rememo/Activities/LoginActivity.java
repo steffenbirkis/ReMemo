@@ -45,7 +45,9 @@ public class LoginActivity extends AppCompatActivity {
         Password=(EditText)findViewById(R.id.Password);
         RetypePassword=(EditText)findViewById(R.id.PasswordCheck);
     }
-    public void createUser(String email,String password){
+    public void createUser(){
+        String email=Email.getText().toString();
+        String password=Password.getText().toString();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -113,9 +115,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onClick(View v){
         int i=v.getId();
+        System.out.println(Email.getText().toString());
         if(i==R.id.Create){
             Log.d(TAG,Email.getText().toString());
-            createUser(Email.getText().toString(),Password.getText().toString());
+            createUser();
             List<String> liste = new ArrayList<>();
 
 
