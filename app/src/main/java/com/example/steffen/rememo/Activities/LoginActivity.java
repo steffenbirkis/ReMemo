@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,47 +23,32 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
-    private EditText name;
-    private EditText email;
-    private EditText phone;
-    private EditText workplace;
-    private EditText role;
-    private EditText password;
-    private EditText retypePassword;
-    private Button create;
-
+    private EditText Name;
+    private EditText Email;
+    private EditText Phone;
+    private EditText Workplace;
+    private EditText Role;
+    private EditText Password;
+    private EditText RetypePassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth=FirebaseAuth.getInstance();
 
-        name = (EditText) findViewById(R.id.et_name);
-        email = (EditText) findViewById(R.id.et_email);
-        phone = (EditText) findViewById(R.id.et_phone);
-        workplace = (EditText) findViewById(R.id.et_workplace);
-        role = (EditText) findViewById(R.id.et_role);
-        password = (EditText) findViewById(R.id.et_password);
-        retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
-
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createUser();
-                List<String> liste = new ArrayList<>();
-
-                liste.add("empty");
-                User user = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste, phone.getText().toString());
-                user.pushUser(user);
-            }
-        });
+        Name=(EditText)findViewById(R.id.Name);
+        Email=(EditText)findViewById(R.id.Email);
+        Phone=(EditText)findViewById(R.id.Phone);
+        Workplace=(EditText)findViewById(R.id.Workplace);
+        Role=(EditText)findViewById(R.id.Role);
+        Password=(EditText)findViewById(R.id.Password);
+        RetypePassword=(EditText)findViewById(R.id.PasswordCheck);
     }
-
-    public void createUser() {
-        String temp_email = email.getText().toString();
-        String temp_password = password.getText().toString();
-        mAuth.createUserWithEmailAndPassword(temp_email, temp_password)
+    public void createUser(){
+        String email=Email.getText().toString();
+        String password=Password.getText().toString();
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -80,9 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
+
+
                     }
                 });
         // [END create_user_with_email]
+
+
+
     }
 
     @Override
@@ -93,7 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    public void signIn(String email, String password) {
+    public void signIn(String email, String password){
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -108,17 +98,35 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
+
                         // ...
                     }
                 });
     }
-
-    public void updateUI(FirebaseUser user) {
-        if (user == null) {
+    public void updateUI(FirebaseUser user){
+        if(user==null){
             setContentView(R.layout.activity_login);
-        } else {
+        }else{
             setContentView(R.layout.activity_feed);
         }
+
+
+    }
+
+    public void onClick(View v){
+        int i=v.getId();
+        System.out.println(Email.getText().toString());
+        if(i==R.id.Create){
+            Log.d(TAG,Email.getText().toString());
+            createUser();
+            List<String> liste = new ArrayList<>();
+
+
+            liste.add("empty");
+            User user=new User(Name.getText().toString(),"bilde",Workplace.getText().toString(),Role.getText().toString(),liste,Phone.getText().toString());
+            user.pushUser(user);
+        }
+
+
     }
 }
-
