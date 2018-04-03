@@ -37,13 +37,13 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
 
-        Name=(EditText)findViewById(R.id.Name);
-        Email=(EditText)findViewById(R.id.Email);
-        Phone=(EditText)findViewById(R.id.Phone);
-        Workplace=(EditText)findViewById(R.id.Workplace);
-        Role=(EditText)findViewById(R.id.Role);
-        Password=(EditText)findViewById(R.id.Password);
-        RetypePassword=(EditText)findViewById(R.id.PasswordCheck);
+        Name=(EditText)findViewById(R.id.et_name);
+        Email=(EditText)findViewById(R.id.et_email);
+        Phone=(EditText)findViewById(R.id.et_phone);
+        Workplace=(EditText)findViewById(R.id.et_workplace);
+        Role=(EditText)findViewById(R.id.et_role);
+        Password=(EditText)findViewById(R.id.et_password);
+        RetypePassword=(EditText)findViewById(R.id.et_passwordcheck);
     }
     public void createUser(){
         String email=Email.getText().toString();
