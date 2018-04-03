@@ -16,12 +16,13 @@ public class User {
     private String Role;
     private List<String> Contacts;
     private String Mobil;
+    private String Plassering;
 
     public User(){}
 
 
 
-    public User(String name, String picture, String workplace, String role, List<String> contacts,String mobil) {
+    public User(String name, String picture, String workplace, String role, List<String> contacts, String mobil) {
         Name = name;
 
         Picture = picture;
@@ -30,6 +31,14 @@ public class User {
         Contacts = contacts;
         Mobil=mobil;
 
+    }
+    public String getPlassering() {
+
+        return Plassering;
+    }
+
+    public void setPlassering(String plassering) {
+        Plassering = plassering;
     }
     public String getMobil() {
         return Mobil;
@@ -94,6 +103,7 @@ public class User {
         myRef.child("users").child(user.getMobil()).setValue(user);
 
     }
+
 
 
 
