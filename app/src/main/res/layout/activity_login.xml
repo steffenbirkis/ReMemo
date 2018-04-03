@@ -10,12 +10,12 @@
         android:layout_width="313dp"
         android:layout_height="508dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/Create"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/Name"
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -24,7 +24,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/Email"
+            android:id="@+id/et_email"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/Phone"
+            android:id="@+id/et_phone"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -42,7 +42,7 @@
             android:inputType="phone" />
 
         <EditText
-            android:id="@+id/Workplace"
+            android:id="@+id/et_workplace"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/Role"
+            android:id="@+id/et_role"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -60,7 +60,7 @@
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/Password"
+            android:id="@+id/et_password"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -69,7 +69,7 @@
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/PasswordCheck"
+            android:id="@+id/et_passwordcheck"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -82,7 +82,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="onClick"
             android:text="Create User"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="447dp" />
