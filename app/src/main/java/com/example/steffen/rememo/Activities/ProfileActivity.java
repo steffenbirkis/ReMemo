@@ -1,8 +1,11 @@
 package com.example.steffen.rememo.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.steffen.rememo.R;
@@ -13,25 +16,34 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        //asd
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_profile);
     }
-    public void onHome(View view) {
-        Intent myIntent = new Intent(view.getContext(), FeedActivity.class);
-        startActivityForResult(myIntent, 0);
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-    public void onAppealing(View view) {
-        Intent myIntent = new Intent(view.getContext(), AppealingActivity.class);
-        startActivityForResult(myIntent, 0);
-    }
-
-    public void onContact(View view) {
-        Intent myIntent = new Intent(view.getContext(), ContactActivity.class);
-        startActivityForResult(myIntent, 0);
-    }
-
-    public void onProfile(View view) {
-        Intent myIntent = new Intent(view.getContext(), ProfileActivity.class);
-        startActivityForResult(myIntent, 0);
-    }
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_feed:
+                    Intent myIntent = new Intent(getApplicationContext(), FeedActivity.class);
+                    startActivityForResult(myIntent, 0);
+                    return true;
+                case R.id.navigation_appealing:
+                    Intent myIntent2 = new Intent(getApplicationContext(), AppealingActivity.class);
+                    startActivityForResult(myIntent2, 0);
+                    return true;
+                case R.id.navigation_contacts:
+                    Intent myIntent3 = new Intent(getApplicationContext(), ContactActivity.class);
+                    startActivityForResult(myIntent3, 0);
+                    return true;
+                case R.id.navigation_profile:
+                    Intent myIntent4 = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivityForResult(myIntent4, 0);
+                    return true;
+            }
+            return false;
+        }
+    };
 }

@@ -18,6 +18,7 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_contacts);
     }
 
 

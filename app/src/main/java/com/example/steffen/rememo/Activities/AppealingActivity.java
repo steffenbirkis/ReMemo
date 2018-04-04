@@ -18,6 +18,7 @@ public class AppealingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_appealing);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_appealing);
     }
 
 
