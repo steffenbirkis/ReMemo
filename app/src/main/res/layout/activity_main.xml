@@ -8,6 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.steffen.rememo.Activities.MainActivity">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"

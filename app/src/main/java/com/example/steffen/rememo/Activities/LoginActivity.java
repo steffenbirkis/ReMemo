@@ -1,5 +1,6 @@
 package com.example.steffen.rememo.Activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,10 +78,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser user) {
+
         if (user == null) {
             setContentView(R.layout.activity_login);
         } else {
-            setContentView(R.layout.activity_main);
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
         }
 
 
