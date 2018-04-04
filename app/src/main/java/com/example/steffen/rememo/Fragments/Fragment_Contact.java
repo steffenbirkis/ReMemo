@@ -1,5 +1,4 @@
-package com.example.steffen.rememo.Activities;
-
+package com.example.steffen.rememo.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +8,9 @@ import android.view.ViewGroup;
 
 import com.example.steffen.rememo.R;
 
-public class Fragment_Profile extends Fragment {
-    public static Fragment_Profile newInstance() {
-        Fragment_Profile fragment = new Fragment_Profile();
+public class Fragment_Contact extends Fragment {
+    public static Fragment_Contact newInstance() {
+        Fragment_Contact fragment = new Fragment_Contact();
         return fragment;
     }
 
@@ -23,6 +22,6 @@ public class Fragment_Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_contact, container, false);
     }
 }

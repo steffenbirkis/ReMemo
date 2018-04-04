@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.steffen.rememo.Fragments.Fragment_Appealing;
+import com.example.steffen.rememo.Fragments.Fragment_Contact;
+import com.example.steffen.rememo.Fragments.Fragment_Feed;
+import com.example.steffen.rememo.Fragments.Fragment_Profile;
 import com.example.steffen.rememo.R;
 
 public class MainActivity extends AppCompatActivity {
