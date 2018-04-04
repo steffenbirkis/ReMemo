@@ -9,16 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragments.Fragment_Feed">
+        <activity android:name=".Activities.MainActivity">
              <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
        </activity>
-        <activity android:name=".Fragments.Fragment_Contact" />
         <activity android:name=".Activities.LoginActivity" />
-        <activity android:name=".Fragments.Fragment_Profile" />
-        <activity android:name=".Fragments.Fragment_Appealing" />
     </application>
 
 </manifest>
