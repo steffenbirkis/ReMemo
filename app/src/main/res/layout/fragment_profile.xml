@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/img_profile"
         android:layout_centerHorizontal="true"
-        android:text="Fragment 3"
+        android:text="Profile"
         android:textSize="30sp"/>
 
 </RelativeLayout>
