@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         RetypePassword = (EditText) findViewById(R.id.et_passwordcheck);
     }
 
-    public void createUser() {
+    /*public void createUser() {
         String email = Email.getText().toString();
         String password = Password.getText().toString();
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -71,9 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
         // [END create_user_with_email]
+        }
+*/
 
 
-    }
 
     @Override
     public void onStart() {
@@ -109,14 +110,40 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) {
             setContentView(R.layout.activity_login);
         } else {
-            setContentView(R.layout.activity_feed);
+            setContentView(R.layout.activity_main);
         }
 
 
     }
 
     public void Ninja(View v) {
-        createUser();
+        //createUser();
+
+        String email = Email.getText().toString();
+        String password = Password.getText().toString();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+
+                    }
+                });
+        // [END create_user_with_email]
+
+
         List<String> liste = new ArrayList<>();
 
         liste.add("empty");
