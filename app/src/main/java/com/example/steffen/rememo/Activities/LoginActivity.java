@@ -23,13 +23,13 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
-    private EditText Name;
-    private EditText Email;
-    private EditText Phone;
-    private EditText Workplace;
-    private EditText Role;
-    private EditText Password;
-    private EditText RetypePassword;
+    private EditText name;
+    private EditText email;
+    private EditText phone;
+    private EditText workplace;
+    private EditText role;
+    private EditText password;
+    private EditText retypePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,44 +37,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-
-        Name = (EditText) findViewById(R.id.et_name);
-        Email = (EditText) findViewById(R.id.et_email);
-        Phone = (EditText) findViewById(R.id.et_phone);
-        Workplace = (EditText) findViewById(R.id.et_workplace);
-        Role = (EditText) findViewById(R.id.et_role);
-        Password = (EditText) findViewById(R.id.et_password);
-        RetypePassword = (EditText) findViewById(R.id.et_passwordcheck);
+        name = (EditText) findViewById(R.id.et_name);
+        email = (EditText) findViewById(R.id.et_email);
+        phone = (EditText) findViewById(R.id.et_phone);
+        workplace = (EditText) findViewById(R.id.et_workplace);
+        role = (EditText) findViewById(R.id.et_role);
+        password = (EditText) findViewById(R.id.et_password);
+        retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
     }
-
-    /*public void createUser() {
-        String email = Email.getText().toString();
-        String password = Password.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-
-                    }
-                });
-        // [END create_user_with_email]
-        }
-*/
-
-
 
     @Override
     public void onStart() {
@@ -116,12 +86,21 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void Ninja(View v) {
-        //createUser();
+    public void createUser(View v) {
+        refreshData();
+        createFireUser();
 
-        String email = Email.getText().toString();
-        String password = Password.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email, password)
+        List<String> liste = new ArrayList<>();
+        liste.add("empty");
+        User user = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste, phone.getText().toString());
+        user.pushUser(user);
+
+    }
+
+    private void createFireUser(){
+        String temp_email = email.getText().toString();
+        String temp_password = password.getText().toString();
+        mAuth.createUserWithEmailAndPassword(temp_email, temp_password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -141,14 +120,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
-        // [END create_user_with_email]
+    }
 
-
-        List<String> liste = new ArrayList<>();
-
-        liste.add("empty");
-        User user = new User(Name.getText().toString(), "bilde", Workplace.getText().toString(), Role.getText().toString(), liste, Phone.getText().toString());
-        user.pushUser(user);
-
+    private void refreshData(){
+        name = (EditText) findViewById(R.id.et_name);
+        email = (EditText) findViewById(R.id.et_email);
+        phone = (EditText) findViewById(R.id.et_phone);
+        workplace = (EditText) findViewById(R.id.et_workplace);
+        role = (EditText) findViewById(R.id.et_role);
+        password = (EditText) findViewById(R.id.et_password);
+        retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
     }
 }
