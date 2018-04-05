@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.steffen.rememo.R;
@@ -31,6 +32,7 @@ public class Fragment_Profile extends Fragment {
         TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
         TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
         TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
+        ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
         txt_name.setText("Dummy navn");
         txt_workplace.setText("Dummy workplace");
@@ -38,6 +40,7 @@ public class Fragment_Profile extends Fragment {
         txt_background.setText("Dummy background");
         txt_email.setText("Dummy email");
         txt_phone.setText("Dummy phone");
+        profile_img.setImageResource(R.drawable.dummy_img);
 
         return fragmentView;
     }
