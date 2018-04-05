@@ -1,5 +1,8 @@
 package com.example.steffen.rememo.Logic;
 
+import android.provider.ContactsContract;
+
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,21 +18,21 @@ public class User {
     private String Workplace;
     private String Role;
     private List<String> Contacts;
-    private String Mobil;
+    private String Mail;
     private String Plassering;
 
     public User(){}
 
 
 
-    public User(String name, String picture, String workplace, String role, List<String> contacts, String mobil) {
+    public User(String name, String picture, String workplace, String role, List<String> contacts, String mail) {
         Name = name;
 
         Picture = picture;
         Workplace = workplace;
         Role = role;
         Contacts = contacts;
-        Mobil=mobil;
+        Mail=mail;
 
     }
     public String getPlassering() {
@@ -40,12 +43,12 @@ public class User {
     public void setPlassering(String plassering) {
         Plassering = plassering;
     }
-    public String getMobil() {
-        return Mobil;
+    public String getMail() {
+        return Mail;
     }
 
-    public void setMobil(String mobil) {
-        Mobil = mobil;
+    public void setMobil(String mail) {
+        Mail = mail;
     }
 
     public String getName() {
@@ -88,21 +91,24 @@ public class User {
         Contacts = contacts;
     }
 
-    public void ChangeUser(String name, String Picture, String Workplace, String Role, List <String> Contacts,String mobil){
+    public void ChangeUser(String name, String Picture, String Workplace, String Role, List <String> Contacts,String mail){
         this.Name=name;
         this.Picture=Picture;
         this.Workplace=Workplace;
         this.Role=Role;
         this.Contacts=Contacts;
-        this.Mobil=mobil;
+        this.Mail=mail;
     }
-    public void pushUser(User user){
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
-        DatabaseReference myRef=database.getReference();
-
-        myRef.child("users").child(user.getMobil()).setValue(user);
-
+    public static String EncodeString(String string) {
+        return string.replace(".", ",");
     }
+
+    public static String DecodeString(String string) {
+        return string.replace(",", ".");
+    }
+
+
+
 
 
 

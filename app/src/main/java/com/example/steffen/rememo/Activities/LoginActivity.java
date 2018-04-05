@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.steffen.rememo.Logic.FirebaseLogic.pushUser;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
@@ -31,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText role;
     private EditText password;
     private EditText retypePassword;
+    private User mUser;
+    private FirebaseLogic fLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    public void signIn(String email, String password) {
+    public void signIn(String emails, String password) {
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(emails, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -75,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+        mUser=fLogic.getDBUser(emails);
+
     }
 
     public void updateUI(FirebaseUser user) {
@@ -93,10 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         refreshData();
         createFireUser();
 
-        List<String> liste = new ArrayList<>();
-        liste.add("empty");
-        User user = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste, phone.getText().toString());
-        user.pushUser(user);
+
 
     }
 
@@ -111,6 +115,10 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            List<String> liste = new ArrayList<>();
+                            liste.add("empty");
+                            mUser = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste,User.EncodeString( email.getText().toString()));
+                            pushUser(mUser);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -134,4 +142,8 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.et_password);
         retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
     }
+    public User getmUser(){
+        return mUser;
+    }
+
 }
