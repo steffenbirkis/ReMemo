@@ -12,12 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.steffen.rememo.Fragments.Fragment_Appealing;
 import com.example.steffen.rememo.Fragments.Fragment_Contact;
 import com.example.steffen.rememo.Fragments.Fragment_Feed;
 import com.example.steffen.rememo.Fragments.Fragment_Profile;
+import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Fragment_Feed.newInstance());
         transaction.commit();
+
+        FirebaseLogic fbl=new FirebaseLogic();
+        User user= fbl.getDBUser("birkisproductions@gmail.com");
+        TextView text=findViewById(R.id.feedText);
 
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);

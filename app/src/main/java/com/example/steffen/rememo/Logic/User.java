@@ -47,7 +47,7 @@ public class User {
         return Mail;
     }
 
-    public void setMobil(String mail) {
+    public void setMail(String mail) {
         Mail = mail;
     }
 

@@ -1,5 +1,9 @@
 package com.example.steffen.rememo.Logic;
 
+import android.provider.ContactsContract;
+import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -7,9 +11,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseLogic {
-    private FirebaseDatabase mFirebase;
+    private FirebaseDatabase database;
     private DatabaseReference myRef;
     private User mUser;
+    private ChildEventListener mChildEventlistener;
 
     public static void pushUser(User user){
         FirebaseDatabase database=FirebaseDatabase.getInstance();
@@ -19,19 +24,42 @@ public class FirebaseLogic {
 
     }
 
-   public User getDBUser(String email){
+   public User getDBUser(String email) {                        //Kan hente 1 vilkårlig bruker etter mail
 // Attach a listener to read the data at our posts reference
-        myRef.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            mUser = dataSnapshot.getValue(User.class);
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            System.out.println("The read failed: " + databaseError.getCode());
-        }
-    });
-        return mUser;
-}
+     final String tempmail = User.EncodeString(email);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference().child("users");
+       myRef.addChildEventListener(mChildEventlistener=new ChildEventListener() {
+           @Override
+           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               User hei = dataSnapshot.getValue(User.class);
+               if (hei.getMail().equals(tempmail)) {
+                   mUser = hei;
+               }
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+               System.out.println("The read failed: " + databaseError.getCode());
+           }
+
+           public void onChildRemoved(DataSnapshot dataSnapshot) {
+               return;
+           }
+
+           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+           }
+
+           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+           }
+
+
+       });
+       return mUser;
+
+   }
+   public void detachFBListener(){
+        myRef.removeEventListener(mChildEventlistener);
+   }
 }
 
