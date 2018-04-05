@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.steffen.rememo.Fragments.Fragment_Appealing;
 import com.example.steffen.rememo.Fragments.Fragment_Contact;
@@ -21,12 +22,16 @@ import com.example.steffen.rememo.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar mTopToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(myToolbar);
+
+        mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mTopToolbar);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
@@ -65,5 +70,29 @@ public class MainActivity extends AppCompatActivity {
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.toolbar, menu);
+            return true;
+        }
 
-}
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_favorite) {
+                Toast.makeText(MainActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
+        }
+
+
+    }
+
