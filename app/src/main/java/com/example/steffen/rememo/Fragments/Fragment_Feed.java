@@ -3,18 +3,21 @@ package com.example.steffen.rememo.Fragments;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.steffen.rememo.Logic.DataObject;
 import com.example.steffen.rememo.Logic.MyRecyclerViewAdapter;
 import com.example.steffen.rememo.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Fragment_Feed extends Fragment {
@@ -35,25 +38,19 @@ public class Fragment_Feed extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.my_recycler_view);
+        List<String> list = new ArrayList<String>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.add("Four");
+        list.add("Five");
+
+        RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
 
-        mAdapter = new MyRecyclerViewAdapter(getDataSet());
-
-
-        DataObject obj1 = new DataObject("Ping", "Pong");
-        DataObject obj2 = new DataObject("Ding", "Dong");
-        DataObject obj3 = new DataObject("Zing", "Zong");
-        DataObject obj4 = new DataObject("Bing", "Bong");
-
-
-        ((MyRecyclerViewAdapter) mAdapter).addItem(obj1, 0);
-        ((MyRecyclerViewAdapter) mAdapter).addItem(obj2, 1);
-        ((MyRecyclerViewAdapter) mAdapter).addItem(obj3, 2);
-        ((MyRecyclerViewAdapter) mAdapter).addItem(obj4, 3);
-        mRecyclerView.setAdapter(mAdapter);
-        return inflater.inflate(R.layout.fragment_feed, container, false);
+        mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
+        return fragmentView;
 
     }
     @Override
@@ -76,5 +73,43 @@ public class Fragment_Feed extends Fragment {
             results.add(index, obj);
         }
         return results;
+    }
+
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+        private CardView cw;
+        private TextView tw;
+
+        public RecyclerViewHolder(View item){
+            super(item);
+        }
+        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container){
+            super(inflater.inflate(R.layout.cardview, container, false));
+
+            cw = itemView.findViewById(R.id.recycler_view);
+            tw = itemView.findViewById(R.id.textView);
+
+        }
+    }
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
+        private List<String> mlist;
+        public RecyclerViewAdapter(List<String> list){
+            this.mlist = list;
+
+        }
+        @Override
+        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            return new RecyclerViewHolder(inflater, parent);
+
+        }
+        @Override
+        public void onBindViewHolder(RecyclerViewHolder holder, int position){
+        holder.tw.setText(mlist.get(position));
+        }
+
+        @Override
+        public int getItemCount(){
+            return mlist.size();
+        }
     }
 }
