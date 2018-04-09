@@ -32,13 +32,12 @@ public class Fragment_Feed extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+
         RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.my_recycler_view);
-        RecyclerView.LayoutManager mLayoutManager;
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
         return inflater.inflate(R.layout.fragment_feed, container, false);
