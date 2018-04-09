@@ -13,8 +13,15 @@ import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Fragment_Profile extends Fragment {
+    private User mCurrent;
     public static Fragment_Profile newInstance() {
         Fragment_Profile fragment = new Fragment_Profile();
         return fragment;
@@ -23,33 +30,68 @@ public class Fragment_Profile extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
 
-        View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
-        TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
-        TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
-        TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
-        TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
-        TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
-        TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
-        ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
+        DatabaseReference FirebaseRef=fbd.getReference().child("users");
 
-        FirebaseLogic fbl=new FirebaseLogic();
-        fbl.listenOnMail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        User current=fbl.getMuser();
-        System.out.println(current.getMail());
+             View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+     final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
+     final  TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
+     final  TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
+     final  TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
+     final  TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
+     final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
+     final  ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
+
+     String mail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+     final String tempmail= User.EncodeString(mail);
+
+        FirebaseRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String s) {
+
+                User user=snapshot.getValue(User.class);
+
+                if(user.getMail().equals(tempmail)){
+
+                txt_name.setText(user.getName());
+                txt_workplace.setText(user.getWorkplace());
+                txt_role.setText(user.getRole());
+                txt_background.setText("pending");
+                txt_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                txt_phone.setText("");
+                profile_img.setImageResource(R.drawable.dummy_img);
+            }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    return;
+                }
+
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+            });
 
 
-        txt_name.setText(current.getName());
-        txt_workplace.setText("workplace");
-        txt_role.setText("role");
-        txt_background.setText("pending");
-        txt_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        txt_phone.setText("Dummy phone");
-        profile_img.setImageResource(R.drawable.dummy_img);
+
+
+
+
+
 
         return fragmentView;
     }

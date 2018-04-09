@@ -16,6 +16,10 @@ public class FirebaseLogic {
     private User mUser;
     private ChildEventListener mChildEventlistener;
 
+    public FirebaseLogic(){
+
+    }
+
     public static void pushUser(User user){
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference myRef=database.getReference();
@@ -37,6 +41,8 @@ public class FirebaseLogic {
                hei = dataSnapshot.getValue(User.class);
                if (hei.getMail().equals(tempmail)) {
                    setUser(hei);
+                   System.out.println(hei.getName());
+                   mUser=hei;
 
 
 
@@ -58,9 +64,7 @@ public class FirebaseLogic {
            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
            }
 
-
        });
-
 
    }
    public User getMuser(){
