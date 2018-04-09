@@ -5,20 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.steffen.rememo.Fragments.Fragment_Feed">
 
-    <ImageView
-        android:id="@+id/img_feed"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_list_black_24dp"/>
-
-    <TextView
-        android:id="@+id/feedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/img_feed"
-        android:layout_centerHorizontal="true"
-        android:text="Feed"
-        android:textSize="30sp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>
