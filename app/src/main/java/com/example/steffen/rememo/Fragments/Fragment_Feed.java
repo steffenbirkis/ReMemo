@@ -21,21 +21,21 @@ public class Fragment_Feed extends Fragment {
         Fragment_Feed fragment = new Fragment_Feed();
         return fragment;
     }
-    RecyclerView.Adapter mAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
     }
-
+    RecyclerView.Adapter mAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.my_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mRecyclerView.setHasFixedSize(true);
 
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
