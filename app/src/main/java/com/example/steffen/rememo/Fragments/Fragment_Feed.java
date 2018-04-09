@@ -40,7 +40,7 @@ public class Fragment_Feed extends Fragment {
         mRecyclerView.setHasFixedSize(true);
 
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
-        mRecyclerView.setAdapter(mAdapter);
+
 
         DataObject obj1 = new DataObject("Ping", "Pong");
         DataObject obj2 = new DataObject("Ding", "Dong");
@@ -52,7 +52,7 @@ public class Fragment_Feed extends Fragment {
         ((MyRecyclerViewAdapter) mAdapter).addItem(obj2, 1);
         ((MyRecyclerViewAdapter) mAdapter).addItem(obj3, 2);
         ((MyRecyclerViewAdapter) mAdapter).addItem(obj4, 3);
-
+        mRecyclerView.setAdapter(mAdapter);
         return inflater.inflate(R.layout.fragment_feed, container, false);
 
     }
