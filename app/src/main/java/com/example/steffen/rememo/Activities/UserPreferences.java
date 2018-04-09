@@ -35,8 +35,8 @@ public class UserPreferences extends PreferenceActivity {
             PreferenceManager manager = getPreferenceManager();
             manager.setSharedPreferencesName("userprefs");
             addPreferencesFromResource(R.xml.userprefs);
-            Preference myPref = findPreference("signout");
-            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            Preference signout = findPreference("signout");
+            signout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference preference) {
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     mAuth.signOut();
@@ -45,6 +45,15 @@ public class UserPreferences extends PreferenceActivity {
                     return true;
                 }
             });
+            Preference editprofile = findPreference("edit_profile");
+            editprofile.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(preference.getContext(), EditProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
         }
     }
 }
