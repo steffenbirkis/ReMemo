@@ -44,6 +44,13 @@ public class Fragment_Feed extends Fragment {
         list.add("Three");
         list.add("Four");
         list.add("Five");
+        list.add("Three");
+        list.add("Four");
+        list.add("Five");
+        list.add("Three");
+        list.add("Four");
+        list.add("Five");
+
 
         RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -56,13 +63,7 @@ public class Fragment_Feed extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MyRecyclerViewAdapter) mAdapter).setOnItemClickListener(new MyRecyclerViewAdapter
-                .MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Log.i("This", " Clicked on Item " + position);
-            }
-        });
+
     }
 
     private ArrayList<DataObject> getDataSet() {
