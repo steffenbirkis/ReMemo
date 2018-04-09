@@ -71,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, Fragment_Feed.newInstance());
         transaction.commit();
 
-        FirebaseLogic fbl=new FirebaseLogic();
-        User user= fbl.getDBUser("birkisproductions@gmail.com");
-        TextView text=findViewById(R.id.feedText);
+
 
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);

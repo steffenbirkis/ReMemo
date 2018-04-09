@@ -24,17 +24,22 @@ public class FirebaseLogic {
 
     }
 
-   public User getDBUser(String email) {                        //Kan hente 1 vilkårlig bruker etter mail
+   public void listenOnMail(String email) {                        //Kan hente 1 vilkårlig bruker etter mail
 // Attach a listener to read the data at our posts reference
      final String tempmail = User.EncodeString(email);
+        mUser=new User();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("users");
        myRef.addChildEventListener(mChildEventlistener=new ChildEventListener() {
            @Override
            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               User hei = dataSnapshot.getValue(User.class);
+               User hei;
+               hei = dataSnapshot.getValue(User.class);
                if (hei.getMail().equals(tempmail)) {
-                   mUser = hei;
+                   setUser(hei);
+
+
+
                }
            }
 
@@ -55,11 +60,18 @@ public class FirebaseLogic {
 
 
        });
-       return mUser;
 
+
+   }
+   public User getMuser(){
+       return mUser;
    }
    public void detachFBListener(){
         myRef.removeEventListener(mChildEventlistener);
+   }
+   public void setUser(User user){
+        mUser=user;
+
    }
 }
 

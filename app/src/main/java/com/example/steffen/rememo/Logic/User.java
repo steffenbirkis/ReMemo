@@ -2,6 +2,8 @@ package com.example.steffen.rememo.Logic;
 
 import android.provider.ContactsContract;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -105,6 +107,14 @@ public class User {
 
     public static String DecodeString(String string) {
         return string.replace(",", ".");
+    }
+    public User getCurrent(){
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        String email=user.getEmail();
+        FirebaseLogic fetch=new FirebaseLogic();
+        fetch.listenOnMail(email);
+        User current=fetch.getMuser();
+        return current;
     }
 
 

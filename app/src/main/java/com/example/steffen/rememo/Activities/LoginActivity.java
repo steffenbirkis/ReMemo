@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-        mUser=fLogic.getDBUser(emails);
+        fLogic.listenOnMail(emails);
+        mUser=fLogic.getMuser();
 
     }
 
@@ -142,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.et_password);
         retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
     }
-    public User getmUser(){
+    public User getCurrentUser(){
         return mUser;
     }
 

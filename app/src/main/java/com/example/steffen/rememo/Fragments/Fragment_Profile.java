@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Fragment_Profile extends Fragment {
     public static Fragment_Profile newInstance() {
@@ -34,11 +37,17 @@ public class Fragment_Profile extends Fragment {
         TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
         ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
-        txt_name.setText("Dummy navn");
-        txt_workplace.setText("Dummy workplace");
-        txt_role.setText("Dummy role");
-        txt_background.setText("Dummy background");
-        txt_email.setText("Dummy email");
+        FirebaseLogic fbl=new FirebaseLogic();
+        fbl.listenOnMail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        User current=fbl.getMuser();
+        System.out.println(current.getMail());
+
+
+        txt_name.setText(current.getName());
+        txt_workplace.setText("workplace");
+        txt_role.setText("role");
+        txt_background.setText("pending");
+        txt_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         txt_phone.setText("Dummy phone");
         profile_img.setImageResource(R.drawable.dummy_img);
 
