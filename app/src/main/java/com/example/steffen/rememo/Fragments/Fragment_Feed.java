@@ -1,6 +1,7 @@
 package com.example.steffen.rememo.Fragments;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,18 @@ public class Fragment_Feed extends Fragment {
 
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
+
+        DataObject obj1 = new DataObject("Ping", "Pong");
+        DataObject obj2 = new DataObject("Ding", "Dong");
+        DataObject obj3 = new DataObject("Zing", "Zong");
+        DataObject obj4 = new DataObject("Bing", "Bong");
+
+
+        ((MyRecyclerViewAdapter) mAdapter).addItem(obj1, 0);
+        ((MyRecyclerViewAdapter) mAdapter).addItem(obj2, 1);
+        ((MyRecyclerViewAdapter) mAdapter).addItem(obj3, 2);
+        ((MyRecyclerViewAdapter) mAdapter).addItem(obj4, 3);
+
         return inflater.inflate(R.layout.fragment_feed, container, false);
 
     }
