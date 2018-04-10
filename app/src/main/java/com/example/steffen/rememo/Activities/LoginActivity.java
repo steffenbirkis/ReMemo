@@ -146,5 +146,5 @@ public class LoginActivity extends AppCompatActivity {
     public User getCurrentUser(){
         return mUser;
     }
-
+ 
 }
