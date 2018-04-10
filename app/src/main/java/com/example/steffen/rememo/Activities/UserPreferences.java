@@ -42,6 +42,7 @@ public class UserPreferences extends PreferenceActivity {
                     mAuth.signOut();
                     Intent intent = new Intent(preference.getContext(), LoginActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                     return true;
                 }
             });
@@ -50,6 +51,7 @@ public class UserPreferences extends PreferenceActivity {
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(preference.getContext(), EditProfile.class);
                     startActivity(intent);
+                    getActivity().finish();
                     return true;
                 }
             });
