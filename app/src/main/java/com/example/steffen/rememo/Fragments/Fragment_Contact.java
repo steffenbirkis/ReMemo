@@ -46,7 +46,7 @@ public class Fragment_Contact extends Fragment {
         list.add("Five");
 
 
-        RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
+        RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
 
@@ -62,18 +62,18 @@ public class Fragment_Contact extends Fragment {
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         private CardView cw;
-        private TextView tw;
-        private TextView tw2;
+        private TextView tw_name;
+        private TextView tw_workplace_role;
 
         public RecyclerViewHolder(View item){
             super(item);
         }
         public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container){
-            super(inflater.inflate(R.layout.cardview_feed, container, false));
+            super(inflater.inflate(R.layout.cardview_contact, container, false));
 
-            cw = itemView.findViewById(R.id.recycler_view);
-            tw = itemView.findViewById(R.id.textView);
-            tw2 = itemView.findViewById(R.id.textView2);
+            cw = itemView.findViewById(R.id.contact_recyclerview);
+            tw_name = itemView.findViewById(R.id.contact_name);
+            tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
 
         }
     }
@@ -91,8 +91,8 @@ public class Fragment_Contact extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
-            holder.tw.setText(mlist.get(position));
-            holder.tw2.setText(mlist.get(position));
+            holder.tw_name.setText(mlist.get(position));
+            holder.tw_workplace_role.setText(mlist.get(position));
         }
 
         @Override
