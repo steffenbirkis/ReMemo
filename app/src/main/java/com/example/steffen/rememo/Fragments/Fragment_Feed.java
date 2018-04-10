@@ -1,21 +1,15 @@
 package com.example.steffen.rememo.Fragments;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.steffen.rememo.Logic.DataObject;
-import com.example.steffen.rememo.Logic.MyRecyclerViewAdapter;
 import com.example.steffen.rememo.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,16 +60,6 @@ public class Fragment_Feed extends Fragment {
 
     }
 
-    private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 20; index++) {
-            DataObject obj = new DataObject("Some Primary Text " + index,
-                    "Secondary " + index);
-            results.add(index, obj);
-        }
-        return results;
-    }
-
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         private CardView cw;
         private TextView tw;
@@ -85,7 +69,7 @@ public class Fragment_Feed extends Fragment {
             super(item);
         }
         public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container){
-            super(inflater.inflate(R.layout.cardview, container, false));
+            super(inflater.inflate(R.layout.cardview_feed, container, false));
 
             cw = itemView.findViewById(R.id.recycler_view);
             tw = itemView.findViewById(R.id.textView);
@@ -107,8 +91,8 @@ public class Fragment_Feed extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
-        holder.tw.setText(mlist.get(position));
-        holder.tw2.setText(mlist.get(position));
+            holder.tw.setText(mlist.get(position));
+            holder.tw2.setText(mlist.get(position));
         }
 
         @Override
