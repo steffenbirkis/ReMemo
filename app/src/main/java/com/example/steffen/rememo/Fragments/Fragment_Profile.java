@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Fragment_Profile extends Fragment {
@@ -37,7 +38,6 @@ public class Fragment_Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
 
-        DatabaseReference FirebaseRef=fbd.getReference().child("users");
 
              View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
      final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
@@ -50,13 +50,16 @@ public class Fragment_Profile extends Fragment {
 
      String mail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
      final String tempmail= User.EncodeString(mail);
+     DatabaseReference FirebaseRef=fbd.getReference().child("users");
+
+
 
         FirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String s) {
 
                 User user=snapshot.getValue(User.class);
-
+                System.out.println(user.getMail());
                 if(user.getMail().equals(tempmail)){
 
                 txt_name.setText(user.getName());
