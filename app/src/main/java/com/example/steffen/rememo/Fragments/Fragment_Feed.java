@@ -79,6 +79,7 @@ public class Fragment_Feed extends Fragment {
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         private CardView cw;
         private TextView tw;
+        private TextView tw2;
 
         public RecyclerViewHolder(View item){
             super(item);
@@ -88,6 +89,7 @@ public class Fragment_Feed extends Fragment {
 
             cw = itemView.findViewById(R.id.recycler_view);
             tw = itemView.findViewById(R.id.textView);
+            tw2 = itemView.findViewById(R.id.textView2);
 
         }
     }
@@ -106,6 +108,7 @@ public class Fragment_Feed extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
         holder.tw.setText(mlist.get(position));
+        holder.tw2.setText(mlist.get(position));
         }
 
         @Override
