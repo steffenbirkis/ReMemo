@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
 
@@ -104,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 
     private void createFireUser(){
         String temp_email = email.getText().toString();
@@ -118,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             List<String> liste = new ArrayList<>();
                             liste.add("empty");
-                            mUser = new User(name.getText().toString(), "bilde", workplace.getText().toString(), role.getText().toString(), liste,User.EncodeString( email.getText().toString()));
+                            String temp_background = "potetsalat";
+                            mUser = new User(name.getText().toString(),workplace.getText().toString(), role.getText().toString(), temp_background,User.EncodeString(email.getText().toString()),phone.getText().toString());
                             pushUser(mUser);
                             updateUI(user);
                         } else {

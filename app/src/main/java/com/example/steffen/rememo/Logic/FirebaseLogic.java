@@ -23,8 +23,8 @@ public class FirebaseLogic {
     public static void pushUser(User user){
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference myRef=database.getReference();
-
-        myRef.child("users").child(user.getMail()).setValue(user);
+        myRef = myRef.child("users").child(user.getEmail());
+        myRef.child("users").child(user.getEmail()).setValue(user);
 
     }
 
@@ -39,7 +39,7 @@ public class FirebaseLogic {
            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                User hei;
                hei = dataSnapshot.getValue(User.class);
-               if (hei.getMail().equals(tempmail)) {
+               if (hei.getEmail().equals(tempmail)) {
                    setUser(hei);
                    System.out.println(hei.getName());
                    mUser=hei;

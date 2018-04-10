@@ -59,8 +59,8 @@ public class Fragment_Profile extends Fragment {
             public void onChildAdded(DataSnapshot snapshot, String s) {
 
                 User user=snapshot.getValue(User.class);
-                System.out.println(user.getMail());
-                if(user.getMail().equals(tempmail)){
+                System.out.println(user.getEmail());
+                if(user.getEmail().equals(tempmail)){
 
                 txt_name.setText(user.getName());
                 txt_workplace.setText(user.getWorkplace());

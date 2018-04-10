@@ -1,106 +1,82 @@
 package com.example.steffen.rememo.Logic;
 
-import android.provider.ContactsContract;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
 
 /**
  * Created by Steffen on 22.03.2018.
  */
 
 public class User {
-    private String Name;
-    private String Picture;
-    private String Workplace;
-    private String Role;
-    private List<String> Contacts;
-    private String Mail;
-    private String Plassering;
+    private String name;
+    private String workplace;
+    private String role;
+    private String background;
+    private String email;
+    private String phone;
 
     public User(){}
 
+    public User(String name, String workplace, String role, String background, String email, String phone){
+        this.name = name;
+        this.workplace = workplace;
+        this.role = role;
+        this.background = background;
+        this.email = email;
+        this.phone = phone;
 
-
-    public User(String name, String picture, String workplace, String role, List<String> contacts, String mail) {
-        Name = name;
-
-        Picture = picture;
-        Workplace = workplace;
-        Role = role;
-        Contacts = contacts;
-        Mail=mail;
-
-    }
-    public String getPlassering() {
-
-        return Plassering;
-    }
-
-    public void setPlassering(String plassering) {
-        Plassering = plassering;
-    }
-    public String getMail() {
-        return Mail;
-    }
-
-    public void setMail(String mail) {
-        Mail = mail;
     }
 
     public String getName() {
-        return Name;
+
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
-    }
-
-    public String getPicture() {
-        return Picture;
-    }
-
-    public void setPicture(String picture) {
-        Picture = picture;
+        this.name = name;
     }
 
     public String getWorkplace() {
-        return Workplace;
+        return workplace;
     }
 
     public void setWorkplace(String workplace) {
-        Workplace = workplace;
+        this.workplace = workplace;
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
+        this.role = role;
     }
 
-    public List getContacts() {
-        return Contacts;
+    public String getBackground() {
+        return background;
     }
 
-    public void setContacts(List<String> contacts) {
-        Contacts = contacts;
+    public void setBackground(String background) {
+        this.background = background;
     }
 
-    public void ChangeUser(String name, String Picture, String Workplace, String Role, List <String> Contacts,String mail){
-        this.Name=name;
-        this.Picture=Picture;
-        this.Workplace=Workplace;
-        this.Role=Role;
-        this.Contacts=Contacts;
-        this.Mail=mail;
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public static String EncodeString(String string) {
         return string.replace(".", ",");
     }
