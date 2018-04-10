@@ -45,6 +45,7 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseRef.child("role").setValue(role.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
