@@ -1,5 +1,6 @@
 package com.example.steffen.rememo.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -26,21 +30,21 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editprofile);
-        // user = fra firebase
+
         save = (Button)findViewById(R.id.save_changes);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshData();
-                /*
-                user.setName(name.getText().toString());
-                user.setWorkplace(workplace.getText().toString());
-                user.setRole(role.getText().toString());
-                user.setBackground(background.getText().toString());
-                user.setEmail(email.getText().toString());
-                user.setPhone(phone.getText().toString());
-                */
-
+                FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+                String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                final String tempmail= User.EncodeString(mail);
+                DatabaseReference FirebaseRef=fbd.getReference().child("users").child(tempmail);
+                FirebaseRef.child("name").setValue(name.getText().toString());
+                FirebaseRef.child("workplace").setValue(workplace.getText().toString());
+                FirebaseRef.child("role").setValue(role.getText().toString());
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -48,7 +52,7 @@ public class EditProfile extends AppCompatActivity {
     public void refreshData(){
         name = (EditText) findViewById(R.id.edit_name);
         workplace = (EditText) findViewById(R.id.edit_workplace);
-        role = (EditText) findViewById(R.id.edit_workplace);
+        role = (EditText) findViewById(R.id.edit_role);
         background = (EditText) findViewById(R.id.edit_background);
         email = (EditText) findViewById(R.id.edit_email);
         phone = (EditText) findViewById(R.id.edit_phone);
