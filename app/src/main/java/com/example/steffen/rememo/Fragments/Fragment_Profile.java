@@ -60,16 +60,16 @@ public class Fragment_Profile extends Fragment {
 
                 User user=snapshot.getValue(User.class);
               //  System.out.println(user.getEmail());
-             //   if(user.getEmail().equals(tempmail)){
+               if(user.getEmail().equals(tempmail)){
 
                 txt_name.setText(user.getName());
                 txt_workplace.setText(user.getWorkplace());
                 txt_role.setText(user.getRole());
-                txt_background.setText("pending");
+                txt_background.setText(user.getBackground());
                 txt_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                txt_phone.setText("");
+                txt_phone.setText(user.getRole());
                 profile_img.setImageResource(R.drawable.dummy_img);
-            }
+            }}
 
 
                 @Override
