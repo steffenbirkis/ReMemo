@@ -43,13 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        name = (EditText) findViewById(R.id.et_name);
         email = (EditText) findViewById(R.id.et_email);
-        phone = (EditText) findViewById(R.id.et_phone);
-        workplace = (EditText) findViewById(R.id.et_workplace);
-        role = (EditText) findViewById(R.id.et_role);
         password = (EditText) findViewById(R.id.et_password);
-        retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
+
     }
 
     @Override
@@ -90,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) {
             setContentView(R.layout.activity_login);
         } else {
-            Intent intent=new Intent(this,MainActivity.class);
+            Intent intent=new Intent(this,EditProfile.class);
             startActivity(intent);
             finish();
         }
@@ -118,11 +114,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            List<String> liste = new ArrayList<>();
-                            liste.add("empty");
-                            String temp_background = "potetsalat";
-                            mUser = new User(name.getText().toString(),workplace.getText().toString(), role.getText().toString(), temp_background,User.EncodeString(email.getText().toString()),phone.getText().toString());
-                            pushUser(mUser);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -138,14 +129,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void refreshData(){
-        name = (EditText) findViewById(R.id.et_name);
         email = (EditText) findViewById(R.id.et_email);
-        phone = (EditText) findViewById(R.id.et_phone);
-        workplace = (EditText) findViewById(R.id.et_workplace);
-        role = (EditText) findViewById(R.id.et_role);
         password = (EditText) findViewById(R.id.et_password);
-        retypePassword = (EditText) findViewById(R.id.et_passwordcheck);
-    }
+        }
     public User getCurrentUser(){
         return mUser;
     }
