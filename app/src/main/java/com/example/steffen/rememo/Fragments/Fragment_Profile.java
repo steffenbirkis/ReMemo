@@ -48,8 +48,9 @@ public class Fragment_Profile extends Fragment {
      final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
      final  ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
-     String mail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-     final String tempmail= FirebaseLogic.EncodeString(mail);
+
+
+
      DatabaseReference FirebaseRef=fbd.getReference().child("users");
 
 
@@ -57,7 +58,9 @@ public class Fragment_Profile extends Fragment {
         FirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String s) {
-
+                FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+                String mail=firebaseAuth.getCurrentUser().getEmail();
+                String tempmail= FirebaseLogic.EncodeString(mail);
                 User user=snapshot.getValue(User.class);
               //  System.out.println(user.getEmail());
                if(user.getEmail().equals(tempmail)){
