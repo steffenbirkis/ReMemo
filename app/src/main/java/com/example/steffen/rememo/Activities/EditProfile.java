@@ -45,12 +45,6 @@ public class EditProfile extends AppCompatActivity {
                 DatabaseReference FirebaseRef=fbd.getReference().child("users").child(tempmail);
                 User user=new User(name.getText().toString(),workplace.getText().toString(),role.getText().toString());
                 FirebaseRef.setValue(user);
-              //  FirebaseRef.child("name").setValue(name.getText().toString());
-              //  FirebaseRef.child("workplace").setValue(workplace.getText().toString());
-              //  FirebaseRef.child("role").setValue(role.getText().toString());
-              //  FirebaseRef.child("background").setValue(background.getText().toString());
-              //  FirebaseRef.child("email").setValue(email.getText().toString());
-              //  FirebaseRef.child("phone").setValue(phone.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

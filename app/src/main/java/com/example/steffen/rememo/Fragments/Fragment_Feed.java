@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,8 +43,9 @@ public class Fragment_Feed extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").addValueEventListener(userListener);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        mDatabase.addChildEventListener(listener);
+
 
         list = new ArrayList<User>();
 
@@ -51,26 +54,43 @@ public class Fragment_Feed extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
+
+
+
+
         return fragmentView;
 
-    }
 
-    ValueEventListener userListener = new ValueEventListener() {
+
+    }
+     ChildEventListener listener=new ChildEventListener() {
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            // Get Post object and use the values to update the UI
-            User user = dataSnapshot.getValue(User.class);
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+
+            User user = snapshot.getValue(User.class);
             list.add(user);
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
-            // ...
+
+
+
         }
+
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
-            // ...
+            System.out.println("The read failed: " + databaseError.getCode());
         }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            return;
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
     };
 
     @Override
@@ -78,6 +98,7 @@ public class Fragment_Feed extends Fragment {
         super.onResume();
 
     }
+
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
         private CardView cw;
@@ -121,4 +142,6 @@ public class Fragment_Feed extends Fragment {
             return mlist.size();
         }
     }
+
+
 }
