@@ -49,7 +49,7 @@ public class Fragment_Profile extends Fragment {
      final  ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
      String mail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-     final String tempmail= User.EncodeString(mail);
+     final String tempmail= FirebaseLogic.EncodeString(mail);
      DatabaseReference FirebaseRef=fbd.getReference().child("users");
 
 
@@ -59,8 +59,8 @@ public class Fragment_Profile extends Fragment {
             public void onChildAdded(DataSnapshot snapshot, String s) {
 
                 User user=snapshot.getValue(User.class);
-                System.out.println(user.getEmail());
-                if(user.getEmail().equals(tempmail)){
+              //  System.out.println(user.getEmail());
+             //   if(user.getEmail().equals(tempmail)){
 
                 txt_name.setText(user.getName());
                 txt_workplace.setText(user.getWorkplace());
@@ -70,7 +70,7 @@ public class Fragment_Profile extends Fragment {
                 txt_phone.setText("");
                 profile_img.setImageResource(R.drawable.dummy_img);
             }
-                }
+
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {

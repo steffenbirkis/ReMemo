@@ -23,14 +23,14 @@ public class FirebaseLogic {
     public static void pushUser(User user){
         FirebaseDatabase database=FirebaseDatabase.getInstance();
         DatabaseReference myRef=database.getReference();
-        myRef = myRef.child("users").child(user.getEmail());
-        myRef.child("users").child(user.getEmail()).setValue(user);
+        myRef = myRef.child("users").child("123");
+        myRef.child("users").child("456");
 
     }
 
    public void listenOnMail(String email) {                        //Kan hente 1 vilkårlig bruker etter mail
 // Attach a listener to read the data at our posts reference
-     final String tempmail = User.EncodeString(email);
+     final String tempmail = EncodeString(email);
         mUser=new User();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("users");
@@ -39,14 +39,14 @@ public class FirebaseLogic {
            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                User hei;
                hei = dataSnapshot.getValue(User.class);
-               if (hei.getEmail().equals(tempmail)) {
+             //  if (hei.getEmail().equals(tempmail)) {
                    setUser(hei);
                    System.out.println(hei.getName());
                    mUser=hei;
 
 
 
-               }
+           //    }
            }
 
            @Override
@@ -77,5 +77,12 @@ public class FirebaseLogic {
         mUser=user;
 
    }
+    public static String EncodeString(String string) {
+        return string.replace(".", ",");
+    }
+
+    public static String DecodeString(String string) {
+        return string.replace(",", ".");
+    }
 }
 

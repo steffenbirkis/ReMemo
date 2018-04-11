@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class EditProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_editprofile);
 
         save = (Button)findViewById(R.id.save_changes);
@@ -38,14 +40,17 @@ public class EditProfile extends AppCompatActivity {
                 refreshData();
                 FirebaseDatabase fbd=FirebaseDatabase.getInstance();
                 String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                final String tempmail= User.EncodeString(mail);
+                final String tempmail= FirebaseLogic.EncodeString(mail);
+
                 DatabaseReference FirebaseRef=fbd.getReference().child("users").child(tempmail);
-                FirebaseRef.child("name").setValue(name.getText().toString());
-                FirebaseRef.child("workplace").setValue(workplace.getText().toString());
-                FirebaseRef.child("role").setValue(role.getText().toString());
-                FirebaseRef.child("background").setValue(background.getText().toString());
-                FirebaseRef.child("email").setValue(email.getText().toString());
-                FirebaseRef.child("phone").setValue(phone.getText().toString());
+                User user=new User(name.getText().toString(),workplace.getText().toString(),role.getText().toString());
+                FirebaseRef.setValue(user);
+              //  FirebaseRef.child("name").setValue(name.getText().toString());
+              //  FirebaseRef.child("workplace").setValue(workplace.getText().toString());
+              //  FirebaseRef.child("role").setValue(role.getText().toString());
+              //  FirebaseRef.child("background").setValue(background.getText().toString());
+              //  FirebaseRef.child("email").setValue(email.getText().toString());
+              //  FirebaseRef.child("phone").setValue(phone.getText().toString());
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
