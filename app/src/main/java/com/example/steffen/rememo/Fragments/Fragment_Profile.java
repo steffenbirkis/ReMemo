@@ -60,10 +60,10 @@ public class Fragment_Profile extends Fragment {
             public void onChildAdded(DataSnapshot snapshot, String s) {
                 FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                 String mail=firebaseAuth.getCurrentUser().getEmail();
-                String tempmail= FirebaseLogic.EncodeString(mail);
                 User user=snapshot.getValue(User.class);
-              //  System.out.println(user.getEmail());
-               if(user.getEmail().equals(tempmail)){
+                String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
+                String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+               if(robust1.equals(robust2)){
 
                 txt_name.setText(user.getName());
                 txt_workplace.setText(user.getWorkplace());
