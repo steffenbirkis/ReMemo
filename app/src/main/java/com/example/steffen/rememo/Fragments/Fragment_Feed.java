@@ -5,11 +5,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,34 +33,46 @@ public class Fragment_Feed extends Fragment {
 
 
     }
-    RecyclerView.Adapter mAdapter;
+    private List<User> list;
+    private DatabaseReference mDatabase;
+    RecyclerView mRecyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        List<String> list = new ArrayList<String>();
-        list.add("One");
-        list.add("Two");
-        list.add("Three");
-        list.add("Four");
-        list.add("Five");
-        list.add("Three");
-        list.add("Four");
-        list.add("Five");
-        list.add("Three");
-        list.add("Four");
-        list.add("Five");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").addValueEventListener(userListener);
 
+        list = new ArrayList<User>();
 
-        RecyclerView mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
+        mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
+
         return fragmentView;
 
     }
+
+    ValueEventListener userListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // Get Post object and use the values to update the UI
+            User user = dataSnapshot.getValue(User.class);
+            list.add(user);
+            mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
+            // ...
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w("TAG", "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
+
     @Override
     public void onResume() {
         super.onResume();
@@ -78,8 +97,8 @@ public class Fragment_Feed extends Fragment {
         }
     }
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
-        private List<String> mlist;
-        public RecyclerViewAdapter(List<String> list){
+        private List<User> mlist;
+        public RecyclerViewAdapter(List<User> list){
             this.mlist = list;
 
         }
@@ -91,8 +110,10 @@ public class Fragment_Feed extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
-            holder.tw_name.setText(mlist.get(position));
-            holder.tw_workplace_role.setText(mlist.get(position));
+            User temp = mlist.get(position);
+            holder.tw_name.setText(temp.getName());
+            String merge = temp.getRole() + " at " + temp.getWorkplace();
+            holder.tw_workplace_role.setText(merge);
         }
 
         @Override
