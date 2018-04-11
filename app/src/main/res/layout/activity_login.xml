@@ -36,6 +36,15 @@
                 android:hint="Password"
                 android:inputType="textPassword" />
 
+            <EditText
+                android:id="@+id/et_passwordretype"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Retype password"
+                android:inputType="textPassword" />
+
             <Button
                 android:id="@+id/Create"
                 android:layout_width="match_parent"
@@ -46,6 +55,35 @@
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="447dp" />
 
+
+            <EditText
+                android:id="@+id/signin_email"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/signin_password"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+
+            <Button
+                android:id="@+id/sign"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="signIn"
+                android:text="Sign In"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="447dp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

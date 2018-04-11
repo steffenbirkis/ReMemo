@@ -27,13 +27,11 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
 
     private FirebaseAuth mAuth;
-    private EditText name;
     private EditText email;
-    private EditText phone;
-    private EditText workplace;
-    private EditText role;
     private EditText password;
     private EditText retypePassword;
+    private EditText sign_email;
+    private EditText sign_password;
     private User mUser;
     private FirebaseLogic fLogic;
 
@@ -56,7 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    public void signIn(String emails, String password) {
+    public void signIn(View v){
+        refreshData();
+        String temp_email = sign_email.getText().toString();
+        String temp_password = sign_password.getText().toString();
+        fireSignIn(temp_email, temp_password);
+
+    }
+    public void fireSignIn(String emails, String password) {
 
         mAuth.signInWithEmailAndPassword(emails, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -76,9 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-        fLogic.listenOnMail(emails);
-        mUser=fLogic.getMuser();
-
+        
     }
 
     public void updateUI(FirebaseUser user) {
@@ -89,14 +92,23 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent=new Intent(this,EditProfile.class);
             startActivity(intent);
             finish();
+
         }
 
 
     }
 
+
+
     public void createUser(View v) {
         refreshData();
-        createFireUser();
+        if(password.getText().toString().equals(retypePassword.getText().toString())){
+            createFireUser();
+        }else{
+            Toast.makeText(LoginActivity.this, "Passwords does not match",
+                    Toast.LENGTH_SHORT).show();
+        }
+
 
 
 
@@ -131,6 +143,11 @@ public class LoginActivity extends AppCompatActivity {
     private void refreshData(){
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
+        retypePassword = (EditText) findViewById(R.id.et_passwordretype);
+        sign_email = (EditText) findViewById(R.id.signin_email);
+        sign_password = (EditText) findViewById(R.id.signin_password);
+
+
         }
     public User getCurrentUser(){
         return mUser;
