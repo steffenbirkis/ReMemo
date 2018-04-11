@@ -69,8 +69,8 @@ public class Fragment_Profile extends Fragment {
                 txt_workplace.setText(user.getWorkplace());
                 txt_role.setText(user.getRole());
                 txt_background.setText(user.getBackground());
-                txt_email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                txt_phone.setText(user.getRole());
+                txt_email.setText(user.getEmail());
+                txt_phone.setText(user.getPhone());
                 profile_img.setImageResource(R.drawable.dummy_img);
             }}
 
