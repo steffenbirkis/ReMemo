@@ -27,6 +27,8 @@ public class Contact {
     public void addContact(Contact contact,User user){
 
        String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+      mail=FirebaseLogic.EncodeString(mail);
+       
         mDatabase=FirebaseDatabase.getInstance();
         mRef=mDatabase.getReference().child("contacts").child(mail);
         contact=new Contact(user.getEmail());
