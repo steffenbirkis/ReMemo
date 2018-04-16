@@ -60,10 +60,6 @@ public class Fragment_Feed extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
-
-
-
-
         return fragmentView;
 
 
@@ -106,7 +102,7 @@ public class Fragment_Feed extends Fragment {
     }
 
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    private class RecyclerViewHolder extends RecyclerView.ViewHolder{
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
