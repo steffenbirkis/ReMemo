@@ -43,10 +43,10 @@ public class Fragment_Appealing extends Fragment {
 
 
     }
-    RecyclerView.Adapter mAdapter;
+
     List<User> list;
-    List<Appealing> list_appealing;
     RecyclerView mRecyclerView;
+    User currentUser;
     List<User> updatedList;
     private DatabaseReference mDatabase;
 
@@ -57,12 +57,9 @@ public class Fragment_Appealing extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").addChildEventListener(listener);
-        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        String mail= FirebaseLogic.EncodeString(firebaseAuth.getCurrentUser().getEmail());
-        mDatabase.child("appealing").child(mail).addChildEventListener(listener_mails);
 
         list = new ArrayList<User>();
-        list_appealing = new ArrayList<Appealing>();
+        updatedList = new ArrayList<User>();
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -73,39 +70,23 @@ public class Fragment_Appealing extends Fragment {
 
     }
 
-    ChildEventListener listener_mails=new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            Appealing temp = snapshot.getValue(Appealing.class);
-            list_appealing.add(temp);
-            mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
-
-        }
-
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            System.out.println("The read failed: " + databaseError.getCode());
-        }
-
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            return;
-        }
-
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        }
-
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-        }
-
-    };
     ChildEventListener listener=new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            User user = snapshot.getValue(User.class);
-            list.add(user);
+            User temp=snapshot.getValue(User.class);
+
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            String email=firebaseAuth.getCurrentUser().getEmail();
+
+            String robust1 = FirebaseLogic.EncodeString(email.toLowerCase());
+            String robust2 = FirebaseLogic.EncodeString(temp.getEmail().toLowerCase());
+            if(robust1.equals(robust2)){
+                currentUser = temp;
+            }
+
+            list.add(temp);
 
         }
         @Override
@@ -125,16 +106,26 @@ public class Fragment_Appealing extends Fragment {
 
     };
 
-    private void getUsers(){
-        updatedList = new ArrayList<User>();
-        Iterator<Appealing> iterator = list_appealing.iterator();
+    private String simplify(String string){
+        FirebaseLogic.EncodeString(string);
+        string.toLowerCase();
+        return string;
+    }
+    private void getUsers() {
+        List<String> emailList = currentUser.getAppealingStringList();
+        Iterator<User> iterator = list.iterator();
+        User temp;
+
         while(iterator.hasNext()){
-            Iterator<User> userIterator = list.iterator();
-            User temp = userIterator.next();
-            if(temp.getEmail().equals(iterator.next().getMail())){
-                updatedList.add(temp);
+            temp = iterator.next();
+            for(String item: emailList){
+                if(simplify(item).equals(simplify(temp.getEmail()))){
+                    updatedList.add(temp);
+                }
             }
+
         }
+
         mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
     }
 

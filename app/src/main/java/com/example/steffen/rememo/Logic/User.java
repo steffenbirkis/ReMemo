@@ -3,6 +3,8 @@ package com.example.steffen.rememo.Logic;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -18,8 +20,8 @@ public class User {
     private String email;
     private String phone;
     private String photoURL;
-    private List<Appealing> appealingList;
-    private List<Contact> contactList;
+    private List<Appealing> appealingList = new ArrayList<Appealing>();
+    private List<Contact> contactList = new ArrayList<Contact>();
 
 
     public User(){}
@@ -51,6 +53,16 @@ public class User {
         this.email=email;
         this.phone=phone;
         this.photoURL = photoURL;
+    }
+
+    public List<String> getAppealingStringList(){
+        List<String> list = new ArrayList<>();
+        Iterator<Appealing> iterator = appealingList.iterator();
+        while(iterator.hasNext()){
+            list.add(iterator.next().getMail());
+        }
+
+        return list;
     }
 
     public String getBackground() {
@@ -105,6 +117,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+    public List<Appealing> getAppealingList() {
+        return appealingList;
+    }
+
+    public void setAppealingList(List<Appealing> appealingList) {
+        this.appealingList = appealingList;
+    }
+
+    public List<Contact> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
     }
 
 }
