@@ -15,23 +15,26 @@ public class User {
     private String background;
     private String email;
     private String phone;
+    private String photoURL;
 
     public User(){}
 
-    public User(String name, String workplace, String role){
+    public User(String name, String workplace, String role, String photoURL){
         this.name=name;
         this.workplace=workplace;
         this.role=role;
+        this.photoURL = photoURL;
 
     }
 
-    public User(String name, String workplace, String role, String background, String email, String phone){
+    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL){
         this.name=name;
         this.workplace=workplace;
         this.role=role;
         this.background=background;
         this.email=email;
         this.phone=phone;
+        this.photoURL = photoURL;
     }
 
     public String getBackground() {
@@ -73,6 +76,10 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getPhotoURL() { return photoURL; }
+
+    public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
 
 
     public String getName() {
