@@ -161,7 +161,7 @@ public class Fragment_Feed extends Fragment {
                     Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
                             Toast.LENGTH_LONG).show();
                     contact.addContact(temp);
-
+    
                 }
             });
         }
