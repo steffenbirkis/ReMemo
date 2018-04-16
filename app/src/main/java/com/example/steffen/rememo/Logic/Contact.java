@@ -24,14 +24,14 @@ public class Contact {
         this.mail = mail;
     }
 
-    public void addContact(Contact contact,User user){
+    public void addContact(User user){
 
        String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
-      mail=FirebaseLogic.EncodeString(mail);
-       
+       mail=FirebaseLogic.EncodeString(mail);
+
         mDatabase=FirebaseDatabase.getInstance();
         mRef=mDatabase.getReference().child("contacts").child(mail);
-        contact=new Contact(user.getEmail());
+        Contact contact=new Contact(user.getEmail());
         mRef.setValue(contact);
     }
 
