@@ -30,7 +30,7 @@ public class Contact {
        mail=FirebaseLogic.EncodeString(mail);
 
         mDatabase=FirebaseDatabase.getInstance();
-        mRef=mDatabase.getReference().child("contacts").child(mail);
+        mRef=mDatabase.getReference().child("users").child(mail).child("contacts");
         Contact contact=new Contact(user.getEmail());
         mRef.push().setValue(contact);
     }

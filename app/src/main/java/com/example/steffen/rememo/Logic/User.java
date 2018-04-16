@@ -3,6 +3,8 @@ package com.example.steffen.rememo.Logic;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 
 /**
  * Created by Steffen on 22.03.2018.
@@ -16,14 +18,28 @@ public class User {
     private String email;
     private String phone;
     private String photoURL;
+    private List<Appealing> appealingList;
+    private List<Contact> contactList;
+
 
     public User(){}
 
-    public User(String name, String workplace, String role, String photoURL){
+    public User(String name, String workplace, String role){
         this.name=name;
         this.workplace=workplace;
         this.role=role;
+
+    }
+    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL,List<Appealing>applist,List<Contact>contact){
+        this.name=name;
+        this.workplace=workplace;
+        this.role=role;
+        this.background=background;
+        this.email=email;
+        this.phone=phone;
         this.photoURL = photoURL;
+        this.appealingList=applist;
+        this.contactList=contact;
 
     }
 

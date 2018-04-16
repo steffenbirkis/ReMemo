@@ -30,9 +30,9 @@ public class Appealing {
         mail=FirebaseLogic.EncodeString(mail);
 
         mDatabase=FirebaseDatabase.getInstance();
-        mRef=mDatabase.getReference().child("appealing").child(mail);
+        mRef=mDatabase.getReference().child("users").child(mail).child("appealing");
         Contact contact=new Contact(user.getEmail());
-        mRef.setValue(contact);
+        mRef.push().setValue(contact);
     }
 
 }
