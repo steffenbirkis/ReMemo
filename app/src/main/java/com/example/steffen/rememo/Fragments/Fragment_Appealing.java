@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
+import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,7 +45,7 @@ public class Fragment_Appealing extends Fragment {
     }
     RecyclerView.Adapter mAdapter;
     List<User> list;
-    List<String> list_emails;
+    List<Appealing> list_appealing;
     RecyclerView mRecyclerView;
     List<User> updatedList;
     private DatabaseReference mDatabase;
@@ -57,11 +58,11 @@ public class Fragment_Appealing extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").addChildEventListener(listener);
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        String mail=firebaseAuth.getCurrentUser().getEmail();
+        String mail= FirebaseLogic.EncodeString(firebaseAuth.getCurrentUser().getEmail());
         mDatabase.child("appealing").child(mail).addChildEventListener(listener_mails);
 
         list = new ArrayList<User>();
-        list_emails = new ArrayList<String>();
+        list_appealing = new ArrayList<Appealing>();
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -76,8 +77,8 @@ public class Fragment_Appealing extends Fragment {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            String temp = snapshot.getValue(String.class);
-            list_emails.add(temp);
+            Appealing temp = snapshot.getValue(Appealing.class);
+            list_appealing.add(temp);
             mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
 
         }
@@ -126,11 +127,11 @@ public class Fragment_Appealing extends Fragment {
 
     private void getUsers(){
         updatedList = new ArrayList<User>();
-        Iterator<String> iterator = list_emails.iterator();
+        Iterator<Appealing> iterator = list_appealing.iterator();
         while(iterator.hasNext()){
             Iterator<User> userIterator = list.iterator();
             User temp = userIterator.next();
-            if(temp.getEmail().equals(iterator.next())){
+            if(temp.getEmail().equals(iterator.next().getMail())){
                 updatedList.add(temp);
             }
         }
