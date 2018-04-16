@@ -10,6 +10,7 @@ import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +56,9 @@ public class Fragment_Appealing extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").addChildEventListener(listener);
-        mDatabase.child("appealing").addChildEventListener(listener_mails);
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        String mail=firebaseAuth.getCurrentUser().getEmail();
+        mDatabase.child("appealing").child(mail).addChildEventListener(listener_mails);
 
         list = new ArrayList<User>();
         list_emails = new ArrayList<String>();
