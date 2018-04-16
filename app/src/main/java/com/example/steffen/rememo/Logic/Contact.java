@@ -29,7 +29,7 @@ public class Contact {
        String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
         mDatabase=FirebaseDatabase.getInstance();
         mRef=mDatabase.getReference().child("contacts").child(mail);
-        contact.setMail(user.getEmail());
+        contact=new Contact(user.getEmail());
         mRef.setValue(contact);
     }
 
