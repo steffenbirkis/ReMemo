@@ -9,7 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.steffen.rememo.Activities.LoginActivity;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,6 +108,8 @@ public class Fragment_Feed extends Fragment {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
+        private Button btn_appealing;
+        private Button btn_feed;
 
         public RecyclerViewHolder(View item){
             super(item);
@@ -114,6 +120,9 @@ public class Fragment_Feed extends Fragment {
             cw = itemView.findViewById(R.id.feed_recyclerview);
             tw_name = itemView.findViewById(R.id.feed_name);
             tw_workplace_role = itemView.findViewById(R.id.feed_workplace_role);
+            btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
+            btn_feed = (Button) itemView.findViewById(R.id.feed_appealing);
+
 
         }
     }
@@ -131,10 +140,26 @@ public class Fragment_Feed extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
-            User temp = mlist.get(position);
+            final User temp = mlist.get(position);
             holder.tw_name.setText(temp.getName());
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
+
+            holder.btn_appealing.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(getContext(), "Clicked Appealing: "+temp.getName(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+            holder.btn_feed.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         @Override
@@ -143,5 +168,12 @@ public class Fragment_Feed extends Fragment {
         }
     }
 
+    public void onClickAppealing(){
+
+    }
+
+    public void onClickContact(){
+
+    }
 
 }
