@@ -152,7 +152,6 @@ public class Fragment_Feed extends Fragment {
                 public void onClick(View v){
                     Toast.makeText(getContext(), "Clicked Appealing: "+temp.getName(),
                             Toast.LENGTH_LONG).show();
-                    contact.addContact(temp);
                 }
             });
 
@@ -161,6 +160,8 @@ public class Fragment_Feed extends Fragment {
                 public void onClick(View v){
                     Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
                             Toast.LENGTH_LONG).show();
+                    contact.addContact(temp);
+
                 }
             });
         }
