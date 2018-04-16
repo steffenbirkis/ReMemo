@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.steffen.rememo.Activities.LoginActivity;
+import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -143,6 +144,7 @@ public class Fragment_Feed extends Fragment {
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
             final User temp = mlist.get(position);
             final Contact contact = new Contact();
+            final Appealing appealing = new Appealing();
             holder.tw_name.setText(temp.getName());
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
@@ -152,6 +154,7 @@ public class Fragment_Feed extends Fragment {
                 public void onClick(View v){
                     Toast.makeText(getContext(), "Clicked Appealing: "+temp.getName(),
                             Toast.LENGTH_LONG).show();
+                    appealing.addAppealing(temp);
                 }
             });
 
@@ -161,7 +164,7 @@ public class Fragment_Feed extends Fragment {
                     Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
                             Toast.LENGTH_LONG).show();
                     contact.addContact(temp);
-    
+
                 }
             });
         }
