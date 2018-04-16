@@ -32,7 +32,7 @@ public class Contact {
         mDatabase=FirebaseDatabase.getInstance();
         mRef=mDatabase.getReference().child("contacts").child(mail);
         Contact contact=new Contact(user.getEmail());
-        mRef.setValue(contact);
+        mRef.push().setValue(contact);
     }
 
 }
