@@ -109,7 +109,7 @@ public class Fragment_Feed extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace_role;
         private Button btn_appealing;
-        private Button btn_feed;
+        private Button btn_contact;
 
         public RecyclerViewHolder(View item){
             super(item);
@@ -121,7 +121,7 @@ public class Fragment_Feed extends Fragment {
             tw_name = itemView.findViewById(R.id.feed_name);
             tw_workplace_role = itemView.findViewById(R.id.feed_workplace_role);
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
-            btn_feed = (Button) itemView.findViewById(R.id.feed_appealing);
+            btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
 
 
         }
@@ -153,7 +153,7 @@ public class Fragment_Feed extends Fragment {
                 }
             });
 
-            holder.btn_feed.setOnClickListener(new View.OnClickListener(){
+            holder.btn_contact.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
                     Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
