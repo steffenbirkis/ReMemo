@@ -1,15 +1,18 @@
 package com.example.steffen.rememo.Activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -37,7 +40,9 @@ public class EditProfile extends AppCompatActivity {
     private StorageReference mStorage;
     private FirebaseStorage mFirebaseStorage;
     private static final int GALLERY_INTENT = 2;
-    DatabaseReference FirebaseRef;
+    private DatabaseReference FirebaseRef;
+    private ImageView mImageView;
+    private Uri image;
 
 
     @Override
@@ -48,6 +53,7 @@ public class EditProfile extends AppCompatActivity {
 
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (Button)findViewById(R.id.edit_picture);
+        mImageView=(ImageView)findViewById(R.id.editprofile_image);
 
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +114,10 @@ public class EditProfile extends AppCompatActivity {
                             Toast.makeText(EditProfile.this, "Upload done", Toast.LENGTH_LONG).show();
                             // When the image has successfully uploaded, we get its download URL
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            System.out.println(downloadUrl.toString());
+                            updateImage(downloadUrl);
                             // Set the download URL to the message box, so that the user can send it to the database
-                            FirebaseRef.child("image").setValue(downloadUrl);
+                           FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(downloadUrl.toString());
 
                         }
 
@@ -117,4 +125,11 @@ public class EditProfile extends AppCompatActivity {
                     });
         }
 
-    }}
+
+    }
+
+    public void updateImage(Uri pic){
+        Glide.with(this).load(pic).into(mImageView);
+    }
+
+}

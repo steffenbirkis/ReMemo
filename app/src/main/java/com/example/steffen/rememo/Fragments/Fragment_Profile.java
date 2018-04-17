@@ -3,12 +3,14 @@ package com.example.steffen.rememo.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -23,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Fragment_Profile extends Fragment {
     private User mCurrent;
+    private ImageView mImageView;
+    private String TAG="1";
     public static Fragment_Profile newInstance() {
         Fragment_Profile fragment = new Fragment_Profile();
         return fragment;
@@ -39,19 +43,20 @@ public class Fragment_Profile extends Fragment {
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
 
 
-             View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+             final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
      final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
      final  TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
      final  TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
      final  TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
      final  TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
      final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
-     final  ImageView profile_img = (ImageView) fragmentView.findViewById(R.id.profile_image);
+     mImageView  = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
 
 
 
      DatabaseReference FirebaseRef=fbd.getReference().child("users");
+     DatabaseReference ValueRef=fbd.getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL");
 
 
 
@@ -64,14 +69,12 @@ public class Fragment_Profile extends Fragment {
                 String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
                 String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
                if(robust1.equals(robust2)){
-
-                txt_name.setText(user.getName());
+                   txt_name.setText(user.getName());
                 txt_workplace.setText(user.getWorkplace());
                 txt_role.setText(user.getRole());
                 txt_background.setText(user.getBackground());
                 txt_email.setText(user.getEmail());
                 txt_phone.setText(user.getPhone());
-                profile_img.setImageResource(R.drawable.dummy_img);
             }}
 
 
@@ -91,6 +94,24 @@ public class Fragment_Profile extends Fragment {
                 }
 
             });
+
+        ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            String post = dataSnapshot.getValue(String.class);
+            System.out.println(post);
+            Glide.with(fragmentView.getContext()).load(post).into(mImageView);
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            // Getting Post failed, log a message
+            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            // ...
+        }
+    };
+ValueRef.addValueEventListener(postListener);
 
         return fragmentView;
     }
