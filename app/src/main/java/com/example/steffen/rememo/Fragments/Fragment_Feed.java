@@ -1,5 +1,7 @@
 package com.example.steffen.rememo.Fragments;
 
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -9,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.User;
@@ -106,6 +110,7 @@ public class Fragment_Feed extends Fragment {
         private TextView tw_workplace_role;
         private Button btn_appealing;
         private Button btn_contact;
+        private ImageView iw_picture;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -119,6 +124,8 @@ public class Fragment_Feed extends Fragment {
             tw_workplace_role = itemView.findViewById(R.id.feed_workplace_role);
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
             btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
+            iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
+
 
 
         }
@@ -147,6 +154,7 @@ public class Fragment_Feed extends Fragment {
             holder.tw_name.setText(temp.getName());
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
+            Glide.with(getContext()).load(temp.getPhotoURL()).into(holder.iw_picture);
 
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
