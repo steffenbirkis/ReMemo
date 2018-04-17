@@ -48,6 +48,7 @@ public class Fragment_Appealing extends Fragment {
     RecyclerView mRecyclerView;
     User currentUser;
     List<User> updatedList;
+    List<String> emailList;
     private DatabaseReference mDatabase;
 
     @Override
@@ -60,7 +61,7 @@ public class Fragment_Appealing extends Fragment {
 
         list = new ArrayList<User>();
         updatedList = new ArrayList<User>();
-
+        emailList=new ArrayList<String>();
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -84,9 +85,14 @@ public class Fragment_Appealing extends Fragment {
             String robust2 = FirebaseLogic.EncodeString(temp.getEmail().toLowerCase());
             if(robust1.equals(robust2)){
                 currentUser = temp;
+                emailList = currentUser.getAppealingStringList();
+
             }
 
             list.add(temp);
+            getUsers();
+            mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
+
 
         }
         @Override
@@ -112,17 +118,17 @@ public class Fragment_Appealing extends Fragment {
         return string;
     }
     private void getUsers() {
-        List<String> emailList = currentUser.getAppealingStringList();
         Iterator<User> iterator = list.iterator();
         User temp;
 
         while(iterator.hasNext()){
             temp = iterator.next();
+            if(emailList.isEmpty()){
             for(String item: emailList){
                 if(simplify(item).equals(simplify(temp.getEmail()))){
                     updatedList.add(temp);
                 }
-            }
+            }}
 
         }
 
