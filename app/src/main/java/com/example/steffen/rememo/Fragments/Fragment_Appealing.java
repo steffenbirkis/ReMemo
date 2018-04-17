@@ -44,7 +44,7 @@ public class Fragment_Appealing extends Fragment {
 
     }
 
-    List<User> list;
+    List<Appealing> list;
     RecyclerView mRecyclerView;
     User currentUser;
     List<User> updatedList;
@@ -56,45 +56,33 @@ public class Fragment_Appealing extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_appealing, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").addChildEventListener(listener);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
+        mDatabase.addChildEventListener(listener);
 
-        list = new ArrayList<User>();
-        updatedList = new ArrayList<User>();
-        emailList=new ArrayList<String>();
+        list = new ArrayList<Appealing>();
+
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-        getUsers();
 
         return fragmentView;
 
     }
 
 
-    ChildEventListener listener=new ChildEventListener() {
+    ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
+            Appealing steff=snapshot.getValue(Appealing.class);
+            System.out.println(steff.getMail());
+            list.add(steff);
 
-            User temp=snapshot.getValue(User.class);
 
-            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-            String email=firebaseAuth.getCurrentUser().getEmail();
-
-            String robust1 = FirebaseLogic.EncodeString(email.toLowerCase());
-            String robust2 = FirebaseLogic.EncodeString(temp.getEmail().toLowerCase());
-            if(robust1.equals(robust2)){
-                currentUser = temp;
-                emailList = currentUser.getAppealingStringList();
-
-            }
-
-            list.add(temp);
-            getUsers();
-            mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
+            mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(list));
 
 
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             System.out.println("The read failed: " + databaseError.getCode());
@@ -111,29 +99,6 @@ public class Fragment_Appealing extends Fragment {
         }
 
     };
-
-    private String simplify(String string){
-        FirebaseLogic.EncodeString(string);
-        string.toLowerCase();
-        return string;
-    }
-    private void getUsers() {
-        Iterator<User> iterator = list.iterator();
-        User temp;
-
-        while(iterator.hasNext()){
-            temp = iterator.next();
-            if(emailList.isEmpty()){
-            for(String item: emailList){
-                if(simplify(item).equals(simplify(temp.getEmail()))){
-                    updatedList.add(temp);
-                }
-            }}
-
-        }
-
-        mRecyclerView.setAdapter(new RecyclerViewAdapter(updatedList));
-    }
 
     @Override
     public void onResume() {
@@ -163,8 +128,8 @@ public class Fragment_Appealing extends Fragment {
         }
     }
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
-        private List<User> mlist;
-        public RecyclerViewAdapter(List<User> list){
+        private List<Appealing> mlist;
+        public RecyclerViewAdapter(List<Appealing> list){
             this.mlist = list;
 
         }
@@ -175,22 +140,12 @@ public class Fragment_Appealing extends Fragment {
 
         }
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position){
-            final User temp = mlist.get(position);
-            final Contact contact = new Contact();
-            holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+            final Appealing temp = mlist.get(position);
+            final Appealing contact = new Appealing();
+            holder.tw_name.setText(temp.getMail());
 
-            holder.btn_contact.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    Toast.makeText(getContext(), "Clicked on contact @Appealing: "+temp.getName(),
-                            Toast.LENGTH_LONG).show();
-                    contact.addContact(temp);
 
-                }
-            });
         }
 
         @Override
