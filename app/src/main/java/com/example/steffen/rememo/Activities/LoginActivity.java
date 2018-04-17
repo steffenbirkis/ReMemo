@@ -1,9 +1,9 @@
 package com.example.steffen.rememo.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -17,11 +17,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.steffen.rememo.Logic.FirebaseLogic.pushUser;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
@@ -54,13 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-    public void signIn(View v){
+    public void signIn(View v) {
         refreshData();
         String temp_email = sign_email.getText().toString();
         String temp_password = sign_password.getText().toString();
         fireSignIn(temp_email, temp_password);
 
     }
+
     public void fireSignIn(String emails, String password) {
 
         mAuth.signInWithEmailAndPassword(emails, password)
@@ -70,9 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
-                            finish();;
+                            finish();
+                            ;
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -91,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user == null) {
             setContentView(R.layout.activity_login);
         } else {
-            Intent intent=new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
 
@@ -101,23 +98,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
     public void createUser(View v) {
         refreshData();
-        if(password.getText().toString().equals(retypePassword.getText().toString())){
+        if (password.getText().toString().equals(retypePassword.getText().toString())) {
             createFireUser();
-        }else{
+        } else {
             Toast.makeText(LoginActivity.this, "Passwords does not match",
                     Toast.LENGTH_SHORT).show();
         }
 
 
-
-
     }
 
 
-    private void createFireUser(){
+    private void createFireUser() {
         String temp_email = email.getText().toString();
         String temp_password = password.getText().toString();
         mAuth.createUserWithEmailAndPassword(temp_email, temp_password)
@@ -128,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent=new Intent(getApplicationContext(),EditProfile.class);
+                            Intent intent = new Intent(getApplicationContext(), EditProfile.class);
                             startActivity(intent);
                             finish();
                         } else {
@@ -144,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void refreshData(){
+    private void refreshData() {
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
         retypePassword = (EditText) findViewById(R.id.et_passwordretype);
@@ -152,8 +146,9 @@ public class LoginActivity extends AppCompatActivity {
         sign_password = (EditText) findViewById(R.id.signin_password);
 
 
-        }
-    public User getCurrentUser(){
+    }
+
+    public User getCurrentUser() {
         return mUser;
     }
 

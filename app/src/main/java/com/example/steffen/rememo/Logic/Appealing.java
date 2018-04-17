@@ -11,9 +11,11 @@ public class Appealing {
     private DatabaseReference mRef;
 
 
-    public Appealing(){}
-    public Appealing(String mail){
-        this.mail=mail;
+    public Appealing() {
+    }
+
+    public Appealing(String mail) {
+        this.mail = mail;
     }
 
     public String getMail() {
@@ -24,14 +26,14 @@ public class Appealing {
         this.mail = mail;
     }
 
-    public void addAppealing(User user){
+    public void addAppealing(User user) {
 
-        String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        mail=FirebaseLogic.EncodeString(mail);
+        String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        mail = FirebaseLogic.EncodeString(mail);
 
-        mDatabase=FirebaseDatabase.getInstance();
-        mRef=mDatabase.getReference().child("users").child(mail).child("appealing").child(FirebaseLogic.EncodeString(user.getEmail()));
-        Contact contact=new Contact(user.getEmail());
+        mDatabase = FirebaseDatabase.getInstance();
+        mRef = mDatabase.getReference().child("users").child(mail).child("appealing").child(FirebaseLogic.EncodeString(user.getEmail()));
+        Contact contact = new Contact(user.getEmail());
         mRef.setValue(contact);
     }
 

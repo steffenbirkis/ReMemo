@@ -8,9 +8,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
-
 
 
 /**

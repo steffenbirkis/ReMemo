@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.steffen.rememo.Activities.LoginActivity;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,9 +38,11 @@ public class Fragment_Feed extends Fragment {
 
 
     }
+
     private List<User> list;
     private DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,16 +62,15 @@ public class Fragment_Feed extends Fragment {
         return fragmentView;
 
 
-
     }
-     ChildEventListener listener=new ChildEventListener() {
+
+    ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
             User user = snapshot.getValue(User.class);
             list.add(user);
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
-
 
 
         }
@@ -102,17 +100,18 @@ public class Fragment_Feed extends Fragment {
     }
 
 
-    private class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
         private Button btn_appealing;
         private Button btn_contact;
 
-        public RecyclerViewHolder(View item){
+        public RecyclerViewHolder(View item) {
             super(item);
         }
-        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container){
+
+        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.cardview_feed, container, false));
 
             cw = itemView.findViewById(R.id.feed_recyclerview);
@@ -124,20 +123,24 @@ public class Fragment_Feed extends Fragment {
 
         }
     }
-    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
+
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
         private List<User> mlist;
-        public RecyclerViewAdapter(List<User> list){
+
+        public RecyclerViewAdapter(List<User> list) {
             this.mlist = list;
 
         }
+
         @Override
-        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new RecyclerViewHolder(inflater, parent);
 
         }
+
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position){
+        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final User temp = mlist.get(position);
             final Contact contact = new Contact();
             final Appealing appealing = new Appealing();
@@ -145,19 +148,19 @@ public class Fragment_Feed extends Fragment {
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
 
-            holder.btn_appealing.setOnClickListener(new View.OnClickListener(){
+            holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    Toast.makeText(getContext(), "Clicked Appealing: "+temp.getName(),
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Clicked Appealing: " + temp.getName(),
                             Toast.LENGTH_LONG).show();
                     appealing.addAppealing(temp);
                 }
             });
 
-            holder.btn_contact.setOnClickListener(new View.OnClickListener(){
+            holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    Toast.makeText(getContext(), "Clicked Feed: "+temp.getName(),
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Clicked Feed: " + temp.getName(),
                             Toast.LENGTH_LONG).show();
                     contact.addContact(temp);
 
@@ -166,7 +169,7 @@ public class Fragment_Feed extends Fragment {
         }
 
         @Override
-        public int getItemCount(){
+        public int getItemCount() {
             return mlist.size();
         }
     }
