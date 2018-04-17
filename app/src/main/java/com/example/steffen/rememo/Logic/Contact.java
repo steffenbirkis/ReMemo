@@ -6,7 +6,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Contact {
-    private String mail;
+
+
+   private String mail;
+
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
 
@@ -30,9 +33,10 @@ public class Contact {
        mail=FirebaseLogic.EncodeString(mail);
 
         mDatabase=FirebaseDatabase.getInstance();
-        mRef=mDatabase.getReference().child("users").child(mail).child("contacts");
         Contact contact=new Contact(user.getEmail());
-        mRef.push().setValue(contact);
+        mRef=mDatabase.getReference().child("users").child(mail).child("contacts").child(FirebaseLogic.EncodeString(user.getEmail()));
+
+        mRef.setValue(contact);
     }
 
 }

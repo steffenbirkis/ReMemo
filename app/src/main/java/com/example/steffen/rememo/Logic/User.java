@@ -20,8 +20,7 @@ public class User {
     private String email;
     private String phone;
     private String photoURL;
-    private List<Appealing> appealingList = new ArrayList<Appealing>();
-    private List<Contact> contactList = new ArrayList<Contact>();
+
 
 
     public User(){}
@@ -40,8 +39,7 @@ public class User {
         this.email=email;
         this.phone=phone;
         this.photoURL = photoURL;
-        this.appealingList=applist;
-        this.contactList=contact;
+
 
     }
 
@@ -55,15 +53,15 @@ public class User {
         this.photoURL = photoURL;
     }
 
-    public List<String> getAppealingStringList(){
+  /*  public List<String> getAppealingStringList(){
         List<String> list = new ArrayList<>();
-        Iterator<Appealing> iterator = appealingList.iterator();
+        Iterator<Appealing> iterator = appealing.iterator();
         while(iterator.hasNext()){
             list.add(iterator.next().getMail());
         }
 
         return list;
-    }
+    }*/
 
     public String getBackground() {
         return background;
@@ -118,20 +116,20 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    public List<Appealing> getAppealingList() {
-        return appealingList;
+  /*  public List<Appealing> getAppealing() {
+        return appealing;
     }
 
-    public void setAppealingList(List<Appealing> appealingList) {
-        this.appealingList = appealingList;
+    public void setAppealing(List<Appealing> appealing) {
+        this.appealing = appealing;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public List<Contact> getContacts() {
+        return contacts;
     }
 
     public void setContactList(List<Contact> contactList) {
-        this.contactList = contactList;
-    }
+        this.contacts = contactList;
+    }*/
 
 }

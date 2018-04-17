@@ -51,7 +51,7 @@ public class Fragment_Contact extends Fragment {
         list = new ArrayList<User>();
         clist=new ArrayList<Contact>();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("contacts").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
 
 
@@ -63,7 +63,7 @@ public class Fragment_Contact extends Fragment {
 
 
 
-        mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
+        mRecyclerView.setAdapter(new RecyclerViewAdapter(clist));
 
 
 
@@ -79,9 +79,12 @@ public class Fragment_Contact extends Fragment {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            Contact contact = snapshot.getValue(Contact.class);
-            System.out.println(contact.getMail());
-            clist.add(contact);
+            Contact steff=snapshot.getValue(Contact.class);
+            System.out.println(steff.getMail());
+             clist.add(steff);
+
+
+            mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(clist));
 
         }
         @Override
@@ -100,37 +103,7 @@ public class Fragment_Contact extends Fragment {
 
     };
 
-    ChildEventListener userList=new ChildEventListener() {
-        @Override
-        public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            User user = snapshot.getValue(User.class);
-            for(int i=0;i<=clist.size();i++){
-                if(clist.isEmpty()==false){
-                if(clist.get(i).getMail().equals(user.getEmail())){
-                    list.add(user);
-                    mDatabase=FirebaseDatabase.getInstance().getReference().child("users");
-                    mDatabase.addChildEventListener(userList);
-                    }
-            }}
-            mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(list));
-
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            System.out.println("The read failed: " + databaseError.getCode());
-        }
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            return;
-        }
-
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-        }
-
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-        }
-
-    };
     @Override
     public void onResume() {
         super.onResume();
@@ -155,8 +128,8 @@ public class Fragment_Contact extends Fragment {
         }
     }
     private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
-        private List<User> mlist;
-        public RecyclerViewAdapter(List<User> list){
+        private List<Contact> mlist;
+        public RecyclerViewAdapter(List<Contact> list){
             this.mlist = list;
 
         }
@@ -168,12 +141,8 @@ public class Fragment_Contact extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position){
-            final User temp = mlist.get(position);
-            final Contact contact = new Contact();
-            final Appealing appealing = new Appealing();
-            holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+            final Contact temp = mlist.get(position);
+            holder.tw_name.setText(temp.getMail());
         }
 
         @Override
