@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
@@ -39,21 +38,22 @@ public class Fragment_Contact extends Fragment {
 
 
     }
+
     private List<Contact> clist;
     private List<User> list;
     private DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_contact, container, false);
         list = new ArrayList<User>();
-        clist=new ArrayList<Contact>();
+        clist = new ArrayList<Contact>();
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
-
 
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
@@ -61,36 +61,32 @@ public class Fragment_Contact extends Fragment {
         mRecyclerView.setHasFixedSize(true);
 
 
-
-
         mRecyclerView.setAdapter(new RecyclerViewAdapter(clist));
-
-
-
 
 
         return fragmentView;
 
 
-
-
     }
-    ChildEventListener contactlistener=new ChildEventListener() {
+
+    ChildEventListener contactlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            Contact steff=snapshot.getValue(Contact.class);
+            Contact steff = snapshot.getValue(Contact.class);
             System.out.println(steff.getMail());
-             clist.add(steff);
+            clist.add(steff);
 
 
             mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(clist));
 
         }
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             System.out.println("The read failed: " + databaseError.getCode());
         }
+
         public void onChildRemoved(DataSnapshot dataSnapshot) {
             return;
         }
@@ -110,15 +106,16 @@ public class Fragment_Contact extends Fragment {
 
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
 
-        public RecyclerViewHolder(View item){
+        public RecyclerViewHolder(View item) {
             super(item);
         }
-        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container){
+
+        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.cardview_contact, container, false));
 
             cw = itemView.findViewById(R.id.contact_recyclerview);
@@ -127,26 +124,30 @@ public class Fragment_Contact extends Fragment {
 
         }
     }
-    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
+
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
         private List<Contact> mlist;
-        public RecyclerViewAdapter(List<Contact> list){
+
+        public RecyclerViewAdapter(List<Contact> list) {
             this.mlist = list;
 
         }
+
         @Override
-        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new RecyclerViewHolder(inflater, parent);
 
         }
+
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position){
+        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getMail());
         }
 
         @Override
-        public int getItemCount(){
+        public int getItemCount() {
             return mlist.size();
         }
     }

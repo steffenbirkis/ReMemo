@@ -1,10 +1,5 @@
 package com.example.steffen.rememo.Logic;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -22,34 +17,35 @@ public class User {
     private String photoURL;
 
 
+    public User() {
+    }
 
-    public User(){}
-
-    public User(String name, String workplace, String role){
-        this.name=name;
-        this.workplace=workplace;
-        this.role=role;
+    public User(String name, String workplace, String role) {
+        this.name = name;
+        this.workplace = workplace;
+        this.role = role;
 
     }
-    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL,List<Appealing>applist,List<Contact>contact){
-        this.name=name;
-        this.workplace=workplace;
-        this.role=role;
-        this.background=background;
-        this.email=email;
-        this.phone=phone;
+
+    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL, List<Appealing> applist, List<Contact> contact) {
+        this.name = name;
+        this.workplace = workplace;
+        this.role = role;
+        this.background = background;
+        this.email = email;
+        this.phone = phone;
         this.photoURL = photoURL;
 
 
     }
 
-    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL){
-        this.name=name;
-        this.workplace=workplace;
-        this.role=role;
-        this.background=background;
-        this.email=email;
-        this.phone=phone;
+    public User(String name, String workplace, String role, String background, String email, String phone, String photoURL) {
+        this.name = name;
+        this.workplace = workplace;
+        this.role = role;
+        this.background = background;
+        this.email = email;
+        this.phone = phone;
         this.photoURL = photoURL;
     }
 
@@ -103,9 +99,13 @@ public class User {
         this.role = role;
     }
 
-    public String getPhotoURL() { return photoURL; }
+    public String getPhotoURL() {
+        return photoURL;
+    }
 
-    public void setPhotoURL(String photoURL) { this.photoURL = photoURL; }
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
 
 
     public String getName() {
