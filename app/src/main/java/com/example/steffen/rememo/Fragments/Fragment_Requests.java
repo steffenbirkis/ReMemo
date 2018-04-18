@@ -45,7 +45,7 @@ public class Fragment_Requests extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_request, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contact");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(listener);
 
         list = new ArrayList<Contact>();
@@ -89,6 +89,13 @@ public class Fragment_Requests extends Fragment {
         }
 
     };
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
