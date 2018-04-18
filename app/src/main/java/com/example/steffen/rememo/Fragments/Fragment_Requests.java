@@ -26,8 +26,8 @@ import java.util.List;
 
 public class Fragment_Requests extends Fragment {
 
-    public static Fragment_Contact newInstance() {
-        Fragment_Contact fragment = new Fragment_Contact();
+    public static Fragment_Requests newInstance() {
+        Fragment_Requests fragment = new Fragment_Requests();
         return fragment;
     }
 
