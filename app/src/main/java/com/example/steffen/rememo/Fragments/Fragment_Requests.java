@@ -118,7 +118,7 @@ public class Fragment_Requests extends Fragment {
         }
 
         @Override
-        public Fragment_Requests.RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new Fragment_Requests.RecyclerViewHolder(inflater, parent);
 
