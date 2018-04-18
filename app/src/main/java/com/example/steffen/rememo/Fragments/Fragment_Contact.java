@@ -73,10 +73,11 @@ public class Fragment_Contact extends Fragment {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
-            Contact steff = snapshot.getValue(Contact.class);
-            System.out.println(steff.getMail());
-            clist.add(steff);
-
+            Contact contact = snapshot.getValue(Contact.class);
+            if(contact.isAcknowledgement() && contact.isRequest()){
+                clist.add(contact);
+            }
+            System.out.println(contact.getMail());
 
             mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(clist));
 

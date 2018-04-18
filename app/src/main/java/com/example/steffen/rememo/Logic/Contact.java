@@ -52,9 +52,9 @@ public class Contact {
 
 
         mDatabase = FirebaseDatabase.getInstance();
-        Contact cUserContact = new Contact(targetuser.getEmail(),true, false);
-        Contact tUserContact = new Contact(currentuser.getEmail(),false,true);
-        
+        Contact cUserContact = new Contact(currentuser.getEmail(),true, false);
+        Contact tUserContact = new Contact(targetuser.getEmail(),false,true);
+
         String cUserMail = FirebaseLogic.EncodeString(currentuser.getEmail());
         String tUserMail = FirebaseLogic.EncodeString(targetuser.getEmail());
 
