@@ -33,8 +33,8 @@ public class Appealing {
 
         mDatabase = FirebaseDatabase.getInstance();
         mRef = mDatabase.getReference().child("users").child(mail).child("appealing").child(FirebaseLogic.EncodeString(user.getEmail()));
-        Contact contact = new Contact(user.getEmail());
-        mRef.setValue(contact);
+        Appealing appealing = new Appealing(user.getEmail());
+        mRef.setValue(appealing);
     }
 
 }

@@ -9,7 +9,8 @@ public class Contact {
 
 
     private String mail;
-
+    private boolean request;
+    private boolean acknowledgement;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
 
@@ -17,8 +18,10 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String mail) {
+    public Contact(String mail, boolean request, boolean acknowledgement) {
         this.mail = mail;
+        this.request = request;
+        this.acknowledgement = acknowledgement;
     }
 
     public String getMail() {
@@ -29,16 +32,36 @@ public class Contact {
         this.mail = mail;
     }
 
-    public void addContact(User user) {
+    public boolean isRequest() {
+        return request;
+    }
 
-        String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        mail = FirebaseLogic.EncodeString(mail);
+    public void setRequest(boolean request) {
+        this.request = request;
+    }
+
+    public boolean isAcknowledgement() {
+        return acknowledgement;
+    }
+
+    public void setAcknowledgement(boolean acknowledgement) {
+        this.acknowledgement = acknowledgement;
+    }
+
+    public void addContact(User currentuser, User targetuser) {
+
 
         mDatabase = FirebaseDatabase.getInstance();
-        Contact contact = new Contact(user.getEmail());
-        mRef = mDatabase.getReference().child("users").child(mail).child("contacts").child(FirebaseLogic.EncodeString(user.getEmail()));
+        Contact cUserContact = new Contact(targetuser.getEmail(),true, false);
+        Contact tUserContact = new Contact(currentuser.getEmail(),false,true);
+        
+        String cUserMail = FirebaseLogic.EncodeString(currentuser.getEmail());
+        String tUserMail = FirebaseLogic.EncodeString(targetuser.getEmail());
 
-        mRef.setValue(contact);
+        mRef = mDatabase.getReference().child("users");
+        mRef.child(cUserMail).child("contacts").child(tUserMail).setValue(tUserContact);
+        mRef.child(tUserMail).child("contacts").child(cUserMail).setValue(cUserContact);
+
     }
 
 }

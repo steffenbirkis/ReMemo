@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
+import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +48,7 @@ public class Fragment_Feed extends Fragment {
     private List<User> list;
     private DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
+    private User currentUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,11 +74,16 @@ public class Fragment_Feed extends Fragment {
     ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
-
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
+            String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
+            String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            if(robust1.equals(robust2)) {
+                currentUser = user;
+            }
             list.add(user);
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
-
 
         }
 
@@ -170,7 +178,7 @@ public class Fragment_Feed extends Fragment {
                 public void onClick(View v) {
                     Toast.makeText(getContext(), "Clicked Feed: " + temp.getName(),
                             Toast.LENGTH_LONG).show();
-                    contact.addContact(temp);
+                    contact.addContact(currentUser,temp);
 
                 }
             });
