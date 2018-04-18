@@ -45,7 +45,7 @@ public class Fragment_Requests extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_request, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contact");
         mDatabase.addChildEventListener(listener);
 
         list = new ArrayList<Contact>();
@@ -53,6 +53,7 @@ public class Fragment_Requests extends Fragment {
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.request_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(new Fragment_Requests.RecyclerViewAdapter(list));
 
         return fragmentView;
     }
