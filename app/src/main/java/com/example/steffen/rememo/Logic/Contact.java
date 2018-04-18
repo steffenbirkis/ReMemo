@@ -48,7 +48,7 @@ public class Contact {
         this.acknowledgement = acknowledgement;
     }
 
-    public void addContact(User currentuser, User targetuser) {
+    public void requestContact(User currentuser, User targetuser) {
 
 
         mDatabase = FirebaseDatabase.getInstance();
@@ -64,4 +64,17 @@ public class Contact {
 
     }
 
+    public void ackContact(User currentuser, User targetuser){
+        mDatabase = FirebaseDatabase.getInstance();
+        Contact cUserContact = new Contact(currentuser.getEmail(),true, true);
+        Contact tUserContact = new Contact(targetuser.getEmail(),true,true);
+
+        String cUserMail = FirebaseLogic.EncodeString(currentuser.getEmail());
+        String tUserMail = FirebaseLogic.EncodeString(targetuser.getEmail());
+
+        mRef = mDatabase.getReference().child("users");
+        mRef.child(cUserMail).child("contacts").child(tUserMail).setValue(tUserContact);
+        mRef.child(tUserMail).child("contacts").child(cUserMail).setValue(cUserContact);
+
+    }
 }

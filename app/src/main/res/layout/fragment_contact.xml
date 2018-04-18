@@ -3,15 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.steffen.rememo.Fragments.Fragment_Feed">
+    tools:context="com.example.steffen.rememo.Fragments.Fragment_Contact">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contact_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="511dp"
+        android:layout_height="459dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="108dp"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/view_requests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="56dp"
-        android:scrollbars="vertical" />
+        android:text="View contact requests" />
 
 </RelativeLayout>

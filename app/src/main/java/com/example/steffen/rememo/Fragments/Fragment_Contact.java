@@ -2,12 +2,14 @@ package com.example.steffen.rememo.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.steffen.rememo.Logic.Contact;
@@ -55,7 +57,8 @@ public class Fragment_Contact extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
 
-
+        Button btn = fragmentView.findViewById(R.id.view_requests);
+        btn.setOnClickListener(onViewReq);
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -68,6 +71,14 @@ public class Fragment_Contact extends Fragment {
 
 
     }
+
+
+    private View.OnClickListener onViewReq = new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            clickViewRequests(v);
+        }
+    };
 
     ChildEventListener contactlistener = new ChildEventListener() {
         @Override
@@ -105,6 +116,14 @@ public class Fragment_Contact extends Fragment {
     public void onResume() {
         super.onResume();
 
+    }
+
+
+    public void clickViewRequests(View v){
+        Fragment requests = Fragment_Requests.newInstance();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, requests);
+        transaction.commit();
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
