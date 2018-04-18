@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -39,6 +42,7 @@ public class Fragment_Requests extends Fragment {
 
     List<Contact> list;
     RecyclerView mRecyclerView;
+    User currentUser;
     private DatabaseReference mDatabase;
 
     @Override
@@ -90,7 +94,6 @@ public class Fragment_Requests extends Fragment {
 
     };
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -101,6 +104,7 @@ public class Fragment_Requests extends Fragment {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
+        private Button accept;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -112,6 +116,7 @@ public class Fragment_Requests extends Fragment {
             cw = itemView.findViewById(R.id.request_recyclerview);
             tw_name = itemView.findViewById(R.id.request_name);
             tw_workplace_role = itemView.findViewById(R.id.request_workplace_role);
+            accept = itemView.findViewById(R.id.request_ack);
 
         }
     }
@@ -136,6 +141,14 @@ public class Fragment_Requests extends Fragment {
         public void onBindViewHolder(Fragment_Requests.RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getMail());
+            holder.accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Clicked Accept: " + temp.getMail(),
+                            Toast.LENGTH_LONG).show();
+                    temp.ackContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
+                }
+            });
         }
 
         @Override

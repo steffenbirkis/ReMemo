@@ -64,13 +64,13 @@ public class Contact {
 
     }
 
-    public void ackContact(User currentuser, User targetuser){
+    public void ackContact(String currentmail, Contact target){
         mDatabase = FirebaseDatabase.getInstance();
-        Contact cUserContact = new Contact(currentuser.getEmail(),true, true);
-        Contact tUserContact = new Contact(targetuser.getEmail(),true,true);
+        Contact cUserContact = new Contact(currentmail,true, true);
+        Contact tUserContact = new Contact(target.getMail(),true,true);
 
-        String cUserMail = FirebaseLogic.EncodeString(currentuser.getEmail());
-        String tUserMail = FirebaseLogic.EncodeString(targetuser.getEmail());
+        String cUserMail = FirebaseLogic.EncodeString(currentmail);
+        String tUserMail = FirebaseLogic.EncodeString(target.getMail());
 
         mRef = mDatabase.getReference().child("users");
         mRef.child(cUserMail).child("contacts").child(tUserMail).setValue(tUserContact);
