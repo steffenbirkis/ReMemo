@@ -31,6 +31,13 @@ public class Fragment_Requests extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
+
     List<Contact> list;
     RecyclerView mRecyclerView;
     private DatabaseReference mDatabase;
