@@ -79,6 +79,8 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseRef.child("background").setValue(background.getText().toString());
                 FirebaseRef.child("email").setValue(email.getText().toString());
                 FirebaseRef.child("phone").setValue(phone.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -113,11 +115,11 @@ public class EditProfile extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(EditProfile.this, "Upload done", Toast.LENGTH_LONG).show();
                             // When the image has successfully uploaded, we get its download URL
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            System.out.println(downloadUrl.toString());
-                            updateImage(downloadUrl);
+                            image = taskSnapshot.getDownloadUrl();
+                            System.out.println(image.toString());
+                            updateImage(image);
+
                             // Set the download URL to the message box, so that the user can send it to the database
-                           FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(downloadUrl.toString());
 
                         }
 
