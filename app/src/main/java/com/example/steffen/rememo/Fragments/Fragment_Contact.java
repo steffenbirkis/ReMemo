@@ -73,9 +73,9 @@ public class Fragment_Contact extends Fragment {
     }
 
 
-    private View.OnClickListener onViewReq = new View.OnClickListener(){
+    private View.OnClickListener onViewReq = new View.OnClickListener() {
         @Override
-        public void onClick(View v){
+        public void onClick(View v) {
             clickViewRequests(v);
         }
     };
@@ -85,7 +85,7 @@ public class Fragment_Contact extends Fragment {
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
             Contact contact = snapshot.getValue(Contact.class);
-            if(contact.isAcknowledgement() && contact.isRequest()){
+            if (contact.isAcknowledgement() && contact.isRequest()) {
                 clist.add(contact);
             }
             System.out.println(contact.getMail());
@@ -119,7 +119,7 @@ public class Fragment_Contact extends Fragment {
     }
 
 
-    public void clickViewRequests(View v){
+    public void clickViewRequests(View v) {
         Fragment requests = Fragment_Requests.newInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, requests);

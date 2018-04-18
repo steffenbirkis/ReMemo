@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.R;
@@ -44,7 +43,7 @@ public class Fragment_Requests extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_appealing, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_request, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
         mDatabase.addChildEventListener(listener);
@@ -64,7 +63,7 @@ public class Fragment_Requests extends Fragment {
         public void onChildAdded(DataSnapshot snapshot, String s) {
 
             Contact contact = snapshot.getValue(Contact.class);
-            if(!contact.isAcknowledgement() && contact.isRequest()){
+            if (!contact.isAcknowledgement() && contact.isRequest()) {
                 list.add(contact);
             }
             System.out.println(contact.getMail());
@@ -110,7 +109,7 @@ public class Fragment_Requests extends Fragment {
     }
 
 
-    private class RecyclerViewAdapter extends RecyclerView.Adapter<Fragment_Requests.RecyclerViewHolder> {
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
         private List<Contact> mlist;
 
         public RecyclerViewAdapter(List<Contact> list) {
