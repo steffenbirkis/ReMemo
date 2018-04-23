@@ -23,6 +23,11 @@ import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryEventListener;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class Fragment_Feed extends Fragment {
@@ -59,6 +65,37 @@ public class Fragment_Feed extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase.addChildEventListener(listener);
+        //Alpha geofire
+        GeoFire geofire = new GeoFire(mDatabase);
+        GeoQuery query = geofire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
+        query.addGeoQueryEventListener(new GeoQueryEventListener() {
+            public void onKeyEntered(String key, GeoLocation location) {
+                System.out.println(String.format("%s entered at [%f, %f]", key, location.latitude, location.longitude));
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                System.out.println(String.format("%s exited", key));
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                System.out.println(String.format("%s moved to [%f, %f]", key, location.latitude, location.longitude));
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+                System.out.println("All initial key entered events have been fired!");
+            }
+
+            @Override
+                    public void onGeoQueryError(DatabaseError error){
+
+            }
+
+
+        // run for another 60 seconds
+    });
 
 
         list = new ArrayList<User>();
