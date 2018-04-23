@@ -71,7 +71,7 @@ public class Fragment_Requests extends Fragment {
             if (!contact.isAcknowledgement() && contact.isRequest()) {
                 list.add(contact);
             }
-            System.out.println(contact.getMail());
+            System.out.println(contact.getMail()+"wtf "+ contact.isAcknowledgement()+"why "+contact.isRequest());
 
             mRecyclerView.setAdapter(new Fragment_Requests.RecyclerViewAdapter(list));
 

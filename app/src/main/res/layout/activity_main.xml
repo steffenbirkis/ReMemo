@@ -10,13 +10,15 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/AppTheme"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@style/AppTheme"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/AppTheme"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:elevation="4dp"
-        />
+        app:popupTheme="@style/AppTheme"
+        app:theme="@style/AppTheme" />
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"

@@ -88,7 +88,6 @@ public class Fragment_Contact extends Fragment {
             if (contact.isAcknowledgement() && contact.isRequest()) {
                 clist.add(contact);
             }
-            System.out.println(contact.getMail());
 
             mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(clist));
 

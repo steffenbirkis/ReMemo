@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -100,7 +101,7 @@ public class Fragment_Profile extends Fragment {
         public void onDataChange(DataSnapshot dataSnapshot) {
             String post = dataSnapshot.getValue(String.class);
             System.out.println(post);
-            Glide.with(fragmentView.getContext()).load(post).into(mImageView);
+            Glide.with(fragmentView.getContext()).load(post).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
         }
 

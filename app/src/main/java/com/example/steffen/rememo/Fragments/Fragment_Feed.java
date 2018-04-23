@@ -1,5 +1,6 @@
 package com.example.steffen.rememo.Fragments;
 
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
@@ -162,7 +164,7 @@ public class Fragment_Feed extends Fragment {
             holder.tw_name.setText(temp.getName());
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
-            Glide.with(getContext()).load(temp.getPhotoURL()).into(holder.iw_picture);
+            Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
 
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
