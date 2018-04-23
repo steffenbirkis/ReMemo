@@ -65,10 +65,12 @@ public class Fragment_Feed extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-        geodb = FirebaseDatabase.getInstance().getReference();
+        geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         mDatabase.addChildEventListener(listener);
         //Alpha geofire
         GeoFire geofire = new GeoFire(geodb);
+        GeoLocation location = new GeoLocation();
+        geofire.setLocation(new GeoLocation(location));
         GeoQuery query = geofire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
         query.addGeoQueryEventListener(new GeoQueryEventListener() {
             public void onKeyEntered(String key, GeoLocation location) {
