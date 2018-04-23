@@ -55,6 +55,7 @@ public class Fragment_Feed extends Fragment {
 
     private List<User> list;
     private DatabaseReference mDatabase;
+    private DatabaseReference geodb;
     RecyclerView mRecyclerView;
     private User currentUser;
 
@@ -64,9 +65,10 @@ public class Fragment_Feed extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        geodb = FirebaseDatabase.getInstance().getReference();
         mDatabase.addChildEventListener(listener);
         //Alpha geofire
-        GeoFire geofire = new GeoFire(mDatabase);
+        GeoFire geofire = new GeoFire(geodb);
         GeoQuery query = geofire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
         query.addGeoQueryEventListener(new GeoQueryEventListener() {
             public void onKeyEntered(String key, GeoLocation location) {
