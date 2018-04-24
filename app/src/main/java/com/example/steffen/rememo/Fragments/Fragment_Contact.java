@@ -55,6 +55,7 @@ public class Fragment_Contact extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        container.removeAllViews();
         View fragmentView = inflater.inflate(R.layout.fragment_contact, container, false);
         this.inflater = inflater;
         this.container = container;

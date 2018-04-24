@@ -43,6 +43,7 @@ public class Fragment_Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FirebaseDatabase fbd=FirebaseDatabase.getInstance();
 
+        container.removeAllViews();
 
              final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
      final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
