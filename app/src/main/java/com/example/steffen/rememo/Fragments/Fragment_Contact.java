@@ -144,7 +144,7 @@ public class Fragment_Contact extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace_role;
         private Button btn_view_profile;
-
+        private ImageView imageView;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -157,6 +157,7 @@ public class Fragment_Contact extends Fragment {
             tw_name = itemView.findViewById(R.id.contact_name);
             tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
             btn_view_profile = itemView.findViewById(R.id.contact_viewprofile);
+            imageView = itemView.findViewById(R.id.profile_image);
 
         }
     }
@@ -180,6 +181,8 @@ public class Fragment_Contact extends Fragment {
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getMail());
+            Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
+
             holder.btn_view_profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
