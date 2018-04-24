@@ -20,10 +20,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String workplace, String role) {
+    public User(String name, String workplace, String email) {
         this.name = name;
         this.workplace = workplace;
-        this.role = role;
+        this.email = email;
 
     }
 

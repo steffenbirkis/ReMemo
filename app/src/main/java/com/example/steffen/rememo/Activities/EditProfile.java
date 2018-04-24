@@ -74,12 +74,10 @@ public class EditProfile extends AppCompatActivity {
                 final String tempmail= FirebaseLogic.EncodeString(mail);
 
                 FirebaseRef=fbd.getReference().child("users").child(tempmail);
-                User user=new User(name.getText().toString(),workplace.getText().toString(),role.getText().toString());
+                User user=new User(name.getText().toString(),workplace.getText().toString(),mail);
                 FirebaseRef.setValue(user);
                 FirebaseRef.child("background").setValue(background.getText().toString());
-                //TEMPFIX MAIL:::::::::
-                FirebaseRef.child("email").setValue(mail);
-                //TEMPFIX END
+                FirebaseRef.child("role").setValue(role.getText().toString());
                 FirebaseRef.child("phone").setValue(phone.getText().toString());
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
