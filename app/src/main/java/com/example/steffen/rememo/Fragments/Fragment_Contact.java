@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,6 @@ public class Fragment_Contact extends Fragment {
     RecyclerView.Adapter mAdapter;
     LayoutInflater inflater;
     ViewGroup container;
-    Bundle savedInstanceState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +57,6 @@ public class Fragment_Contact extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_contact, container, false);
         this.inflater = inflater;
         this.container = container;
-        this.savedInstanceState = savedInstanceState;
         list = new ArrayList<User>();
         clist = new ArrayList<Contact>();
 
@@ -176,7 +175,7 @@ public class Fragment_Contact extends Fragment {
             holder.btn_view_profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked Appealing: " + temp.getMail(),
+                    Toast.makeText(getContext(), "Clicked View Profile: " + temp.getMail(),
                             Toast.LENGTH_LONG).show();
                     viewProfile(temp);
                 }
@@ -190,13 +189,15 @@ public class Fragment_Contact extends Fragment {
     }
 
     public void viewProfile(Contact contact){
-        final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
-        final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
-        final  TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
-        final  TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
-        final  TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
-        final  TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
-        final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
+        FrameLayout container = (FrameLayout) getActivity().findViewById(R.id.frame_layout);
+        LayoutInflater.from(getActivity())
+                .inflate(R.layout.fragment_profile, container, false);
+        final  TextView txt_name = (TextView) getView().findViewById(R.id.txt_name);
+        final  TextView txt_workplace = (TextView) getView().findViewById(R.id.txt_workplace);
+        final  TextView txt_role = (TextView) getView().findViewById(R.id.txt_role);
+        final  TextView txt_background = (TextView) getView().findViewById(R.id.txt_background);
+        final  TextView txt_email = (TextView) getView().findViewById(R.id.txt_email);
+        final  TextView txt_phone = (TextView) getView().findViewById(R.id.txt_phone);
         txt_email.setText(contact.getMail());
     }
 }
