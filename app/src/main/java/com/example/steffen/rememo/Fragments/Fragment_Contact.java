@@ -196,6 +196,7 @@ public class Fragment_Contact extends Fragment {
         View fragment = inflater.inflate(R.layout.fragment_profile, container, false);
         TextView txt_email = (TextView)fragment.findViewById(R.id.feed_workplace_role);
         txt_email.setText(contact.getMail());
+        container.removeAllViews();
         container.addView(fragment);
 
     }
