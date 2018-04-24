@@ -157,7 +157,7 @@ public class Fragment_Contact extends Fragment {
             tw_name = itemView.findViewById(R.id.contact_name);
             tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
             btn_view_profile = itemView.findViewById(R.id.contact_viewprofile);
-            imageView = itemView.findViewById(R.id.profile_image);
+            imageView = itemView.findViewById(R.id.contact_picture);
 
         }
     }
