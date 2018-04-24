@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
@@ -46,11 +47,17 @@ public class Fragment_Contact extends Fragment {
     private DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
+    LayoutInflater inflater;
+    ViewGroup container;
+    Bundle savedInstanceState;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_contact, container, false);
+        this.inflater = inflater;
+        this.container = container;
+        this.savedInstanceState = savedInstanceState;
         list = new ArrayList<User>();
         clist = new ArrayList<Contact>();
 
@@ -129,6 +136,8 @@ public class Fragment_Contact extends Fragment {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
+        private Button btn_view_profile;
+
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -140,6 +149,7 @@ public class Fragment_Contact extends Fragment {
             cw = itemView.findViewById(R.id.contact_recyclerview);
             tw_name = itemView.findViewById(R.id.contact_name);
             tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
+            btn_view_profile = itemView.findViewById(R.id.contact_viewprofile);
 
         }
     }
@@ -163,6 +173,14 @@ public class Fragment_Contact extends Fragment {
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getMail());
+            holder.btn_view_profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Clicked Appealing: " + temp.getMail(),
+                            Toast.LENGTH_LONG).show();
+                    viewProfile(temp);
+                }
+            });
         }
 
         @Override
@@ -171,4 +189,14 @@ public class Fragment_Contact extends Fragment {
         }
     }
 
+    public void viewProfile(Contact contact){
+        final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+        final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
+        final  TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
+        final  TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
+        final  TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
+        final  TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
+        final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
+        txt_email.setText(contact.getMail());
+    }
 }
