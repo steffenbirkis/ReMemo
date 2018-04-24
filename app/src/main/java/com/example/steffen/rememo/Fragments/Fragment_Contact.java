@@ -51,6 +51,7 @@ public class Fragment_Contact extends Fragment {
     LayoutInflater inflater;
     ViewGroup container;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +72,9 @@ public class Fragment_Contact extends Fragment {
 
 
         mRecyclerView.setAdapter(new RecyclerViewAdapter(clist));
+
+
+
 
 
         return fragmentView;
@@ -189,15 +193,10 @@ public class Fragment_Contact extends Fragment {
     }
 
     public void viewProfile(Contact contact){
-        FrameLayout container = (FrameLayout) getActivity().findViewById(R.id.frame_layout);
-        LayoutInflater.from(getActivity())
-                .inflate(R.layout.fragment_profile, container, false);
-        final  TextView txt_name = (TextView) getView().findViewById(R.id.txt_name);
-        final  TextView txt_workplace = (TextView) getView().findViewById(R.id.txt_workplace);
-        final  TextView txt_role = (TextView) getView().findViewById(R.id.txt_role);
-        final  TextView txt_background = (TextView) getView().findViewById(R.id.txt_background);
-        final  TextView txt_email = (TextView) getView().findViewById(R.id.txt_email);
-        final  TextView txt_phone = (TextView) getView().findViewById(R.id.txt_phone);
+        View fragment = inflater.inflate(R.layout.fragment_profile, container, false);
+        TextView txt_email = (TextView)fragment.findViewById(R.id.feed_workplace_role);
         txt_email.setText(contact.getMail());
+        container.addView(fragment);
+
     }
 }
