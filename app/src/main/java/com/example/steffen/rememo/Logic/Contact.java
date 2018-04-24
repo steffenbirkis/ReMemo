@@ -111,7 +111,7 @@ public class Contact {
         cUserContact.setRole(currentuser.getRole());
         cUserContact.setBackground(currentuser.getBackground());
         cUserContact.setPhone(currentuser.getPhone());
-        cUserContact.setPhone(currentuser.getPhotoURL());
+        cUserContact.setPhoto(currentuser.getPhotoURL());
 
         Contact tUserContact = new Contact(targetuser.getEmail(),false,true);
         tUserContact.setName(targetuser.getName());
