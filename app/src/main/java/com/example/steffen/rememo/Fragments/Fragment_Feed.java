@@ -1,10 +1,16 @@
 package com.example.steffen.rememo.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationProvider;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +33,9 @@ import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -49,6 +58,8 @@ public class Fragment_Feed extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
 
 
     }
@@ -58,6 +69,8 @@ public class Fragment_Feed extends Fragment {
     private DatabaseReference geodb;
     RecyclerView mRecyclerView;
     private User currentUser;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private GeoFire geoFire;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,11 +80,35 @@ public class Fragment_Feed extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         mDatabase.addChildEventListener(listener);
+        geoFire = new GeoFire(geodb);
+
+
+
+
+
         //Alpha geofire
-        GeoFire geofire = new GeoFire(geodb);
-        GeoLocation location = new GeoLocation();
-        geofire.setLocation(new GeoLocation(location));
-        GeoQuery query = geofire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
+
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location. In some rare situations this can be null.
+
+                    if (location != null) {
+                        GeoLocation glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
+                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
+                            @Override
+                            public void onComplete(String key, DatabaseError error) {
+                                System.out.println("halla");
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        GeoQuery query = geoFire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
+
         query.addGeoQueryEventListener(new GeoQueryEventListener() {
             public void onKeyEntered(String key, GeoLocation location) {
                 System.out.println(String.format("%s entered at [%f, %f]", key, location.latitude, location.longitude));
@@ -232,4 +269,5 @@ public class Fragment_Feed extends Fragment {
             return mlist.size();
         }
     }
+
 }
