@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
@@ -196,7 +199,22 @@ public class Fragment_Contact extends Fragment {
     public void viewProfile(Contact contact){
         View fragment = inflater.inflate(R.layout.fragment_profile, container, false);
         TextView txt_email = (TextView)fragment.findViewById(R.id.txt_email);
+        TextView txt_name = (TextView)fragment.findViewById(R.id.txt_name);
+        TextView txt_workplace = (TextView)fragment.findViewById(R.id.txt_workplace);
+        TextView txt_role = (TextView)fragment.findViewById(R.id.txt_role);
+        TextView txt_background = (TextView)fragment.findViewById(R.id.txt_background);
+        TextView txt_phone = (TextView)fragment.findViewById(R.id.txt_phone);
+        ImageView mImageView  = (ImageView) fragment.findViewById(R.id.profile_image);
+
+
         txt_email.setText(contact.getMail());
+        txt_name.setText(contact.getName());
+        txt_workplace.setText(contact.getWorkplace());
+        txt_role.setText(contact.getRole());
+        txt_background.setText(contact.getBackground());
+        txt_phone.setText(contact.getPhone());
+        Glide.with(getContext()).load(contact.getPhoto()).apply(RequestOptions.circleCropTransform()).into(mImageView);
+
         container.removeAllViews();
         container.addView(fragment);
 
