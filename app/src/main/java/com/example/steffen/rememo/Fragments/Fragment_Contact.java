@@ -180,7 +180,9 @@ public class Fragment_Contact extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
-            holder.tw_name.setText(temp.getMail());
+            holder.tw_name.setText(temp.getName());
+            String merge = temp.getRole() + " at " + temp.getWorkplace();
+            holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
 
             holder.btn_view_profile.setOnClickListener(new View.OnClickListener() {
