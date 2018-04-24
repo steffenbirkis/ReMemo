@@ -162,8 +162,10 @@ public class Fragment_Feed extends Fragment {
             String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
             if(robust1.equals(robust2)) {
                 currentUser = user;
+            }else{
+                list.add(user);
+
             }
-            list.add(user);
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
         }
