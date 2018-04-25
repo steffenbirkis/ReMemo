@@ -94,9 +94,9 @@ public class EditProfile extends AppCompatActivity {
                 updateUser();
 
                 FirebaseRef=fbd.getReference().child("users").child(tempmail);
+                FirebaseRef.child("email").setValue(mail);
                 FirebaseRef.child("name").setValue(currentUser.getName());
                 FirebaseRef.child("workplace").setValue(currentUser.getWorkplace());
-                FirebaseRef.child("email").setValue(mail);
                 FirebaseRef.child("background").setValue(currentUser.getBackground());
                 FirebaseRef.child("role").setValue(currentUser.getRole());
                 FirebaseRef.child("phone").setValue(currentUser.getPhone());
