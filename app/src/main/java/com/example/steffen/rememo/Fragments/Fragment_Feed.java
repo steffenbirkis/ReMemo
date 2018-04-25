@@ -180,13 +180,14 @@ public class Fragment_Feed extends Fragment {
             String robust1 = FirebaseLogic.EncodeString(mail);
             String robust2 = FirebaseLogic.EncodeString(user.getEmail());
             if(robust1.equals(robust2)) {
-                currentUser = user;}
-            for(int i=0; i<mNearby.size();i++){
-
-            if(FirebaseLogic.EncodeString(user.getEmail()).equals(mNearby.get(i))&&!FirebaseLogic.EncodeString(user.getEmail()).equals(mail)){
-                list.add(user);
-                
-                }
+                currentUser = user;
+            }
+            for(String temp:mNearby){
+                 String robust_temp = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+                 if(robust_temp.equals(temp.toLowerCase())&&!robust_temp.equals(mail)){
+                     list.add(user);
+                 }
+            
             }
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
