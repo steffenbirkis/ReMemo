@@ -177,17 +177,17 @@ public class Fragment_Feed extends Fragment {
             FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
             String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
-            String robust1 = FirebaseLogic.EncodeString(mail);
-            String robust2 = FirebaseLogic.EncodeString(user.getEmail());
-            if(robust1.equals(robust2)) {
+            String current = FirebaseLogic.EncodeString(mail.toLowerCase());
+            String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            if(current.equals(selected)) {
                 currentUser = user;
             }
             for(String temp:mNearby){
-                 String robust_temp = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
-                 if(robust_temp.equals(temp.toLowerCase())&&!robust_temp.equals(mail)){
-                     list.add(user);
-                 }
-            
+                 if(selected.equals(FirebaseLogic.EncodeString(temp.toLowerCase()))){
+                     if(!selected.equals(current)) {
+                         list.add(user);
+                     }
+                }
             }
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
