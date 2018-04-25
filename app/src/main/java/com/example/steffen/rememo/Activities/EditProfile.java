@@ -142,6 +142,7 @@ public class EditProfile extends AppCompatActivity {
                             image = taskSnapshot.getDownloadUrl();
                             System.out.println(image.toString());
                             updateImage(image);
+                            currentUser.setPhotoURL(image.toString());
 
                             // Set the download URL to the message box, so that the user can send it to the database
 
@@ -182,7 +183,6 @@ public class EditProfile extends AppCompatActivity {
         currentUser.setRole(role.getText().toString());
         currentUser.setBackground(background.getText().toString());
         currentUser.setPhone(phone.getText().toString());
-        currentUser.setPhotoURL(image.toString());
 
     }
 
@@ -218,15 +218,12 @@ public class EditProfile extends AppCompatActivity {
             String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
             String robust2 = null;
-            System.out.println("Syso1:" +user.getEmail());
             if(user.getEmail()!=null){
                 robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
 
             }
             String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
-            System.out.println("Syso2:"+robust1+" :::: "+robust2);
             if(robust1.equals(robust2)) {
-                System.out.println("Blir jeg kjørt?!?!??!?");
                 currentUser = user;
                 Glide.with(getApplicationContext()).load(currentUser.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);
                 name.setText(currentUser.getName());
