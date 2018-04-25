@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Fragments.Fragment_Contact;
 import com.example.steffen.rememo.Fragments.Fragment_Feed;
 import com.example.steffen.rememo.Logic.Contact;
@@ -44,7 +45,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText background;
     private EditText email;
     private EditText phone;
-    User user;
+    private User currentUser;
 
     private Button mSelectImage;
     private StorageReference mStorage;
@@ -63,14 +64,15 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_editprofile);
+        refreshData();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
+        mDatabase.addChildEventListener(userlistener);
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (Button)findViewById(R.id.edit_picture);
         mImageView=(ImageView)findViewById(R.id.editprofile_image);
 
         cList = new ArrayList<Contact>();
-
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,18 +91,17 @@ public class EditProfile extends AppCompatActivity {
                 String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 final String tempmail= FirebaseLogic.EncodeString(mail);
 
+                updateUser();
+
                 FirebaseRef=fbd.getReference().child("users").child(tempmail);
-                user=new User(name.getText().toString(),workplace.getText().toString(),mail);
-                FirebaseRef.setValue(user);
-                FirebaseRef.child("background").setValue(background.getText().toString());
-                FirebaseRef.child("role").setValue(role.getText().toString());
-                FirebaseRef.child("phone").setValue(phone.getText().toString());
+                FirebaseRef.child("name").setValue(currentUser.getName());
+                FirebaseRef.child("workplace").setValue(currentUser.getWorkplace());
+                FirebaseRef.child("email").setValue(mail);
+                FirebaseRef.child("background").setValue(currentUser.getBackground());
+                FirebaseRef.child("role").setValue(currentUser.getRole());
+                FirebaseRef.child("phone").setValue(currentUser.getPhone());
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
-                user.setBackground(background.getText().toString());
-                user.setRole(role.getText().toString());
-                user.setPhone(phone.getText().toString());
-                user.setPhotoURL(image.toString());
 
                 updateData();
 
@@ -161,12 +162,12 @@ public class EditProfile extends AppCompatActivity {
             emails.add(FirebaseLogic.EncodeString(c.getMail()));
         }
         for(String s:emails){
-            temp_path.child(s).child("contacts").child(current).child("name").setValue(user.getName());
-            temp_path.child(s).child("contacts").child(current).child("workplace").setValue(user.getWorkplace());
-            temp_path.child(s).child("contacts").child(current).child("role").setValue(user.getRole());
-            temp_path.child(s).child("contacts").child(current).child("background").setValue(user.getBackground());
-            temp_path.child(s).child("contacts").child(current).child("phone").setValue(user.getPhone());
-            temp_path.child(s).child("contacts").child(current).child("photo").setValue(user.getPhotoURL());    
+            temp_path.child(s).child("contacts").child(current).child("name").setValue(currentUser.getName());
+            temp_path.child(s).child("contacts").child(current).child("workplace").setValue(currentUser.getWorkplace());
+            temp_path.child(s).child("contacts").child(current).child("role").setValue(currentUser.getRole());
+            temp_path.child(s).child("contacts").child(current).child("background").setValue(currentUser.getBackground());
+            temp_path.child(s).child("contacts").child(current).child("phone").setValue(currentUser.getPhone());
+            temp_path.child(s).child("contacts").child(current).child("photo").setValue(currentUser.getPhotoURL());
 
         }
     }
@@ -174,6 +175,17 @@ public class EditProfile extends AppCompatActivity {
     public void updateImage(Uri pic){
         Glide.with(this).load(pic).into(mImageView);
     }
+
+    public void updateUser(){
+        currentUser.setName(name.getText().toString());
+        currentUser.setWorkplace(workplace.getText().toString());
+        currentUser.setRole(role.getText().toString());
+        currentUser.setBackground(background.getText().toString());
+        currentUser.setPhone(phone.getText().toString());
+        currentUser.setPhotoURL(mImageView.toString());
+
+    }
+
 
     ChildEventListener contactlistener = new ChildEventListener() {
         @Override
@@ -199,4 +211,42 @@ public class EditProfile extends AppCompatActivity {
         }
 
     };
+    ChildEventListener userlistener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            String mail=firebaseAuth.getCurrentUser().getEmail();
+            User user = snapshot.getValue(User.class);
+            String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
+            String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            if(robust1.equals(robust2)) {
+                currentUser = user;
+                Glide.with(getApplicationContext()).load(currentUser.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);
+                name.setText(currentUser.getName());
+                workplace.setText(currentUser.getWorkplace());
+                role.setText(currentUser.getRole());
+                background.setText(currentUser.getBackground());
+                phone.setText(currentUser.getPhone());
+            }
+
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            System.out.println("The read failed: " + databaseError.getCode());
+        }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            return;
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
+    };
+
 }
