@@ -9,6 +9,8 @@ import android.location.LocationProvider;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -45,7 +47,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
 
 
@@ -71,6 +76,10 @@ public class Fragment_Feed extends Fragment {
     private User currentUser;
     private FusedLocationProviderClient mFusedLocationClient;
     private GeoFire geoFire;
+    private List<String> mNearby;
+    private GeoLocation glocation;
+    private GeoQuery gQuery;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,9 +89,8 @@ public class Fragment_Feed extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
-        mDatabase.addChildEventListener(listener);
         geoFire = new GeoFire(geodb);
-
+        mNearby=new ArrayList<String>();
 
 
 
@@ -97,48 +105,59 @@ public class Fragment_Feed extends Fragment {
                     // Got last known location. In some rare situations this can be null.
 
                     if (location != null) {
-                        GeoLocation glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
+                        glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
                         geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                                System.out.println("halla");
+                                GeoQuery query = geoFire.queryAtLocation(glocation,1);
+                                query.addGeoQueryEventListener(new GeoQueryEventListener() {
+                                    public void onKeyEntered(String key, GeoLocation location) {
+
+                                        System.out.println(String.format("%s entered at [%f, %f]", key, location.latitude, location.longitude));
+                                        String nearby=key;
+                                        mNearby.add(nearby);
+                                    }
+
+                                    @Override
+                                    public void onKeyExited(String key) {
+                                        System.out.println(String.format("%s exited", key));
+                                    }
+
+                                    @Override
+                                    public void onKeyMoved(String key, GeoLocation location) {
+                                        System.out.println(String.format("%s moved to [%f, %f]", key, location.latitude, location.longitude));
+                                    }
+
+                                    @Override
+                                    public void onGeoQueryReady() {
+                                        System.out.println("All initial key entered events have been fired!");
+                                    }
+
+                                    @Override
+                                    public void onGeoQueryError(DatabaseError error){
+
+                                    }
+
+
+                                    // run for another 60 seconds
+                                });
                             }
                         });
                     }
                 }
             });
         }
-        GeoQuery query = geoFire.queryAtLocation(new GeoLocation(60.369009, 5.350103),1000);
 
-        query.addGeoQueryEventListener(new GeoQueryEventListener() {
-            public void onKeyEntered(String key, GeoLocation location) {
-                System.out.println(String.format("%s entered at [%f, %f]", key, location.latitude, location.longitude));
-            }
 
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
             @Override
-            public void onKeyExited(String key) {
-                System.out.println(String.format("%s exited", key));
-            }
-
-            @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-                System.out.println(String.format("%s moved to [%f, %f]", key, location.latitude, location.longitude));
-            }
-
-            @Override
-            public void onGeoQueryReady() {
-                System.out.println("All initial key entered events have been fired!");
-            }
-
-            @Override
-                    public void onGeoQueryError(DatabaseError error){
+            public void run(){
+                mDatabase.addChildEventListener(listener);
 
             }
-
-
-        // run for another 60 seconds
-    });
-
+        }, 1000);
 
         list = new ArrayList<User>();
 
@@ -146,11 +165,11 @@ public class Fragment_Feed extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
-
         return fragmentView;
 
 
     }
+
 
     ChildEventListener listener = new ChildEventListener() {
         @Override
@@ -158,13 +177,16 @@ public class Fragment_Feed extends Fragment {
             FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
             String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
-            String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
-            String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            String robust1 = FirebaseLogic.EncodeString(mail);
+            String robust2 = FirebaseLogic.EncodeString(user.getEmail());
             if(robust1.equals(robust2)) {
-                currentUser = user;
-            }else{
-                list.add(user);
+                currentUser = user;}
+            for(int i=0; i<mNearby.size();i++){
 
+            if(FirebaseLogic.EncodeString(user.getEmail()).equals(mNearby.get(i))&&!FirebaseLogic.EncodeString(user.getEmail()).equals(mail)){
+                list.add(user);
+                
+                }
             }
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
