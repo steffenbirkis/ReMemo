@@ -65,9 +65,11 @@ public class EditProfile extends AppCompatActivity {
 
         setContentView(R.layout.activity_editprofile);
         refreshData();
+        currentUser = new User();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
-        mDatabase.addChildEventListener(userlistener);
+        DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
+        userpath.addChildEventListener(userlistener);
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (Button)findViewById(R.id.edit_picture);
         mImageView=(ImageView)findViewById(R.id.editprofile_image);
@@ -87,12 +89,10 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 refreshData();
+                updateUser();
                 FirebaseDatabase fbd=FirebaseDatabase.getInstance();
                 String mail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 final String tempmail= FirebaseLogic.EncodeString(mail);
-
-                updateUser();
-
                 FirebaseRef=fbd.getReference().child("users").child(tempmail);
                 FirebaseRef.child("email").setValue(mail);
                 FirebaseRef.child("name").setValue(currentUser.getName());
@@ -225,6 +225,7 @@ public class EditProfile extends AppCompatActivity {
             String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
             if(robust1.equals(robust2)) {
                 currentUser = user;
+                updateUser();
                 Glide.with(getApplicationContext()).load(currentUser.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);
                 name.setText(currentUser.getName());
                 workplace.setText(currentUser.getWorkplace());
