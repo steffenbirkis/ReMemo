@@ -182,7 +182,7 @@ public class EditProfile extends AppCompatActivity {
         currentUser.setRole(role.getText().toString());
         currentUser.setBackground(background.getText().toString());
         currentUser.setPhone(phone.getText().toString());
-        currentUser.setPhotoURL(mImageView.toString());
+        currentUser.setPhotoURL(image.toString());
 
     }
 
