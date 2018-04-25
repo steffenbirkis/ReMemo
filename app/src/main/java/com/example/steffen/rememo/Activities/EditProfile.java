@@ -217,8 +217,12 @@ public class EditProfile extends AppCompatActivity {
             FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
             String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
+            String robust2 = null;
+            if(user.getEmail()!=null){
+                robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+
+            }
             String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
-            String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
             if(robust1.equals(robust2)) {
                 currentUser = user;
                 Glide.with(getApplicationContext()).load(currentUser.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);
