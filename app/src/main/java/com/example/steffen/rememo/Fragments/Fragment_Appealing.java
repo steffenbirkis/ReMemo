@@ -1,5 +1,6 @@
 package com.example.steffen.rememo.Fragments;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -9,9 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Appealing;
+import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -108,6 +114,7 @@ public class Fragment_Appealing extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace_role;
         private Button btn_contact;
+        private ImageView iw_image;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -120,6 +127,7 @@ public class Fragment_Appealing extends Fragment {
             tw_name = itemView.findViewById(R.id.appealing_name);
             tw_workplace_role = itemView.findViewById(R.id.appealing_workplace_role);
             btn_contact = (Button) itemView.findViewById(R.id.appealing_request);
+            iw_image = (ImageView) itemView.findViewById(R.id.appealing_picture);
 
 
         }
@@ -143,8 +151,29 @@ public class Fragment_Appealing extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Appealing temp = mlist.get(position);
-            final Appealing contact = new Appealing();
-            holder.tw_name.setText(temp.getMail());
+            final Contact contact = new Contact();
+            holder.tw_name.setText(temp.getName());
+            String merge = temp.getRole() + " at " + temp.getWorkplace();
+            holder.tw_workplace_role.setText(merge);
+            Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.iw_image);
+
+            holder.btn_contact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Clicked Request Contact: " + temp.getName(),
+                            Toast.LENGTH_LONG).show();
+                    User temp_user = new User();
+                    temp_user.setPhotoURL(temp.getPhoto());
+                    temp_user.setPhone(temp.getPhone());
+                    temp_user.setRole(temp.getRole());
+                    temp_user.setBackground(temp.getBackground());
+                    temp_user.setWorkplace(temp.getWorkplace());
+                    temp_user.setName(temp.getName());
+                    temp_user.setEmail(temp.getMail());
+                    contact.requestContact(currentUser,temp_user);
+
+                }
+            });
 
 
         }
