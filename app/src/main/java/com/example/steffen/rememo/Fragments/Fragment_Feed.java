@@ -157,7 +157,7 @@ public class Fragment_Feed extends Fragment {
                 mDatabase.addChildEventListener(listener);
 
             }
-        }, 1000);
+        }, 1500);
 
         list = new ArrayList<User>();
 
