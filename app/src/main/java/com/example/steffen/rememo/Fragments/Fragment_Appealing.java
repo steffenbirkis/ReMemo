@@ -60,6 +60,8 @@ public class Fragment_Appealing extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
         mDatabase.addChildEventListener(listener);
+        DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
+        userpath.addChildEventListener(listener);
 
         list = new ArrayList<Appealing>();
 
@@ -101,7 +103,37 @@ public class Fragment_Appealing extends Fragment {
         }
 
     };
+    ChildEventListener userlistener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            String mail=firebaseAuth.getCurrentUser().getEmail();
+            User user = snapshot.getValue(User.class);
+            String current = FirebaseLogic.EncodeString(mail.toLowerCase());
+            String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            if(current.equals(selected)) {
+                currentUser = user;
+            }
 
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            System.out.println("The read failed: " + databaseError.getCode());
+        }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            return;
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
+    };
     @Override
     public void onResume() {
         super.onResume();
