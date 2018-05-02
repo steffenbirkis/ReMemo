@@ -94,12 +94,12 @@ public class Fragment_Feed extends Fragment {
         geoFire = new GeoFire(geodb);
         mNearby=new ArrayList<String>();
 
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("range", Context.MODE_PRIVATE);
-        System.out.println("preferences:"+preferences.getString("range","default"));
-        System.out.println("pref.tostring"+preferences.toString());
-        mRange = Double.parseDouble(preferences.getString("range", "25"));
-        mRange = mRange/1000;
-        System.out.println("mRange:"+mRange);
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        mRange = preferences.getInt("range",50);
+        System.out.println("mRange : "+mRange);
+        System.out.println("string:"+preferences.getString("range","empty"));
+        System.out.println("int."+preferences.getInt("range",0));
+
 
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
