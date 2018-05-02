@@ -6,6 +6,8 @@
         android:title="Livefeed operation distance"
         android:summary="Write distance in meters here"
         android:inputType="number"
+        android:maxLength="3"
+        android:defaultValue="25"
         />
 
     <Preference
