@@ -93,10 +93,13 @@ public class Fragment_Feed extends Fragment {
         mNearby=new ArrayList<String>();
 
 
-
-
+/*
+SharedPreferences prefs = this.getSharedPreferences(
+                "range", Context.MODE_PRIVATE);
+        String pref = prefs.toString();
+        int range = Integer.parseInt(pref);
+ */
         //Alpha geofire
-
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
