@@ -3,12 +3,17 @@ package com.example.steffen.rememo.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.steffen.rememo.Fragments.Fragment_Profile;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -38,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
+        TextView signup = (TextView) findViewById(R.id.signup);
+        signup.setOnClickListener(onSignUp);
 
     }
 
@@ -110,6 +117,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private View.OnClickListener onSignUp = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setContentView(R.layout.activity_signup);
+        }
+    };
 
     private void createFireUser() {
         String temp_email = email.getText().toString();
