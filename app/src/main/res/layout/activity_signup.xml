@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/signin_email"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/signin_password"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -50,27 +50,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/sign"
+            <EditText
+                android:id="@+id/et_passwordretype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="signIn"
-                android:text="Sign In"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="447dp" />
+                android:ems="10"
+                android:hint="Retype password"
+                android:inputType="textPassword" />
         </TableRow>
+
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:textSize="20dp"
-            android:text="Not a member? SIGN UP" />
+
+            <Button
+                android:id="@+id/Create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="createUser"
+                android:text="Create User"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="447dp" />
+
         </TableRow>
     </TableLayout>
 </RelativeLayout>
