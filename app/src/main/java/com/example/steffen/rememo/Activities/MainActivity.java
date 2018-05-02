@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import com.example.steffen.rememo.Fragments.Fragment_Appealing;
 import com.example.steffen.rememo.Fragments.Fragment_Contact;
 import com.example.steffen.rememo.Fragments.Fragment_Feed;
+import com.example.steffen.rememo.Fragments.Fragment_Network;
 import com.example.steffen.rememo.Fragments.Fragment_Profile;
+import com.example.steffen.rememo.Fragments.Fragment_Requests;
 import com.example.steffen.rememo.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_appealing:
                                 selectedFragment = Fragment_Appealing.newInstance();
                                 break;
-                            case R.id.action_contact:
-                                selectedFragment = Fragment_Contact.newInstance();
+                            case R.id.action_request:
+                                selectedFragment = Fragment_Requests.newInstance();
                                 break;
-                            case R.id.action_profile:
-                                selectedFragment = Fragment_Profile.newInstance();
+                            case R.id.action_network:
+                                selectedFragment = Fragment_Network.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
