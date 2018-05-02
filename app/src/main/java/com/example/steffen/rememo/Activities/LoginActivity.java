@@ -43,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
-        TextView signup = (TextView) findViewById(R.id.signup);
-        signup.setOnClickListener(onSignUp);
 
     }
 
@@ -117,12 +115,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener onSignUp = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            setContentView(R.layout.activity_signup);
-        }
-    };
+    public void clickSignUp(View v) {
+        Toast.makeText(LoginActivity.this, "Clicked sign up", Toast.LENGTH_SHORT).show();
+        setContentView(R.layout.activity_signup);
+    }
+
 
     private void createFireUser() {
         String temp_email = email.getText().toString();
