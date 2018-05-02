@@ -2,6 +2,7 @@ package com.example.steffen.rememo.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -79,6 +80,7 @@ public class Fragment_Feed extends Fragment {
     private List<String> mNearby;
     private GeoLocation glocation;
     private GeoQuery gQuery;
+    private double mRange;
 
 
     @Override
@@ -92,14 +94,13 @@ public class Fragment_Feed extends Fragment {
         geoFire = new GeoFire(geodb);
         mNearby=new ArrayList<String>();
 
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("range", Context.MODE_PRIVATE);
+        System.out.println("preferences:"+preferences.getString("range","default"));
+        System.out.println("pref.tostring"+preferences.toString());
+        mRange = Double.parseDouble(preferences.getString("range", "25"));
+        mRange = mRange/1000;
+        System.out.println("mRange:"+mRange);
 
-/*
-SharedPreferences prefs = this.getSharedPreferences(
-                "range", Context.MODE_PRIVATE);
-        String pref = prefs.toString();
-        int range = Integer.parseInt(pref);
- */
-        //Alpha geofire
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
