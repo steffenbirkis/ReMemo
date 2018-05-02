@@ -68,8 +68,6 @@ public class Fragment_Contact extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
 
-        Button btn = fragmentView.findViewById(R.id.view_requests);
-        btn.setOnClickListener(onViewReq);
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);

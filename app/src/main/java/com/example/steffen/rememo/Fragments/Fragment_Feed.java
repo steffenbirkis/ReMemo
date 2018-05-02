@@ -141,6 +141,7 @@ public class Fragment_Feed extends Fragment {
 
                                     // run for another 60 seconds
                                 });
+                                attachListener();
                             }
                         });
                     }
@@ -150,15 +151,7 @@ public class Fragment_Feed extends Fragment {
 
 
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                mDatabase.addChildEventListener(listener);
-
-            }
-        }, 1500);
-
+ 
         list = new ArrayList<User>();
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
@@ -216,7 +209,10 @@ public class Fragment_Feed extends Fragment {
         super.onResume();
 
     }
+public void attachListener(){
+    mDatabase.addChildEventListener(listener);
 
+}
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
