@@ -12,13 +12,13 @@
         android:title="Appealing" />
 
     <item
-        android:id="@+id/action_contact"
+        android:id="@+id/action_request"
         android:icon="@drawable/ic_supervisor_account_black_18dp"
-        android:title="Contact" />
+        android:title="Notifications" />
 
     <item
-        android:id="@+id/action_profile"
+        android:id="@+id/action_network"
         android:icon="@drawable/ic_account_box_black_24dp"
-        android:title="Profile" />
+        android:title="Network" />
 
 </menu>
