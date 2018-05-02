@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="range"
+        android:title="Livefeed operation distance"
+        android:summary="Write distance in meters here"
+        android:inputType="number"
+        />
+
     <Preference
         android:key="edit_profile"
         android:title="Edit my profile"
         />
+
     <Preference
         android:key="signout"
         android:title="Sign Out"
         />
-    <android.support.v7.preference.SeekBarPreference
-        android:key="range"
-        android:title="Feed operation range(meters)"
-        android:max="100"
-        android:defaultValue="25"
-
-        />
 
 
-
-
-</android.support.v7.preference.PreferenceScreen>
+</PreferenceScreen>
