@@ -16,6 +16,20 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/view_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="View your profile" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
                 android:id="@+id/view_contacts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

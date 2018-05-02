@@ -31,7 +31,8 @@ public class Fragment_Network extends Fragment {
 
         Button btn_contacts = fragmentView.findViewById(R.id.view_contacts);
         btn_contacts.setOnClickListener(onViewContacts);
-
+        Button btn_profile = fragmentView.findViewById(R.id.view_profile);
+        btn_profile.setOnClickListener(onViewProfile);
         return fragmentView;
 
 
@@ -44,6 +45,16 @@ public class Fragment_Network extends Fragment {
             Fragment contact = Fragment_Contact.newInstance();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frame_layout, contact);
+            transaction.commit();
+        }
+    };
+
+    private View.OnClickListener onViewProfile = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Fragment profile = Fragment_Profile.newInstance();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, profile);
             transaction.commit();
         }
     };
