@@ -70,7 +70,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:textSize="20dp"
-            android:text="Not a member? SIGN UP" />
+            android:text="Not a member? SIGN UP"
+            android:clickable="true"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>
