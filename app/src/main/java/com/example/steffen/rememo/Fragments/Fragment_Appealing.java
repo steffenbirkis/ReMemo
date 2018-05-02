@@ -147,6 +147,7 @@ public class Fragment_Appealing extends Fragment {
         private TextView tw_workplace_role;
         private Button btn_contact;
         private ImageView iw_image;
+        private Button btn_unappeal;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -160,6 +161,7 @@ public class Fragment_Appealing extends Fragment {
             tw_workplace_role = itemView.findViewById(R.id.appealing_workplace_role);
             btn_contact = (Button) itemView.findViewById(R.id.appealing_request);
             iw_image = (ImageView) itemView.findViewById(R.id.appealing_picture);
+            btn_unappeal=(Button)itemView.findViewById(R.id.appealing_unappeal);
 
 
         }
@@ -181,7 +183,7 @@ public class Fragment_Appealing extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
             final Appealing temp = mlist.get(position);
             final Contact contact = new Contact();
             holder.tw_name.setText(temp.getName());
@@ -203,6 +205,18 @@ public class Fragment_Appealing extends Fragment {
                     temp_user.setName(temp.getName());
                     temp_user.setEmail(temp.getMail());
                     contact.requestContact(currentUser,temp_user);
+
+                }
+            });
+            holder.btn_unappeal.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    String mail=FirebaseLogic.EncodeString(temp.getMail());
+                    FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(currentUser.getEmail())).child("appealing").child(mail).removeValue();
+                    System.out.println(mlist.size());
+                    mlist.remove(position);
+                    mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(mlist));
+
 
                 }
             });

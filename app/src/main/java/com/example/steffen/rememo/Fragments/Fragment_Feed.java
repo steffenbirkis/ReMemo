@@ -109,7 +109,7 @@ public class Fragment_Feed extends Fragment {
                         geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                                GeoQuery query = geoFire.queryAtLocation(glocation,1);
+                                GeoQuery query = geoFire.queryAtLocation(glocation,10);
                                 query.addGeoQueryEventListener(new GeoQueryEventListener() {
                                     public void onKeyEntered(String key, GeoLocation location) {
 
@@ -200,7 +200,7 @@ public class Fragment_Feed extends Fragment {
         }
 
         public void onChildRemoved(DataSnapshot dataSnapshot) {
-            return;
+
         }
 
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
