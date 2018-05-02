@@ -29,7 +29,7 @@
 
         <activity android:name=".Activities.UserPreferences"
             android:screenOrientation="portrait" />
-        
+
         <activity android:name=".Activities.EditProfile"
             android:screenOrientation="portrait" />
 

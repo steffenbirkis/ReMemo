@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
         android:key="edit_profile"
         android:title="Edit my profile"
@@ -9,4 +8,15 @@
         android:key="signout"
         android:title="Sign Out"
         />
-</PreferenceScreen>
+    <android.support.v7.preference.SeekBarPreference
+        android:key="range"
+        android:title="Feed operation range(meters)"
+        android:max="100"
+        android:defaultValue="25"
+
+        />
+
+
+
+
+</android.support.v7.preference.PreferenceScreen>
