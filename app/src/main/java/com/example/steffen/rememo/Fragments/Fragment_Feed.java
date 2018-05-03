@@ -250,7 +250,13 @@ public class Fragment_Feed extends Fragment {
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
-
+            holder.itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Toast.makeText(getActivity(), "Clicked cardview",
+                            Toast.LENGTH_SHORT).show();
+                }
+                                               });
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
