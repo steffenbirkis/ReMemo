@@ -84,6 +84,7 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseDatabase fbd = FirebaseDatabase.getInstance();
                 String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 final String tempmail = FirebaseLogic.EncodeString(mail);
+                if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null){
                 FirebaseRef = fbd.getReference().child("users").child(tempmail);
                 FirebaseRef.child("email").setValue(mail);
                 FirebaseRef.child("name").setValue(currentUser.getName());
@@ -97,7 +98,10 @@ public class EditProfile extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                finish();
+                finish();}
+                else{
+                    Toast.makeText(getApplicationContext(),"None of the fields can be empty",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
