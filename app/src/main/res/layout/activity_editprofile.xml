@@ -89,20 +89,6 @@
                 android:text="" />
 
             <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contact Email (does not change login email)" />
-
-            <EditText
-                android:id="@+id/edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:text="" />
-
-            <TextView
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
