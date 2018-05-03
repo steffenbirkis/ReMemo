@@ -21,11 +21,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Fragment_Profile extends Fragment {
-    private User mCurrent;
     private ImageView mImageView;
     private String TAG="1";
     public static Fragment_Profile newInstance() {
@@ -72,11 +70,11 @@ public class Fragment_Profile extends Fragment {
                 String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
                if(robust1.equals(robust2)){
                    txt_name.setText(user.getName());
-                txt_workplace.setText(user.getWorkplace());
-                txt_role.setText(user.getRole());
-                txt_background.setText(user.getBackground());
-                txt_email.setText(user.getEmail());
-                txt_phone.setText(user.getPhone());
+                   txt_workplace.setText(user.getWorkplace());
+                   txt_role.setText(user.getRole());
+                   txt_background.setText(user.getBackground());
+                   txt_email.setText(user.getEmail());
+                   txt_phone.setText(user.getPhone());
             }}
 
 

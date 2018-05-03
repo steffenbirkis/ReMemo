@@ -49,15 +49,6 @@ public class User {
         this.photoURL = photoURL;
     }
 
-  /*  public List<String> getAppealingStringList(){
-        List<String> list = new ArrayList<>();
-        Iterator<Appealing> iterator = appealing.iterator();
-        while(iterator.hasNext()){
-            list.add(iterator.next().getMail());
-        }
-
-        return list;
-    }*/
 
     public String getBackground() {
         return background;
@@ -116,20 +107,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-  /*  public List<Appealing> getAppealing() {
-        return appealing;
-    }
 
-    public void setAppealing(List<Appealing> appealing) {
-        this.appealing = appealing;
-    }
-
-    public List<Contact> getContacts() {
-        return contacts;
-    }
-
-    public void setContactList(List<Contact> contactList) {
-        this.contacts = contactList;
-    }*/
 
 }

@@ -1,17 +1,10 @@
 package com.example.steffen.rememo.Fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationProvider;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -39,7 +32,6 @@ import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -48,11 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.concurrent.TimeUnit;
 
 
 public class Fragment_Feed extends Fragment {
@@ -67,7 +55,6 @@ public class Fragment_Feed extends Fragment {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
 
-
     }
 
     private List<User> list;
@@ -79,7 +66,6 @@ public class Fragment_Feed extends Fragment {
     private GeoFire geoFire;
     private List<String> mNearby;
     private GeoLocation glocation;
-    private GeoQuery gQuery;
     private double mRange;
 
 
@@ -92,13 +78,12 @@ public class Fragment_Feed extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         geoFire = new GeoFire(geodb);
-        mNearby=new ArrayList<String>();
+        mNearby = new ArrayList<String>();
 
-        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        mRange = preferences.getInt("range",50);
-        System.out.println("mRange : "+mRange);
-        System.out.println("string:"+preferences.getString("range","empty"));
-        System.out.println("int."+preferences.getInt("range",0));
+        SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
+
+        System.out.println("string:" + preferences.getString("range", "empty"));
+        mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
 
 
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -113,12 +98,10 @@ public class Fragment_Feed extends Fragment {
                         geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                                GeoQuery query = geoFire.queryAtLocation(glocation,10);
+                                GeoQuery query = geoFire.queryAtLocation(glocation, mRange);
                                 query.addGeoQueryEventListener(new GeoQueryEventListener() {
                                     public void onKeyEntered(String key, GeoLocation location) {
-
-                                        System.out.println(String.format("%s entered at [%f, %f]", key, location.latitude, location.longitude));
-                                        String nearby=key;
+                                        String nearby = key;
                                         mNearby.add(nearby);
                                     }
 
@@ -138,7 +121,7 @@ public class Fragment_Feed extends Fragment {
                                     }
 
                                     @Override
-                                    public void onGeoQueryError(DatabaseError error){
+                                    public void onGeoQueryError(DatabaseError error) {
 
                                     }
 
@@ -154,8 +137,6 @@ public class Fragment_Feed extends Fragment {
         }
 
 
-
- 
         list = new ArrayList<User>();
 
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
@@ -171,19 +152,19 @@ public class Fragment_Feed extends Fragment {
     ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
-            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-            String mail=firebaseAuth.getCurrentUser().getEmail();
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            String mail = firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
             String current = FirebaseLogic.EncodeString(mail.toLowerCase());
             String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
-            if(current.equals(selected)) {
+            if (current.equals(selected)) {
                 currentUser = user;
             }
-            for(String temp:mNearby){
-                 if(selected.equals(FirebaseLogic.EncodeString(temp.toLowerCase()))){
-                     if(!selected.equals(current)) {
-                         list.add(user);
-                     }
+            for (String temp : mNearby) {
+                if (selected.equals(FirebaseLogic.EncodeString(temp.toLowerCase()))) {
+                    if (!selected.equals(current)) {
+                        list.add(user);
+                    }
                 }
             }
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
@@ -213,10 +194,11 @@ public class Fragment_Feed extends Fragment {
         super.onResume();
 
     }
-public void attachListener(){
-    mDatabase.addChildEventListener(listener);
 
-}
+    public void attachListener() {
+        mDatabase.addChildEventListener(listener);
+
+    }
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
@@ -239,7 +221,6 @@ public void attachListener(){
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
             btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
             iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
-
 
 
         }
@@ -273,8 +254,6 @@ public void attachListener(){
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked Appealing: " + temp.getName(),
-                            Toast.LENGTH_LONG).show();
                     appealing.addAppealing(temp);
                 }
             });
@@ -282,9 +261,7 @@ public void attachListener(){
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked Feed: " + temp.getName(),
-                            Toast.LENGTH_LONG).show();
-                    contact.requestContact(currentUser,temp);
+                    contact.requestContact(currentUser, temp);
 
                 }
             });
