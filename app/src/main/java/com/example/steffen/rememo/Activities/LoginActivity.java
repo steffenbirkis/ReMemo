@@ -50,7 +50,28 @@ public class LoginActivity extends AppCompatActivity {
         refreshData();
         String temp_email = sign_email.getText().toString();
         String temp_password = sign_password.getText().toString();
-        fireSignIn(temp_email, temp_password);
+        if(!isEmpty(temp_email,temp_password)) {
+            fireSignIn(temp_email, temp_password);
+        }
+    }
+
+    public boolean isEmpty(String email, String password){
+        if(email.isEmpty() && password.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Please fill in email and password",
+                    Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if(email.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Please fill in email",
+                    Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if(password.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Please fill in password",
+                    Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
     }
 
     public void fireSignIn(String emails, String password) {
