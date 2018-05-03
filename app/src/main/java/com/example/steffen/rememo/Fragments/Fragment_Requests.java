@@ -160,6 +160,8 @@ public class Fragment_Requests extends Fragment {
                 @Override
                 public void onClick(View v){
                     temp.denyContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
+                    mRecyclerView.setAdapter(new Fragment_Requests.RecyclerViewAdapter(list));
+
                 }
             });
         }
