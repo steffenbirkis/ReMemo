@@ -67,6 +67,7 @@ public class Fragment_Feed extends Fragment {
     private List<String> mNearby;
     private GeoLocation glocation;
     private double mRange;
+    private String current;
 
 
     @Override
@@ -81,8 +82,6 @@ public class Fragment_Feed extends Fragment {
         mNearby = new ArrayList<String>();
 
         SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
-
-        System.out.println("string:" + preferences.getString("range", "empty"));
         mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
 
 
@@ -138,7 +137,9 @@ public class Fragment_Feed extends Fragment {
 
 
         list = new ArrayList<User>();
-
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String mail = firebaseAuth.getCurrentUser().getEmail();
+        current = FirebaseLogic.EncodeString(mail.toLowerCase());
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -152,10 +153,9 @@ public class Fragment_Feed extends Fragment {
     ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            String mail = firebaseAuth.getCurrentUser().getEmail();
+
             User user = snapshot.getValue(User.class);
-            String current = FirebaseLogic.EncodeString(mail.toLowerCase());
+
             String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
             if (current.equals(selected)) {
                 currentUser = user;
