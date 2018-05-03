@@ -144,4 +144,14 @@ public class Contact {
         mRef.child(tUserMail).child("contacts").child(cUserMail).child("request").setValue(true);
 
     }
+
+    public void denyContact(String currentmail, Contact target){
+        String cUserMail = FirebaseLogic.EncodeString(currentmail);
+        String tUserMail = FirebaseLogic.EncodeString(target.getMail());
+
+        mRef = mDatabase.getReference().child("users");
+        mRef.child(cUserMail).child("contacts").child(tUserMail).removeValue();
+        mRef.child(tUserMail).child("contacts").child(cUserMail).removeValue();
+
+    }
 }

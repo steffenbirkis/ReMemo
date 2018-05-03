@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
@@ -104,6 +107,8 @@ public class Fragment_Requests extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace_role;
         private Button accept;
+        private Button deny;
+        private ImageView imageView;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -116,6 +121,8 @@ public class Fragment_Requests extends Fragment {
             tw_name = itemView.findViewById(R.id.request_name);
             tw_workplace_role = itemView.findViewById(R.id.request_workplace_role);
             accept = itemView.findViewById(R.id.request_ack);
+            imageView = itemView.findViewById(R.id.imageView);
+            deny = itemView.findViewById(R.id.request_deny);
 
         }
     }
@@ -139,13 +146,20 @@ public class Fragment_Requests extends Fragment {
         @Override
         public void onBindViewHolder(Fragment_Requests.RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
-            holder.tw_name.setText(temp.getMail());
+            holder.tw_name.setText(temp.getName());
+            String merge = temp.getRole() + " at " + temp.getWorkplace();
+            holder.tw_workplace_role.setText(merge);
+            Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked Accept: " + temp.getMail(),
-                            Toast.LENGTH_LONG).show();
                     temp.ackContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
+                }
+            });
+            holder.deny.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    temp.denyContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
                 }
             });
         }

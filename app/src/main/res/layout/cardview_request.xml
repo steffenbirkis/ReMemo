@@ -23,14 +23,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/request_workplace_role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/contact_name"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
             <Button
                 android:id="@+id/request_ack"
@@ -39,6 +39,14 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:text="Accept request" />
+
+            <Button
+                android:id="@+id/request_deny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/request_ack"
+                android:text="Deny request" />
 
             <ImageView
                 android:id="@+id/request_picture"
