@@ -144,7 +144,7 @@ public class Fragment_Requests extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(Fragment_Requests.RecyclerViewHolder holder, int position) {
+        public void onBindViewHolder(Fragment_Requests.RecyclerViewHolder holder, final int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getName());
             String merge = temp.getRole() + " at " + temp.getWorkplace();
@@ -160,6 +160,7 @@ public class Fragment_Requests extends Fragment {
                 @Override
                 public void onClick(View v){
                     temp.denyContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
+                    list.remove(position);
                     mRecyclerView.setAdapter(new Fragment_Requests.RecyclerViewAdapter(list));
 
                 }
