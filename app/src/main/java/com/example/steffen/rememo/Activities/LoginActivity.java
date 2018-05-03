@@ -109,11 +109,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void createUser(View v) {
         refreshData();
-        if (password.getText().toString().equals(retypePassword.getText().toString())) {
+        if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Please fill all the fields",
+                    Toast.LENGTH_LONG).show();
+        }else if(password.getText().toString().equals(retypePassword.getText().toString())) {
             createFireUser();
         } else {
             Toast.makeText(LoginActivity.this, "Passwords does not match",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
         }
     }
 
