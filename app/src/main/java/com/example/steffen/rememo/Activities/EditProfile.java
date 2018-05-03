@@ -92,6 +92,7 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseRef.child("background").setValue(currentUser.getBackground());
                 FirebaseRef.child("role").setValue(currentUser.getRole());
                 FirebaseRef.child("phone").setValue(currentUser.getPhone());
+
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
                 updateData();
@@ -217,6 +218,7 @@ public class EditProfile extends AppCompatActivity {
                 role.setText(currentUser.getRole());
                 background.setText(currentUser.getBackground());
                 phone.setText(currentUser.getPhone());
+                image=Uri.parse(currentUser.getPhotoURL());
             }
         }
 
