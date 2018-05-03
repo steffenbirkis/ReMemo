@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
@@ -27,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,18 +39,13 @@ public class Fragment_Contact extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     private List<Contact> clist;
-    private List<User> list;
     private DatabaseReference mDatabase;
     RecyclerView mRecyclerView;
-    RecyclerView.Adapter mAdapter;
     LayoutInflater inflater;
     ViewGroup container;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,28 +54,16 @@ public class Fragment_Contact extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_contact, container, false);
         this.inflater = inflater;
         this.container = container;
-        list = new ArrayList<User>();
         clist = new ArrayList<Contact>();
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
-
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-
-
         mRecyclerView.setAdapter(new RecyclerViewAdapter(clist));
 
-
-
-
-
         return fragmentView;
-
-
     }
-
 
     private View.OnClickListener onViewReq = new View.OnClickListener() {
         @Override
@@ -100,7 +80,6 @@ public class Fragment_Contact extends Fragment {
             if (contact.isAcknowledgement() && contact.isRequest()) {
                 clist.add(contact);
             }
-
             mRecyclerView.setAdapter(new Fragment_Contact.RecyclerViewAdapter(clist));
 
         }
@@ -126,7 +105,6 @@ public class Fragment_Contact extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
 
@@ -156,7 +134,6 @@ public class Fragment_Contact extends Fragment {
             tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
             btn_view_profile = itemView.findViewById(R.id.contact_viewprofile);
             imageView = itemView.findViewById(R.id.contact_picture);
-
         }
     }
 
@@ -165,14 +142,12 @@ public class Fragment_Contact extends Fragment {
 
         public RecyclerViewAdapter(List<Contact> list) {
             this.mlist = list;
-
         }
 
         @Override
         public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             return new RecyclerViewHolder(inflater, parent);
-
         }
 
         @Override
@@ -199,16 +174,15 @@ public class Fragment_Contact extends Fragment {
         }
     }
 
-    public void viewProfile(Contact contact){
+    public void viewProfile(Contact contact) {
         View fragment = inflater.inflate(R.layout.fragment_profile, container, false);
-        TextView txt_email = (TextView)fragment.findViewById(R.id.txt_email);
-        TextView txt_name = (TextView)fragment.findViewById(R.id.txt_name);
-        TextView txt_workplace = (TextView)fragment.findViewById(R.id.txt_workplace);
-        TextView txt_role = (TextView)fragment.findViewById(R.id.txt_role);
-        TextView txt_background = (TextView)fragment.findViewById(R.id.txt_background);
-        TextView txt_phone = (TextView)fragment.findViewById(R.id.txt_phone);
-        ImageView mImageView  = (ImageView) fragment.findViewById(R.id.profile_image);
-
+        TextView txt_email = (TextView) fragment.findViewById(R.id.txt_email);
+        TextView txt_name = (TextView) fragment.findViewById(R.id.txt_name);
+        TextView txt_workplace = (TextView) fragment.findViewById(R.id.txt_workplace);
+        TextView txt_role = (TextView) fragment.findViewById(R.id.txt_role);
+        TextView txt_background = (TextView) fragment.findViewById(R.id.txt_background);
+        TextView txt_phone = (TextView) fragment.findViewById(R.id.txt_phone);
+        ImageView mImageView = (ImageView) fragment.findViewById(R.id.profile_image);
 
         txt_email.setText(contact.getMail());
         txt_name.setText(contact.getName());
@@ -220,6 +194,5 @@ public class Fragment_Contact extends Fragment {
 
         container.removeAllViews();
         container.addView(fragment);
-
     }
 }

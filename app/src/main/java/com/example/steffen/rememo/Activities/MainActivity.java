@@ -12,10 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.steffen.rememo.Fragments.Fragment_Appealing;
-import com.example.steffen.rememo.Fragments.Fragment_Contact;
 import com.example.steffen.rememo.Fragments.Fragment_Feed;
 import com.example.steffen.rememo.Fragments.Fragment_Network;
-import com.example.steffen.rememo.Fragments.Fragment_Profile;
 import com.example.steffen.rememo.Fragments.Fragment_Requests;
 import com.example.steffen.rememo.R;
 
@@ -67,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Fragment_Feed.newInstance());
         transaction.commit();
-
-
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
@@ -93,10 +89,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
 }
 

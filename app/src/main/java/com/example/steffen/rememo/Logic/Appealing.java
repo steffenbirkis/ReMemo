@@ -81,7 +81,6 @@ public class Appealing {
     }
 
     public void addAppealing(User user) {
-
         String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         mail = FirebaseLogic.EncodeString(mail).toLowerCase();
 
@@ -97,6 +96,4 @@ public class Appealing {
         appealing.setWorkplace(user.getWorkplace());
         mRef.setValue(appealing);
     }
-
-
 }

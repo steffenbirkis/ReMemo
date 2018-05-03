@@ -1,6 +1,5 @@
 package com.example.steffen.rememo.Fragments;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -31,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Fragment_Appealing extends Fragment {
     public static Fragment_Appealing newInstance() {
         Fragment_Appealing fragment = new Fragment_Appealing();
@@ -41,50 +39,40 @@ public class Fragment_Appealing extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     List<Appealing> list;
     RecyclerView mRecyclerView;
     User currentUser;
-    List<User> updatedList;
-    List<String> emailList;
     private DatabaseReference mDatabase;
+    private String mail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         container.removeAllViews();
         View fragmentView = inflater.inflate(R.layout.fragment_appealing, container, false);
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
         mDatabase.addChildEventListener(listener);
         DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
         userpath.addChildEventListener(userlistener);
-
         list = new ArrayList<Appealing>();
-
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        mail = firebaseAuth.getCurrentUser().getEmail();
+        mail = FirebaseLogic.EncodeString(mail.toLowerCase());
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
 
         return fragmentView;
-
     }
-
 
     ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
-            Appealing steff = snapshot.getValue(Appealing.class);
-            System.out.println(steff.getMail());
-            list.add(steff);
-
-
+            Appealing appealing = snapshot.getValue(Appealing.class);
+            list.add(appealing);
             mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(list));
-
-
         }
 
         @Override
@@ -106,17 +94,12 @@ public class Fragment_Appealing extends Fragment {
     ChildEventListener userlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
-            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-            String mail=firebaseAuth.getCurrentUser().getEmail();
             User user = snapshot.getValue(User.class);
-            String current = FirebaseLogic.EncodeString(mail.toLowerCase());
             String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
-            if(current.equals(selected)) {
+            if (mail.equals(selected)) {
                 currentUser = user;
             }
-
         }
-
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -134,12 +117,11 @@ public class Fragment_Appealing extends Fragment {
         }
 
     };
+
     @Override
     public void onResume() {
         super.onResume();
-
     }
-
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
@@ -161,7 +143,7 @@ public class Fragment_Appealing extends Fragment {
             tw_workplace_role = itemView.findViewById(R.id.appealing_workplace_role);
             btn_contact = (Button) itemView.findViewById(R.id.appealing_request);
             iw_image = (ImageView) itemView.findViewById(R.id.appealing_picture);
-            btn_unappeal=(Button)itemView.findViewById(R.id.appealing_unappeal);
+            btn_unappeal = (Button) itemView.findViewById(R.id.appealing_unappeal);
 
 
         }
@@ -204,24 +186,20 @@ public class Fragment_Appealing extends Fragment {
                     temp_user.setWorkplace(temp.getWorkplace());
                     temp_user.setName(temp.getName());
                     temp_user.setEmail(temp.getMail());
-                    contact.requestContact(currentUser,temp_user);
-
+                    contact.requestContact(currentUser, temp_user);
                 }
             });
-            holder.btn_unappeal.setOnClickListener(new View.OnClickListener(){
+
+            holder.btn_unappeal.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
-                    String mail=FirebaseLogic.EncodeString(temp.getMail());
+                public void onClick(View v) {
+                    String mail = FirebaseLogic.EncodeString(temp.getMail());
                     FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(currentUser.getEmail())).child("appealing").child(mail).removeValue();
                     System.out.println(mlist.size());
                     mlist.remove(position);
                     mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(mlist));
-
-
                 }
             });
-
-
         }
 
         @Override

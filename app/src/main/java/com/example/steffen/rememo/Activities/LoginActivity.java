@@ -3,17 +3,12 @@ package com.example.steffen.rememo.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.steffen.rememo.Fragments.Fragment_Profile;
 import com.example.steffen.rememo.Logic.FirebaseLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
@@ -32,8 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText retypePassword;
     private EditText sign_email;
     private EditText sign_password;
-    private User mUser;
-    private FirebaseLogic fLogic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
-
     }
 
     @Override
@@ -59,11 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         String temp_email = sign_email.getText().toString();
         String temp_password = sign_password.getText().toString();
         fireSignIn(temp_email, temp_password);
-
     }
 
     public void fireSignIn(String emails, String password) {
-
         mAuth.signInWithEmailAndPassword(emails, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -81,27 +71,20 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
                         // ...
                     }
                 });
-
     }
 
     public void updateUI(FirebaseUser user) {
-
         if (user == null) {
             setContentView(R.layout.activity_login);
         } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-
         }
-
-
     }
-
 
     public void createUser(View v) {
         refreshData();
@@ -111,15 +94,11 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Passwords does not match",
                     Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     public void clickSignUp(View v) {
-        Toast.makeText(LoginActivity.this, "Clicked sign up", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_signup);
     }
-
 
     private void createFireUser() {
         String temp_email = email.getText().toString();
@@ -142,8 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-
                     }
                 });
     }
@@ -154,12 +131,5 @@ public class LoginActivity extends AppCompatActivity {
         retypePassword = (EditText) findViewById(R.id.et_passwordretype);
         sign_email = (EditText) findViewById(R.id.signin_email);
         sign_password = (EditText) findViewById(R.id.signin_password);
-
-
     }
-
-    public User getCurrentUser() {
-        return mUser;
-    }
-
 }
