@@ -149,7 +149,7 @@ public class Contact {
         String cUserMail = FirebaseLogic.EncodeString(currentmail);
         String tUserMail = FirebaseLogic.EncodeString(target.getMail());
 
-        mRef = mDatabase.getReference().child("users");
+        mRef = mDatabase.getInstance().getReference().child("users");
         mRef.child(cUserMail).child("contacts").child(tUserMail).removeValue();
         mRef.child(tUserMail).child("contacts").child(cUserMail).removeValue();
 
