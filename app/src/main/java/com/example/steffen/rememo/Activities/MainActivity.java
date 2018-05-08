@@ -42,22 +42,17 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.action_feed:
                                 selectedFragment = Fragment_Feed.newInstance();
-                                bottomNavigationView.getMenu().getItem(0).setChecked(true);
-
                                 break;
                             case R.id.action_appealing:
                                 selectedFragment = Fragment_Appealing.newInstance();
-                                bottomNavigationView.getMenu().getItem(1).setChecked(true);
 
                                 break;
                             case R.id.action_request:
                                 selectedFragment = Fragment_Requests.newInstance();
-                                bottomNavigationView.getMenu().getItem(2).setChecked(true);
 
                                 break;
                             case R.id.action_network:
                                 selectedFragment = Fragment_Network.newInstance();
-                                bottomNavigationView.getMenu().getItem(3).setChecked(true);
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -70,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Fragment_Feed.newInstance());
-        transaction.addToBackStack("test");
         transaction.commit();
         //Used to select an item programmatically
         //bottomNavigationView.getMenu().getItem(2).setChecked(true);
