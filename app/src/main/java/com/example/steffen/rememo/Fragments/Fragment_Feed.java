@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +211,13 @@ public class Fragment_Feed extends Fragment {
         private Button btn_appealing;
         private Button btn_contact;
         private ImageView iw_picture;
+        private TextView lp_name;
+        private TextView lp_workplace;
+        private TextView lp_role;
+        private TextView lp_background;
+        private ImageView lp_image;
+
+
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -221,6 +232,12 @@ public class Fragment_Feed extends Fragment {
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
             btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
             iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
+
+            lp_name = itemView.findViewById(R.id.lp_name);
+            lp_workplace = itemView.findViewById(R.id.lp_workplace);
+            lp_role = itemView.findViewById(R.id.lp_role);
+            lp_background  = itemView.findViewById(R.id.lp_background);
+            lp_image =(ImageView) itemView.findViewById(R.id.lp_image);
 
 
         }
@@ -250,11 +267,19 @@ public class Fragment_Feed extends Fragment {
             String merge = temp.getRole() + " at " + temp.getWorkplace();
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
+
+            final RecyclerViewHolder hold = holder;
+
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
                     Toast.makeText(getActivity(), "Clicked cardview",
                             Toast.LENGTH_SHORT).show();
+                    getActivity().setContentView(R.layout.fragment_lesser_profile);
+                    hold.lp_name.setText(appealing.getName());
+                    hold.lp_workplace.setText(appealing.getWorkplace());
+                    hold.lp_role.setText(appealing.getRole());
+                    hold.lp_background.setText(appealing.getBackground());
                 }
                                                });
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
