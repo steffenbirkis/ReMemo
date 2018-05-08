@@ -72,6 +72,8 @@ public class Fragment_Feed extends Fragment {
     private GeoLocation glocation;
     private double mRange;
     private String current;
+    private ViewGroup container;
+    private LayoutInflater inflater;
 
 
     @Override
@@ -79,7 +81,8 @@ public class Fragment_Feed extends Fragment {
                              Bundle savedInstanceState) {
         container.removeAllViews();
         View fragmentView = inflater.inflate(R.layout.fragment_feed, container, false);
-
+        this.container = container;
+        this.inflater = inflater;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         geoFire = new GeoFire(geodb);
@@ -211,13 +214,6 @@ public class Fragment_Feed extends Fragment {
         private Button btn_appealing;
         private Button btn_contact;
         private ImageView iw_picture;
-        private TextView lp_name;
-        private TextView lp_workplace;
-        private TextView lp_role;
-        private TextView lp_background;
-        private ImageView lp_image;
-
-
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -232,13 +228,6 @@ public class Fragment_Feed extends Fragment {
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
             btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
             iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
-
-            lp_name = itemView.findViewById(R.id.lp_name);
-            lp_workplace = itemView.findViewById(R.id.lp_workplace);
-            lp_role = itemView.findViewById(R.id.lp_role);
-            lp_background  = itemView.findViewById(R.id.lp_background);
-            lp_image =(ImageView) itemView.findViewById(R.id.lp_image);
-
 
         }
     }
@@ -273,13 +262,22 @@ public class Fragment_Feed extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Toast.makeText(getActivity(), "Clicked cardview",
-                            Toast.LENGTH_SHORT).show();
-                    getActivity().setContentView(R.layout.fragment_lesser_profile);
-                    hold.lp_name.setText(appealing.getName());
-                    hold.lp_workplace.setText(appealing.getWorkplace());
-                    hold.lp_role.setText(appealing.getRole());
-                    hold.lp_background.setText(appealing.getBackground());
+                    View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
+
+                    TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
+                    TextView lp_workplace = (TextView) fragment.findViewById(R.id.lp_workplace);
+                    TextView lp_role = (TextView) fragment.findViewById(R.id.lp_role);
+                    TextView lp_background = (TextView) fragment.findViewById(R.id.lp_background);
+                    ImageView mImageView = (ImageView) fragment.findViewById(R.id.lp_image);
+
+                    lp_name.setText(contact.getName());
+                    lp_workplace.setText(contact.getWorkplace());
+                    lp_role.setText(contact.getRole());
+                    lp_background.setText(contact.getBackground());
+                    Glide.with(getContext()).load(contact.getPhoto()).apply(RequestOptions.circleCropTransform()).into(mImageView);
+
+                    container.removeAllViews();
+                    container.addView(fragment);
                 }
                                                });
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
