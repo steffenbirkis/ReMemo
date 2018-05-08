@@ -46,11 +46,15 @@ public class Fragment_Appealing extends Fragment {
     User currentUser;
     private DatabaseReference mDatabase;
     private String mail;
+    private LayoutInflater inflater;
+    private ViewGroup container;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         container.removeAllViews();
+        this.inflater = inflater;
+        this.container = container;
         View fragmentView = inflater.inflate(R.layout.fragment_appealing, container, false);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
         mDatabase.addChildEventListener(listener);
@@ -173,6 +177,13 @@ public class Fragment_Appealing extends Fragment {
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.iw_image);
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewProfile(temp);
+                }
+            });
+
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -208,6 +219,25 @@ public class Fragment_Appealing extends Fragment {
         public int getItemCount() {
             return mlist.size();
         }
+    }
+
+    public void viewProfile(Appealing appealing){
+        View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
+
+        TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
+        TextView lp_workplace = (TextView) fragment.findViewById(R.id.lp_workplace);
+        TextView lp_role = (TextView) fragment.findViewById(R.id.lp_role);
+        TextView lp_background = (TextView) fragment.findViewById(R.id.lp_background);
+        ImageView mImageView = (ImageView) fragment.findViewById(R.id.lp_image);
+
+        lp_name.setText(appealing.getName());
+        lp_workplace.setText(appealing.getWorkplace());
+        lp_role.setText(appealing.getRole());
+        lp_background.setText(appealing.getBackground());
+        Glide.with(getContext()).load(appealing.getPhoto()).apply(RequestOptions.circleCropTransform()).into(mImageView);
+
+        container.removeAllViews();
+        container.addView(fragment);
     }
 }
 
