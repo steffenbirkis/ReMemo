@@ -1,5 +1,6 @@
 package com.example.steffen.rememo.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -84,7 +85,7 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseDatabase fbd = FirebaseDatabase.getInstance();
                 String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 final String tempmail = FirebaseLogic.EncodeString(mail);
-                if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null){
+                if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null&&image!=null){
                 FirebaseRef = fbd.getReference().child("users").child(tempmail);
                 FirebaseRef.child("email").setValue(mail);
                 FirebaseRef.child("name").setValue(currentUser.getName());
@@ -95,11 +96,17 @@ public class EditProfile extends AppCompatActivity {
 
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
-                updateData();
+                    updateData();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                finish();}
+                finish();
+                }
+                else if(image==null){
+                    Toast.makeText(getApplicationContext(),"Please add a picture",Toast.LENGTH_LONG).show();
+                }
+
+
                 else{
                     Toast.makeText(getApplicationContext(),"None of the fields can be empty",Toast.LENGTH_LONG).show();
                 }
@@ -218,7 +225,13 @@ public class EditProfile extends AppCompatActivity {
                 role.setText(currentUser.getRole());
                 background.setText(currentUser.getBackground());
                 phone.setText(currentUser.getPhone());
-                image=Uri.parse(currentUser.getPhotoURL());
+                if(currentUser.getPhotoURL()==null){
+                    Toast.makeText(getApplicationContext(),"Please add a picture",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    image=Uri.parse(currentUser.getPhotoURL());
+
+                }
             }
         }
 

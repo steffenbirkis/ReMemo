@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,7 @@ public class Fragment_Feed extends Fragment {
     private String current;
     private ViewGroup container;
     private LayoutInflater inflater;
+    private SwipeRefreshLayout refreshLayout;
 
 
     @Override
@@ -83,70 +85,31 @@ public class Fragment_Feed extends Fragment {
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         geoFire = new GeoFire(geodb);
         mNearby = new ArrayList<String>();
+        list = new ArrayList<User>();
+
 
         SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
         mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
 
 
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    // Got last known location. In some rare situations this can be null.
-
-                    if (location != null) {
-                        glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
-                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
-                            @Override
-                            public void onComplete(String key, DatabaseError error) {
-                                GeoQuery query = geoFire.queryAtLocation(glocation, mRange);
-                                query.addGeoQueryEventListener(new GeoQueryEventListener() {
-                                    public void onKeyEntered(String key, GeoLocation location) {
-                                        String nearby = key;
-                                        mNearby.add(nearby);
-                                    }
-
-                                    @Override
-                                    public void onKeyExited(String key) {
-                                        System.out.println(String.format("%s exited", key));
-                                    }
-
-                                    @Override
-                                    public void onKeyMoved(String key, GeoLocation location) {
-                                        System.out.println(String.format("%s moved to [%f, %f]", key, location.latitude, location.longitude));
-                                    }
-
-                                    @Override
-                                    public void onGeoQueryReady() {
-                                        System.out.println("All initial key entered events have been fired!");
-                                    }
-
-                                    @Override
-                                    public void onGeoQueryError(DatabaseError error) {
-
-                                    }
+       update();
 
 
-                                    // run for another 60 seconds
-                                });
-                                attachListener();
-                            }
-                        });
-                    }
-                }
-            });
-        }
-
-
-        list = new ArrayList<User>();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String mail = firebaseAuth.getCurrentUser().getEmail();
         current = FirebaseLogic.EncodeString(mail.toLowerCase());
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
+        refreshLayout=(SwipeRefreshLayout) fragmentView.findViewById(R.id.swiperefresh);
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                update();
+                refreshLayout.setRefreshing(false);
+            }
+        });
         return fragmentView;
 
 
@@ -301,5 +264,61 @@ public class Fragment_Feed extends Fragment {
 
         container.removeAllViews();
         container.addView(fragment);
+    }
+    public void update(){
+        mNearby.clear();
+        list.clear();
+
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location. In some rare situations this can be null.
+
+                    if (location != null) {
+                        glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
+                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
+                            @Override
+                            public void onComplete(String key, DatabaseError error) {
+                                GeoQuery query = geoFire.queryAtLocation(glocation, mRange);
+                                query.addGeoQueryEventListener(new GeoQueryEventListener() {
+                                    public void onKeyEntered(String key, GeoLocation location) {
+                                        String nearby = key;
+
+                                        mNearby.add(nearby);
+                                    }
+
+                                    @Override
+                                    public void onKeyExited(String key) {
+                                        System.out.println(String.format("%s exited", key));
+                                    }
+
+                                    @Override
+                                    public void onKeyMoved(String key, GeoLocation location) {
+                                        System.out.println(String.format("%s moved to [%f, %f]", key, location.latitude, location.longitude));
+                                    }
+
+                                    @Override
+                                    public void onGeoQueryReady() {
+                                        System.out.println("All initial key entered events have been fired!");
+                                    }
+
+                                    @Override
+                                    public void onGeoQueryError(DatabaseError error) {
+
+                                    }
+
+
+                                    // run for another 60 seconds
+                                });
+                                attachListener();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
     }
 }

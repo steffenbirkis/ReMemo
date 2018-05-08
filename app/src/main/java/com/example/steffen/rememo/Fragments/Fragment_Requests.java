@@ -40,8 +40,8 @@ public class Fragment_Requests extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
+
 
     List<Contact> list;
     RecyclerView mRecyclerView;
@@ -121,7 +121,7 @@ public class Fragment_Requests extends Fragment {
             tw_name = itemView.findViewById(R.id.request_name);
             tw_workplace_role = itemView.findViewById(R.id.request_workplace_role);
             accept = itemView.findViewById(R.id.request_ack);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.request_picture);
             deny = itemView.findViewById(R.id.request_deny);
 
         }
