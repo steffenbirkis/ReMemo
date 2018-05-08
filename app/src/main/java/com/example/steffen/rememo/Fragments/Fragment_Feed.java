@@ -291,6 +291,8 @@ public class Fragment_Feed extends Fragment {
                 @Override
                 public void onClick(View v) {
                     contact.requestContact(currentUser, temp);
+                    Toast.makeText(getActivity(),"Request sent",Toast.LENGTH_SHORT).show();
+
 
                 }
             });

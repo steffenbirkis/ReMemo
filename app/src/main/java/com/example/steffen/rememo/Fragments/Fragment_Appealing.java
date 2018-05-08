@@ -187,6 +187,8 @@ public class Fragment_Appealing extends Fragment {
                     temp_user.setName(temp.getName());
                     temp_user.setEmail(temp.getMail());
                     contact.requestContact(currentUser, temp_user);
+                    Toast.makeText(getActivity(),"Request sent",Toast.LENGTH_SHORT).show();
+
                 }
             });
 
