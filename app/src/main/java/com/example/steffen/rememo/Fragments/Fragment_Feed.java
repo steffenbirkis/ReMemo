@@ -257,27 +257,10 @@ public class Fragment_Feed extends Fragment {
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
 
-            final RecyclerViewHolder hold = holder;
-
             holder.itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
-
-                    TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
-                    TextView lp_workplace = (TextView) fragment.findViewById(R.id.lp_workplace);
-                    TextView lp_role = (TextView) fragment.findViewById(R.id.lp_role);
-                    TextView lp_background = (TextView) fragment.findViewById(R.id.lp_background);
-                    ImageView mImageView = (ImageView) fragment.findViewById(R.id.lp_image);
-
-                    lp_name.setText(contact.getName());
-                    lp_workplace.setText(contact.getWorkplace());
-                    lp_role.setText(contact.getRole());
-                    lp_background.setText(contact.getBackground());
-                    Glide.with(getContext()).load(contact.getPhoto()).apply(RequestOptions.circleCropTransform()).into(mImageView);
-
-                    container.removeAllViews();
-                    container.addView(fragment);
+                    viewProfile(temp);
                 }
                                                });
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
@@ -304,4 +287,23 @@ public class Fragment_Feed extends Fragment {
         }
     }
 
+
+    public void viewProfile(User user){
+        View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
+
+        TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
+        TextView lp_workplace = (TextView) fragment.findViewById(R.id.lp_workplace);
+        TextView lp_role = (TextView) fragment.findViewById(R.id.lp_role);
+        TextView lp_background = (TextView) fragment.findViewById(R.id.lp_background);
+        ImageView mImageView = (ImageView) fragment.findViewById(R.id.lp_image);
+
+        lp_name.setText(user.getName());
+        lp_workplace.setText(user.getWorkplace());
+        lp_role.setText(user.getRole());
+        lp_background.setText(user.getBackground());
+        Glide.with(getContext()).load(user.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);
+
+        container.removeAllViews();
+        container.addView(fragment);
+    }
 }
