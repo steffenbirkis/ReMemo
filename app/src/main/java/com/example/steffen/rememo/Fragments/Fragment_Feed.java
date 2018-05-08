@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +38,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -257,12 +253,12 @@ public class Fragment_Feed extends Fragment {
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener(){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
                     viewProfile(temp);
                 }
-                                               });
+            });
             holder.btn_appealing.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -274,7 +270,7 @@ public class Fragment_Feed extends Fragment {
                 @Override
                 public void onClick(View v) {
                     contact.requestContact(currentUser, temp);
-                    Toast.makeText(getActivity(),"Request sent",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -288,7 +284,7 @@ public class Fragment_Feed extends Fragment {
     }
 
 
-    public void viewProfile(User user){
+    public void viewProfile(User user) {
         View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
 
         TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
