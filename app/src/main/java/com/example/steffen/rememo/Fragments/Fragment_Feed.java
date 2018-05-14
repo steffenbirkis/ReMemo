@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.firebase.geofire.GeoFire;
@@ -97,7 +97,7 @@ public class Fragment_Feed extends Fragment {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String mail = firebaseAuth.getCurrentUser().getEmail();
-        current = FirebaseLogic.EncodeString(mail.toLowerCase());
+        current = StringLogic.EncodeString(mail.toLowerCase());
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -122,12 +122,12 @@ public class Fragment_Feed extends Fragment {
 
             User user = snapshot.getValue(User.class);
 
-            String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            String selected = StringLogic.EncodeString(user.getEmail().toLowerCase());
             if (current.equals(selected)) {
                 currentUser = user;
             }
             for (String temp : mNearby) {
-                if (selected.equals(FirebaseLogic.EncodeString(temp.toLowerCase()))) {
+                if (selected.equals(StringLogic.EncodeString(temp.toLowerCase()))) {
                     if (!selected.equals(current)) {
                         list.add(user);
                     }
@@ -278,7 +278,7 @@ public class Fragment_Feed extends Fragment {
 
                     if (location != null) {
                         glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
-                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
+                        geoFire.setLocation(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
                                 GeoQuery query = geoFire.queryAtLocation(glocation, mRange);

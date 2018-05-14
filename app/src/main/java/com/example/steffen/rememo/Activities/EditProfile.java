@@ -1,6 +1,5 @@
 package com.example.steffen.rememo.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,7 +56,7 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.activity_editprofile);
         refreshData();
         currentUser = new User();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
         DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
         userpath.addChildEventListener(userlistener);
@@ -84,7 +83,7 @@ public class EditProfile extends AppCompatActivity {
                 updateUser();
                 FirebaseDatabase fbd = FirebaseDatabase.getInstance();
                 String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                final String tempmail = FirebaseLogic.EncodeString(mail);
+                final String tempmail = StringLogic.EncodeString(mail);
                 if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null&&image!=null){
                 FirebaseRef = fbd.getReference().child("users").child(tempmail);
                 FirebaseRef.child("email").setValue(mail);
@@ -94,7 +93,7 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseRef.child("role").setValue(currentUser.getRole());
                 FirebaseRef.child("phone").setValue(currentUser.getPhone());
 
-                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
+                FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
                     updateData();
 
@@ -155,9 +154,9 @@ public class EditProfile extends AppCompatActivity {
     public void updateData() {
         DatabaseReference temp_path = FirebaseDatabase.getInstance().getReference().child("users");
         List<String> emails = new ArrayList<String>();
-        String current = FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        String current = StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         for (Contact c : cList) {
-            emails.add(FirebaseLogic.EncodeString(c.getMail()));
+            emails.add(StringLogic.EncodeString(c.getMail()));
         }
         for (String s : emails) {
             temp_path.child(s).child("contacts").child(current).child("name").setValue(currentUser.getName());
@@ -214,9 +213,9 @@ public class EditProfile extends AppCompatActivity {
             User user = snapshot.getValue(User.class);
             String robust2 = null;
             if (user.getEmail() != null) {
-                robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+                robust2 = StringLogic.EncodeString(user.getEmail().toLowerCase());
             }
-            String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
+            String robust1 = StringLogic.EncodeString(mail.toLowerCase());
             if (robust1.equals(robust2)) {
                 currentUser = user;
                 Glide.with(getApplicationContext()).load(currentUser.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(mImageView);

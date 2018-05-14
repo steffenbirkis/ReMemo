@@ -82,10 +82,10 @@ public class Appealing {
 
     public void addAppealing(User user) {
         String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        mail = FirebaseLogic.EncodeString(mail).toLowerCase();
+        mail = StringLogic.EncodeString(mail).toLowerCase();
 
         mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference().child("users").child(mail).child("appealing").child(FirebaseLogic.EncodeString(user.getEmail()));
+        mRef = mDatabase.getReference().child("users").child(mail).child("appealing").child(StringLogic.EncodeString(user.getEmail()));
         Appealing appealing = new Appealing();
         appealing.setMail(user.getEmail());
         appealing.setBackground(user.getBackground());

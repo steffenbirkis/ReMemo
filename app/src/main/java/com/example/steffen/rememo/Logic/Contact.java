@@ -120,8 +120,8 @@ public class Contact {
         tUserContact.setPhone(targetuser.getPhone());
         tUserContact.setPhoto(targetuser.getPhotoURL());
 
-        String cUserMail = FirebaseLogic.EncodeString(currentuser.getEmail());
-        String tUserMail = FirebaseLogic.EncodeString(targetuser.getEmail());
+        String cUserMail = StringLogic.EncodeString(currentuser.getEmail());
+        String tUserMail = StringLogic.EncodeString(targetuser.getEmail());
 
         mRef = mDatabase.getReference().child("users");
         mRef.child(cUserMail).child("contacts").child(tUserMail).setValue(tUserContact);
@@ -135,8 +135,8 @@ public class Contact {
         target.setRequest(true);
         target.setAcknowledgement(true);
 
-        String cUserMail = FirebaseLogic.EncodeString(currentmail);
-        String tUserMail = FirebaseLogic.EncodeString(target.getMail());
+        String cUserMail = StringLogic.EncodeString(currentmail);
+        String tUserMail = StringLogic.EncodeString(target.getMail());
 
         mRef = mDatabase.getReference().child("users");
         mRef.child(cUserMail).child("contacts").child(tUserMail).setValue(target);
@@ -146,8 +146,8 @@ public class Contact {
     }
 
     public void denyContact(String currentmail, Contact target){
-        String cUserMail = FirebaseLogic.EncodeString(currentmail);
-        String tUserMail = FirebaseLogic.EncodeString(target.getMail());
+        String cUserMail = StringLogic.EncodeString(currentmail);
+        String tUserMail = StringLogic.EncodeString(target.getMail());
 
         mRef = mDatabase.getInstance().getReference().child("users");
         mRef.child(cUserMail).child("contacts").child(tUserMail).removeValue();

@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.steffen.rememo.Logic.FirebaseLogic;
-import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

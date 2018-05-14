@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,14 +56,14 @@ public class Fragment_Appealing extends Fragment {
         this.inflater = inflater;
         this.container = container;
         View fragmentView = inflater.inflate(R.layout.fragment_appealing, container, false);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
         mDatabase.addChildEventListener(listener);
         DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
         userpath.addChildEventListener(userlistener);
         list = new ArrayList<Appealing>();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         mail = firebaseAuth.getCurrentUser().getEmail();
-        mail = FirebaseLogic.EncodeString(mail.toLowerCase());
+        mail = StringLogic.EncodeString(mail.toLowerCase());
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.appealing_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -99,7 +99,7 @@ public class Fragment_Appealing extends Fragment {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
             User user = snapshot.getValue(User.class);
-            String selected = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+            String selected = StringLogic.EncodeString(user.getEmail().toLowerCase());
             if (mail.equals(selected)) {
                 currentUser = user;
             }
@@ -206,8 +206,8 @@ public class Fragment_Appealing extends Fragment {
             holder.btn_unappeal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String mail = FirebaseLogic.EncodeString(temp.getMail());
-                    FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(currentUser.getEmail())).child("appealing").child(mail).removeValue();
+                    String mail = StringLogic.EncodeString(temp.getMail());
+                    FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(currentUser.getEmail())).child("appealing").child(mail).removeValue();
                     System.out.println(mlist.size());
                     mlist.remove(position);
                     mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(mlist));

@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +52,7 @@ public class Fragment_Requests extends Fragment {
         container.removeAllViews();
         View fragmentView = inflater.inflate(R.layout.fragment_request, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(listener);
 
         list = new ArrayList<Contact>();

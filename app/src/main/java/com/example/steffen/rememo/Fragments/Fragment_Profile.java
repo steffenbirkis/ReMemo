@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +56,7 @@ public class Fragment_Profile extends Fragment {
 
 
      DatabaseReference FirebaseRef=fbd.getReference().child("users");
-     DatabaseReference ValueRef=fbd.getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL");
+     DatabaseReference ValueRef=fbd.getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL");
 
 
 
@@ -66,8 +66,8 @@ public class Fragment_Profile extends Fragment {
                 FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
                 String mail=firebaseAuth.getCurrentUser().getEmail();
                 User user=snapshot.getValue(User.class);
-                String robust1 = FirebaseLogic.EncodeString(mail.toLowerCase());
-                String robust2 = FirebaseLogic.EncodeString(user.getEmail().toLowerCase());
+                String robust1 = StringLogic.EncodeString(mail.toLowerCase());
+                String robust2 = StringLogic.EncodeString(user.getEmail().toLowerCase());
                if(robust1.equals(robust2)){
                    txt_name.setText(user.getName());
                    txt_workplace.setText(user.getWorkplace());

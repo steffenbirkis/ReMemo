@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
-import com.example.steffen.rememo.Logic.FirebaseLogic;
+import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -56,7 +56,7 @@ public class Fragment_Contact extends Fragment {
         this.inflater = inflater;
         this.container = container;
         clist = new ArrayList<Contact>();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.contact_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
