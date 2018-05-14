@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -203,8 +204,8 @@ public class Fragment_Feed extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace;
         private TextView tw_role;
-        private Button btn_appealing;
-        private Button btn_contact;
+        private ImageButton btn_appealing;
+        private ImageButton btn_contact;
         private ImageView iw_picture;
 
         public RecyclerViewHolder(View item) {
@@ -218,8 +219,8 @@ public class Fragment_Feed extends Fragment {
             tw_name = itemView.findViewById(R.id.feed_name);
             tw_role = itemView.findViewById(R.id.feed_role);
             tw_workplace = itemView.findViewById(R.id.feed_workplace);
-            btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
-            btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
+            btn_appealing = itemView.findViewById(R.id.feed_appealing);
+            btn_contact = itemView.findViewById(R.id.feed_contact);
             iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
 
         }

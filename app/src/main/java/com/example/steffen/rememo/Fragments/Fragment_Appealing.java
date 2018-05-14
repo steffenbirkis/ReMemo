@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,9 +133,9 @@ public class Fragment_Appealing extends Fragment {
         private TextView tw_name;
         private TextView tw_workplace;
         private TextView tw_role;
-        private Button btn_contact;
+        private ImageButton btn_contact;
         private ImageView iw_image;
-        private Button btn_unappeal;
+        private ImageButton btn_unappeal;
 
         public RecyclerViewHolder(View item) {
             super(item);
@@ -147,9 +148,9 @@ public class Fragment_Appealing extends Fragment {
             tw_name = itemView.findViewById(R.id.appealing_name);
             tw_role = itemView.findViewById(R.id.appealing_role);
             tw_workplace = itemView.findViewById(R.id.appealing_workplace);
-            btn_contact = (Button) itemView.findViewById(R.id.appealing_request);
+            btn_contact = itemView.findViewById(R.id.appealing_request);
             iw_image = (ImageView) itemView.findViewById(R.id.appealing_picture);
-            btn_unappeal = (Button) itemView.findViewById(R.id.appealing_unappeal);
+            btn_unappeal = itemView.findViewById(R.id.appealing_unappeal);
 
 
         }
