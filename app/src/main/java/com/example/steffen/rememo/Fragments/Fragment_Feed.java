@@ -42,6 +42,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Fragment_Feed extends Fragment {
@@ -61,7 +64,7 @@ public class Fragment_Feed extends Fragment {
     private List<User> list;
     private DatabaseReference mDatabase;
     private DatabaseReference geodb;
-    RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
     private User currentUser;
     private FusedLocationProviderClient mFusedLocationClient;
     private GeoFire geoFire;
@@ -90,9 +93,38 @@ public class Fragment_Feed extends Fragment {
 
         SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
         mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
+        update();
+        ScheduledExecutorService scheduler =
+                Executors.newSingleThreadScheduledExecutor();
+
+        scheduler.scheduleAtFixedRate
+                (new Runnable() {
+                    public void run() {
+                        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                                || ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    // Got last known location. In some rare situations this can be null.
+
+                                    if (location != null) {
+                                        glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
+                                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
+                                            @Override
+                                            public void onComplete(String key, DatabaseError error) {
+                                                System.out.println("Location updated");
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+                    }, 0, 1, TimeUnit.MINUTES);
 
 
-       update();
+
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
