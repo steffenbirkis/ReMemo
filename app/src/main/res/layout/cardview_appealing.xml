@@ -20,11 +20,11 @@
 
             <TextView
                 android:id="@+id/appealing_name"
-                android:layout_width="wrap_content"
+                android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="76dp"
+                android:layout_marginEnd="61dp"
                 android:text="Dummy Navn Etternavn"
                 android:textStyle="bold" />
 
