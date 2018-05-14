@@ -119,7 +119,8 @@ public class Fragment_Contact extends Fragment {
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
-        private TextView tw_workplace_role;
+        private TextView tw_workplace;
+        private TextView tw_role;
         private ImageView imageView;
 
         public RecyclerViewHolder(View item) {
@@ -131,7 +132,8 @@ public class Fragment_Contact extends Fragment {
 
             cw = itemView.findViewById(R.id.contact_recyclerview);
             tw_name = itemView.findViewById(R.id.contact_name);
-            tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
+            tw_workplace = itemView.findViewById(R.id.contact_workplace);
+            tw_role = itemView.findViewById(R.id.contact_role);
             imageView = itemView.findViewById(R.id.contact_picture);
         }
     }
@@ -153,8 +155,8 @@ public class Fragment_Contact extends Fragment {
         public void onBindViewHolder(RecyclerViewHolder holder, int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+            holder.tw_workplace.setText(temp.getWorkplace());
+            holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -109,7 +109,7 @@ public class Fragment_Feed extends Fragment {
 
                                     if (location != null) {
                                         glocation = new GeoLocation(location.getLatitude(), location.getLongitude());
-                                        geoFire.setLocation(FirebaseLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
+                                        geoFire.setLocation(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail()), glocation, new GeoFire.CompletionListener() {
                                             @Override
                                             public void onComplete(String key, DatabaseError error) {
                                                 System.out.println("Location updated");
