@@ -22,29 +22,33 @@
                 android:id="@+id/contact_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:textStyle="bold"/>
+                android:layout_marginEnd="76dp"
+                android:text="Dummy Navn Etternavn"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/contact_workplace_role"
-                android:layout_width="wrap_content"
+                android:id="@+id/contact_role"
+                android:layout_width="103dp"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/contact_name"
                 android:layout_below="@+id/contact_name"
-                android:layout_marginTop="10dp"/>
+                android:text="Dummy Role" />
 
-            <Button
-                android:id="@+id/contact_viewprofile"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/contact_workplace"
+                android:layout_width="103dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:text="View Profile" />
+                android:layout_alignStart="@+id/contact_role"
+                android:layout_below="@+id/contact_role"
+                android:text="Dummy Workplace" />
 
             <ImageView
                 android:id="@+id/contact_picture"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 card_view:srcCompat="@drawable/dummy_img" />
         </RelativeLayout>

@@ -130,7 +130,8 @@ public class Fragment_Appealing extends Fragment {
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
-        private TextView tw_workplace_role;
+        private TextView tw_workplace;
+        private TextView tw_role;
         private Button btn_contact;
         private ImageView iw_image;
         private Button btn_unappeal;
@@ -144,7 +145,8 @@ public class Fragment_Appealing extends Fragment {
 
             cw = itemView.findViewById(R.id.appealing_recyclerview);
             tw_name = itemView.findViewById(R.id.appealing_name);
-            tw_workplace_role = itemView.findViewById(R.id.appealing_workplace_role);
+            tw_role = itemView.findViewById(R.id.appealing_role);
+            tw_workplace = itemView.findViewById(R.id.appealing_workplace);
             btn_contact = (Button) itemView.findViewById(R.id.appealing_request);
             iw_image = (ImageView) itemView.findViewById(R.id.appealing_picture);
             btn_unappeal = (Button) itemView.findViewById(R.id.appealing_unappeal);
@@ -173,8 +175,8 @@ public class Fragment_Appealing extends Fragment {
             final Appealing temp = mlist.get(position);
             final Contact contact = new Contact();
             holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+            holder.tw_workplace.setText(temp.getWorkplace());
+            holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.iw_image);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

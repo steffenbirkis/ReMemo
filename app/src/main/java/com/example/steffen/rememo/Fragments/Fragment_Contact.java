@@ -120,7 +120,6 @@ public class Fragment_Contact extends Fragment {
         private CardView cw;
         private TextView tw_name;
         private TextView tw_workplace_role;
-        private Button btn_view_profile;
         private ImageView imageView;
 
         public RecyclerViewHolder(View item) {
@@ -133,7 +132,6 @@ public class Fragment_Contact extends Fragment {
             cw = itemView.findViewById(R.id.contact_recyclerview);
             tw_name = itemView.findViewById(R.id.contact_name);
             tw_workplace_role = itemView.findViewById(R.id.contact_workplace_role);
-            btn_view_profile = itemView.findViewById(R.id.contact_viewprofile);
             imageView = itemView.findViewById(R.id.contact_picture);
         }
     }
@@ -159,11 +157,9 @@ public class Fragment_Contact extends Fragment {
             holder.tw_workplace_role.setText(merge);
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
 
-            holder.btn_view_profile.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked View Profile: " + temp.getMail(),
-                            Toast.LENGTH_LONG).show();
                     viewProfile(temp);
                 }
             });

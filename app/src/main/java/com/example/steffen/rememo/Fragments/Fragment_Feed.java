@@ -169,7 +169,8 @@ public class Fragment_Feed extends Fragment {
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
-        private TextView tw_workplace_role;
+        private TextView tw_workplace;
+        private TextView tw_role;
         private Button btn_appealing;
         private Button btn_contact;
         private ImageView iw_picture;
@@ -183,7 +184,8 @@ public class Fragment_Feed extends Fragment {
 
             cw = itemView.findViewById(R.id.feed_recyclerview);
             tw_name = itemView.findViewById(R.id.feed_name);
-            tw_workplace_role = itemView.findViewById(R.id.feed_workplace_role);
+            tw_role = itemView.findViewById(R.id.feed_role);
+            tw_workplace = itemView.findViewById(R.id.feed_workplace);
             btn_appealing = (Button) itemView.findViewById(R.id.feed_appealing);
             btn_contact = (Button) itemView.findViewById(R.id.feed_contact);
             iw_picture = (ImageView) itemView.findViewById(R.id.feed_picture);
@@ -212,8 +214,8 @@ public class Fragment_Feed extends Fragment {
             final Contact contact = new Contact();
             final Appealing appealing = new Appealing();
             holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+            holder.tw_workplace.setText(temp.getWorkplace());
+            holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
