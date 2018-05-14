@@ -104,7 +104,8 @@ public class Fragment_Requests extends Fragment {
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView cw;
         private TextView tw_name;
-        private TextView tw_workplace_role;
+        private TextView tw_workplace;
+        private TextView tw_role;
         private Button accept;
         private Button deny;
         private ImageView imageView;
@@ -118,7 +119,8 @@ public class Fragment_Requests extends Fragment {
 
             cw = itemView.findViewById(R.id.request_recyclerview);
             tw_name = itemView.findViewById(R.id.request_name);
-            tw_workplace_role = itemView.findViewById(R.id.request_workplace_role);
+            tw_role = itemView.findViewById(R.id.request_role);
+            tw_workplace = itemView.findViewById(R.id.request_workplace);
             accept = itemView.findViewById(R.id.request_ack);
             imageView = itemView.findViewById(R.id.request_picture);
             deny = itemView.findViewById(R.id.request_deny);
@@ -146,8 +148,8 @@ public class Fragment_Requests extends Fragment {
         public void onBindViewHolder(Fragment_Requests.RecyclerViewHolder holder, final int position) {
             final Contact temp = mlist.get(position);
             holder.tw_name.setText(temp.getName());
-            String merge = temp.getRole() + " at " + temp.getWorkplace();
-            holder.tw_workplace_role.setText(merge);
+            holder.tw_workplace.setText(temp.getWorkplace());
+            holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
             holder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
