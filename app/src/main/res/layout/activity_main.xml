@@ -18,7 +18,21 @@
         android:elevation="4dp"
         android:background="#E87C1A"
         app:popupTheme="@style/AppTheme"
-        app:theme="@style/AppTheme" />
+        app:theme="@style/AppTheme">
+
+        <ImageView
+            android:id="@+id/toolbar_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/rwhite" />
+
+        <ImageView
+            android:id="@+id/toolbar_text"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/rememowhite" />
+    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/frame_layout"
