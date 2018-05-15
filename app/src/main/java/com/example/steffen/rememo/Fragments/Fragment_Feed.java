@@ -3,6 +3,7 @@ package com.example.steffen.rememo.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -251,9 +252,10 @@ public class Fragment_Feed extends Fragment {
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
             if((position%2)==0){
-                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+                holder.cw.setCardBackgroundColor(Color.WHITE);
             }else{
-                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
+                holder.cw.setCardBackgroundColor(Color.BLUE);
+
 
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
