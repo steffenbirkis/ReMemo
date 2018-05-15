@@ -30,7 +30,7 @@
             android:id="@+id/toolbar_text"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="60dp"
             android:src="@drawable/rememowhite" />
     </android.support.v7.widget.Toolbar>
 
