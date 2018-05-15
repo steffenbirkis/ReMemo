@@ -3,6 +3,7 @@ package com.example.steffen.rememo.Fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -130,7 +131,7 @@ public class Fragment_Contact extends Fragment {
         public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.cardview_contact, container, false));
 
-            cw = itemView.findViewById(R.id.contact_recyclerview);
+            cw = itemView.findViewById(R.id.contact_card_view);
             tw_name = itemView.findViewById(R.id.contact_name);
             tw_workplace = itemView.findViewById(R.id.contact_workplace);
             tw_role = itemView.findViewById(R.id.contact_role);
@@ -158,7 +159,12 @@ public class Fragment_Contact extends Fragment {
             holder.tw_workplace.setText(temp.getWorkplace());
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.imageView);
+            if((position%2)==0){
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+            }else{
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

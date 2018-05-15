@@ -216,7 +216,7 @@ public class Fragment_Feed extends Fragment {
         public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.cardview_feed, container, false));
 
-            cw = itemView.findViewById(R.id.feed_recyclerview);
+            cw = itemView.findViewById(R.id.feed_card_view);
             tw_name = itemView.findViewById(R.id.feed_name);
             tw_role = itemView.findViewById(R.id.feed_role);
             tw_workplace = itemView.findViewById(R.id.feed_workplace);
@@ -252,10 +252,9 @@ public class Fragment_Feed extends Fragment {
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
             if((position%2)==0){
-                holder.cw.setCardBackgroundColor(Color.WHITE);
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
             }else{
-                holder.cw.setCardBackgroundColor(Color.BLUE);
-
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
