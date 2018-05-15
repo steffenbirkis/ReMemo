@@ -250,7 +250,12 @@ public class Fragment_Feed extends Fragment {
             holder.tw_workplace.setText(temp.getWorkplace());
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
+            if((position%2)==0){
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+            }else{
+                holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
