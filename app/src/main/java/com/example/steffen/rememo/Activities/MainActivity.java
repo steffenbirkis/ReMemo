@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.example.steffen.rememo.Fragments.Fragment_Appealing;
 import com.example.steffen.rememo.Fragments.Fragment_Feed;
@@ -30,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
-
+        ImageView icon = findViewById(R.id.toolbar_icon);
+        ImageView text = findViewById(R.id.toolbar_text);
+        icon.setImageResource(R.drawable.rwhite);
+        text.setImageResource(R.drawable.rememowhite);
         final BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 

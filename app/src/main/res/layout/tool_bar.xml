@@ -13,17 +13,18 @@
 
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/toolbar_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/rwhite" />
 
         <ImageView
-            android:id="@+id/texticon"
+            android:id="@+id/toolbar_text"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:src="@drawable/rememowhite" />
+
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
