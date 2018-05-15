@@ -253,6 +253,9 @@ public class Fragment_Feed extends Fragment {
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
             if((position%2)==0){
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+                holder.btn_appealing.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+                holder.btn_contact.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+
             }else{
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 

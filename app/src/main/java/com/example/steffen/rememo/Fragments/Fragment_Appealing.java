@@ -182,6 +182,8 @@ public class Fragment_Appealing extends Fragment {
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.iw_image);
             if((position%2)==0){
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+                holder.btn_unappeal.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
+                holder.btn_contact.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
             }else{
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
