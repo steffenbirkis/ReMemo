@@ -35,7 +35,5 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        app:itemIconTint="@color/nav_item_state_list"
-        app:itemTextColor="@color/nav_item_state_list"
         app:menu="@menu/navigation"/>
 </RelativeLayout>

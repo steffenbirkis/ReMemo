@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/action_feed"
-        android:icon="@drawable/ic_list_black_24dp"
-        android:title="Feed" />
+        android:icon="@drawable/liveicon"
+        android:title="Feed"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_appealing"
         android:icon="@drawable/ic_star_rate_black_18dp"
-        android:title="Appealing" />
+        android:title="Appealing"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_request"
-        android:icon="@drawable/ic_supervisor_account_black_18dp"
-        android:title="Notifications" />
+        android:icon="@drawable/notificationicon"
+
+        android:title="Notifications"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_network"
-        android:icon="@drawable/ic_account_box_black_24dp"
-        android:title="Network" />
+        android:icon="@drawable/networkicon"
+        android:title="Network"
+        app:showAsAction="always" />
 
 </menu>
