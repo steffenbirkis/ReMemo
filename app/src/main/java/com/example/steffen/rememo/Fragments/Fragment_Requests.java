@@ -162,6 +162,8 @@ public class Fragment_Requests extends Fragment {
                 @Override
                 public void onClick(View v) {
                     temp.ackContact(FirebaseAuth.getInstance().getCurrentUser().getEmail(), temp);
+                    list.remove(position);
+                    mRecyclerView.setAdapter(new Fragment_Requests.RecyclerViewAdapter(list));
                 }
             });
             holder.deny.setOnClickListener(new View.OnClickListener(){
