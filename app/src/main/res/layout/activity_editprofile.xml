@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.example.steffen.rememo.Activities.EditProfile">
 
 
@@ -30,7 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editprofile_image"
                 android:layout_centerHorizontal="true"
-                android:text="Change Picture" />
+                android:text="Change Picture"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
 
             <TextView
                 android:id="@+id/name"
@@ -106,7 +109,9 @@
                 android:id="@+id/save_changes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Changes" />
+                android:text="Save Changes"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
         </LinearLayout>
     </ScrollView>
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.example.steffen.rememo.Fragments.Fragment_Fragment_Network">
 
     <TableLayout
@@ -18,50 +19,61 @@
             <Button
                 android:id="@+id/view_profile"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="View your profile" />
+                android:text="View your profile"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
         </TableRow>
 
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <Button
                 android:id="@+id/view_contacts"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="View Contacts" />
+                android:text="View Contacts"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <Button
                 android:id="@+id/view_events"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_below="@+id/view_contacts"
                 android:layout_centerHorizontal="true"
-                android:text="Events" />
+                android:text="Events"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <Button
                 android:id="@+id/view_snapshots"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_below="@+id/view_events"
                 android:layout_centerHorizontal="true"
-                android:text="View Snapshots" />
+                android:text="View Snapshots"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>
