@@ -22,9 +22,8 @@
                 android:id="@+id/contact_name"
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="76dp"
+                android:layout_toEndOf="@+id/contact_picture"
                 android:text="Dummy Navn Etternavn"
                 android:textStyle="bold" />
 
