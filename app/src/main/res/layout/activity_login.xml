@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.example.steffen.rememo.Activities.LoginActivity"
     >
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        app:srcCompat="@android:drawable/alert_dark_frame" />
+        android:layout_height="170dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="33dp"
+        app:srcCompat="@drawable/logoinorange" />
 
     <TableLayout
         android:layout_width="246dp"
         android:layout_height="339dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
         <TableRow
             android:layout_width="wrap_content"
@@ -30,12 +35,14 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Email"
+                android:background="@color/white"
                 android:inputType="textEmailAddress" />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
             <EditText
                 android:id="@+id/signin_password"
@@ -44,20 +51,27 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:background="@color/white"
+                android:inputType="textPassword"
+                />
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp">
+
 
             <Button
                 android:id="@+id/sign"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:layout_weight="1"
                 android:onClick="signIn"
-                android:text="Sign In"
+                android:text="Login"
+                android:textSize="24dp"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="447dp" />
         </TableRow>
@@ -69,12 +83,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:textSize="20dp"
             android:text="Not a member? SIGN UP"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="clickSignUp"/>
+            android:onClick="clickSignUp"
+            android:textColor="@color/colorPrimary"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>
