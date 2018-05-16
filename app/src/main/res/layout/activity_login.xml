@@ -36,7 +36,8 @@
                 android:ems="10"
                 android:hint="Email"
                 android:background="@color/white"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@color/text"/>
         </TableRow>
 
         <TableRow
@@ -53,6 +54,7 @@
                 android:hint="Password"
                 android:background="@color/white"
                 android:inputType="textPassword"
+                android:textColor="@color/text"
                 />
         </TableRow>
 
@@ -90,7 +92,7 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="clickSignUp"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/text"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>

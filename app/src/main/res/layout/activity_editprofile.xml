@@ -39,6 +39,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text"
                 android:text="Firstname and lastname" />
 
             <EditText
@@ -46,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/text"
                 android:inputType="text"
                 android:text="" />
 
@@ -53,6 +55,7 @@
                 android:id="@+id/workplace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text"
                 android:text="Workplace" />
 
             <EditText
@@ -61,13 +64,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
+                android:textColor="@color/text"
                 android:text="" />
 
             <TextView
                 android:id="@+id/role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Role" />
+                android:text="Role"
+                android:textColor="@color/text"/>
 
             <EditText
                 android:id="@+id/edit_role"
@@ -75,13 +80,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Background" />
+                android:text="Background"
+                android:textColor="@color/text"/>
 
             <EditText
                 android:id="@+id/edit_background"
@@ -89,13 +96,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Phone number" />
+                android:text="Phone number"
+                android:textColor="@color/text"/>
 
             <EditText
                 android:id="@+id/edit_phone"
@@ -103,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/text"/>
 
             <Button
                 android:id="@+id/save_changes"

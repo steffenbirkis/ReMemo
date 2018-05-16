@@ -24,7 +24,8 @@
                 android:layout_centerHorizontal="true"
                 android:text="View your profile"
                 android:textColor="@color/white"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary"
+                />
         </TableRow>
 
 
