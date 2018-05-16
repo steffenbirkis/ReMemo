@@ -24,8 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="76dp"
+                android:layout_marginEnd="56dp"
                 android:text="Dummy Navn Etternavn"
+                android:textColor="@color/text"
                 android:textStyle="bold" />
 
             <TextView
@@ -34,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/request_name"
                 android:layout_below="@+id/request_name"
-                android:text="Dummy Role" />
+                android:text="Dummy Role"
+                android:textColor="@color/text" />
 
             <TextView
                 android:id="@+id/request_workplace"
@@ -42,23 +44,28 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/request_role"
                 android:layout_below="@+id/request_role"
-                android:text="Dummy Workplace" />
+                android:text="Dummy Workplace"
+                android:textColor="@color/text" />
 
             <Button
                 android:id="@+id/request_ack"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="Accept" />
+                android:layout_alignStart="@+id/request_name"
+                android:background="@color/colorPrimary"
+                android:text="Accept"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/request_deny"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@+id/request_ack"
-                android:text="Deny" />
+                android:layout_toEndOf="@+id/request_role"
+                android:background="@color/colorPrimary"
+                android:text="Deny"
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/request_picture"

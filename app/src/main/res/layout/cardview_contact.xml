@@ -22,10 +22,12 @@
                 android:id="@+id/contact_name"
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/contact_picture"
+                android:layout_marginEnd="58dp"
                 android:text="Dummy Navn Etternavn"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/contact_role"
@@ -33,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/contact_name"
                 android:layout_below="@+id/contact_name"
-                android:text="Dummy Role" />
+                android:text="Dummy Role"
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/contact_workplace"
@@ -41,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/contact_role"
                 android:layout_below="@+id/contact_role"
-                android:text="Dummy Workplace" />
+                android:text="Dummy Workplace"
+                android:textColor="@color/text"/>
 
             <ImageView
                 android:id="@+id/contact_picture"

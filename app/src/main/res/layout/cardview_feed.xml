@@ -25,7 +25,8 @@
                 android:layout_alignEnd="@+id/feed_appealing"
                 android:layout_alignParentTop="true"
                 android:text="Dummy Navn Etternavn"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/feed_role"
@@ -33,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/feed_name"
                 android:layout_below="@+id/feed_name"
-                android:text="Dummy Role" />
+                android:text="Dummy Role"
+                android:textColor="@color/text"/>
 
             <TextView
                 android:id="@+id/feed_workplace"
@@ -41,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/feed_role"
                 android:layout_below="@+id/feed_role"
-                android:text="Dummy Workplace" />
+                android:text="Dummy Workplace"
+                android:textColor="@color/text"/>
 
             <ImageButton
                 android:id="@+id/feed_appealing"
