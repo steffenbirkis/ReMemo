@@ -270,6 +270,7 @@ public class Fragment_Feed extends Fragment {
                 @Override
                 public void onClick(View v) {
                     appealing.addAppealing(temp);
+                    Toast.makeText(getActivity(), "Added to appealing", Toast.LENGTH_SHORT).show();
                 }
             });
 

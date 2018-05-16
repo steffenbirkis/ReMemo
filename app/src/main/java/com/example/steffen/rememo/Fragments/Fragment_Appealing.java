@@ -220,6 +220,7 @@ public class Fragment_Appealing extends Fragment {
                     String mail = StringLogic.EncodeString(temp.getMail());
                     FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(currentUser.getEmail())).child("appealing").child(mail).removeValue();
                     System.out.println(mlist.size());
+                    Toast.makeText(getActivity(), "Removed", Toast.LENGTH_SHORT).show();
                     mlist.remove(position);
                     mRecyclerView.setAdapter(new Fragment_Appealing.RecyclerViewAdapter(mlist));
                 }
