@@ -87,7 +87,7 @@ public class EditProfile extends AppCompatActivity {
                 if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null&&image!=null){
                 FirebaseRef = fbd.getReference().child("users").child(tempmail);
                 FirebaseRef.child("email").setValue(mail);
-                FirebaseRef.child("name").setValue(currentUser.getName());
+                FirebaseRef.child("name").setValue(StringLogic.formatString(currentUser.getName()));
                 FirebaseRef.child("workplace").setValue(currentUser.getWorkplace());
                 FirebaseRef.child("background").setValue(currentUser.getBackground());
                 FirebaseRef.child("role").setValue(currentUser.getRole());
