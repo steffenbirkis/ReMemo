@@ -49,6 +49,7 @@ public class Fragment_Appealing extends Fragment {
     private String mail;
     private LayoutInflater inflater;
     private ViewGroup container;
+    private List<Contact> cList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,9 @@ public class Fragment_Appealing extends Fragment {
         DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
         userpath.addChildEventListener(userlistener);
         list = new ArrayList<Appealing>();
+        cList = new ArrayList<Contact>();
+        DatabaseReference contactpath = mDatabase.child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        contactpath.addChildEventListener(contactlistener);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         mail = firebaseAuth.getCurrentUser().getEmail();
         mail = StringLogic.EncodeString(mail.toLowerCase());
@@ -87,6 +91,32 @@ public class Fragment_Appealing extends Fragment {
 
         public void onChildRemoved(DataSnapshot dataSnapshot) {
             return;
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
+    };
+
+    ChildEventListener contactlistener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+
+            Contact contact = snapshot.getValue(Contact.class);
+            cList.add(contact);
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            System.out.println("The read failed: " + databaseError.getCode());
+        }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
         }
 
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -200,8 +230,7 @@ public class Fragment_Appealing extends Fragment {
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "Clicked Request Contact: " + temp.getName(),
-                            Toast.LENGTH_LONG).show();
+
                     User temp_user = new User();
                     temp_user.setPhotoURL(temp.getPhoto());
                     temp_user.setPhone(temp.getPhone());
@@ -210,9 +239,30 @@ public class Fragment_Appealing extends Fragment {
                     temp_user.setWorkplace(temp.getWorkplace());
                     temp_user.setName(temp.getName());
                     temp_user.setEmail(temp.getMail());
-                    contact.requestContact(currentUser, temp_user);
-                    Toast.makeText(getActivity(),"Request sent",Toast.LENGTH_SHORT).show();
+                    boolean found = false;
 
+                    if (!cList.isEmpty()) {
+                        for (Contact c : cList) {
+                            if (StringLogic.EncodeString(temp_user.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
+                                if (c.isRequest() && c.isAcknowledgement()) {
+                                    Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                                    found = true;
+                                } else {
+                                    contact.requestContact(currentUser, temp_user);
+                                    Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                                    found = true;
+                                }
+                            }
+                        }
+                    } else {
+                        contact.requestContact(currentUser, temp_user);
+                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                        found = true;
+                    }
+                    if (!found) {
+                        contact.requestContact(currentUser, temp_user);
+                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             //Unappeals a user onclick
