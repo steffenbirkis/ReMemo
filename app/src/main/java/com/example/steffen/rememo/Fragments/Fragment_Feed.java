@@ -1,10 +1,12 @@
 package com.example.steffen.rememo.Fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -94,6 +96,7 @@ public class Fragment_Feed extends Fragment {
         list = new ArrayList<User>();
         cList = new ArrayList<Contact>();
 
+
         SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
         mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
         update();
@@ -121,9 +124,12 @@ public class Fragment_Feed extends Fragment {
                                     }
                                 }
                             });
+                        }else {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 225);
+
                         }
 
-                    }
+                        }
                 }, 0, 1, TimeUnit.MINUTES);
 
 
