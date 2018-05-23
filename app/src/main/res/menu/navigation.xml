@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_appealing"
-        android:icon="@drawable/ic_star_rate_black_18dp"
+        android:icon="@drawable/staricon"
         android:title="Appealing"
         app:showAsAction="always" />
 

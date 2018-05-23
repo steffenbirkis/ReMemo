@@ -53,7 +53,7 @@
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/appealing_role"
-                android:src="@drawable/unapplealing"
+                android:src="@drawable/unappeal"
                 android:scaleType="fitCenter"
                 android:padding="10dp"
                 android:background="@color/white"/>
