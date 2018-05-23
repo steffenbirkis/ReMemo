@@ -301,18 +301,20 @@ public class Fragment_Feed extends Fragment {
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(contact.isAcknowledgement()&&contact.isRequest()){
+                    if (contact.isAcknowledgement() && contact.isRequest()) {
                         Toast.makeText(getActivity(), "Already contacted", Toast.LENGTH_SHORT).show();
 
-                    }else {
-                        for(Contact c: cList){
-                            if(StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))){
-                                if(c.isRequest()&&c.isAcknowledgement()){
-                                    Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!cList.isEmpty()) {
+
+                            for (Contact c : cList) {
+                                if (StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
+                                    if (c.isRequest() && c.isAcknowledgement()) {
+                                        Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         }
-
                         contact.requestContact(currentUser, temp);
                         Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
                     }
