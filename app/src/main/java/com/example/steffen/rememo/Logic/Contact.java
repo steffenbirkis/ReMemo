@@ -104,7 +104,7 @@ public class Contact {
     public void requestContact(User currentuser, User targetuser) {
 
         mDatabase = FirebaseDatabase.getInstance();
-        Contact cUserContact = new Contact(currentuser.getEmail(),true, false);
+        Contact cUserContact = new Contact(currentuser.getEmail(), true, false);
         cUserContact.setName(currentuser.getName());
         cUserContact.setWorkplace(currentuser.getWorkplace());
         cUserContact.setRole(currentuser.getRole());
@@ -112,7 +112,7 @@ public class Contact {
         cUserContact.setPhone(currentuser.getPhone());
         cUserContact.setPhoto(currentuser.getPhotoURL());
 
-        Contact tUserContact = new Contact(targetuser.getEmail(),false,true);
+        Contact tUserContact = new Contact(targetuser.getEmail(), false, true);
         tUserContact.setName(targetuser.getName());
         tUserContact.setWorkplace(targetuser.getWorkplace());
         tUserContact.setRole(targetuser.getRole());
@@ -129,9 +129,9 @@ public class Contact {
 
     }
 
-    public void ackContact(String currentmail, Contact target){
+    public void ackContact(String currentmail, Contact target) {
         mDatabase = FirebaseDatabase.getInstance();
-        Contact cUserContact = new Contact(currentmail,true, true);
+        Contact cUserContact = new Contact(currentmail, true, true);
         target.setRequest(true);
         target.setAcknowledgement(true);
 
@@ -145,7 +145,7 @@ public class Contact {
 
     }
 
-    public void denyContact(String currentmail, Contact target){
+    public void denyContact(String currentmail, Contact target) {
         String cUserMail = StringLogic.EncodeString(currentmail);
         String tUserMail = StringLogic.EncodeString(target.getMail());
 

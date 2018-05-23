@@ -25,7 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Fragment_Profile extends Fragment {
     private ImageView mImageView;
-    private String TAG="1";
+    private String TAG = "1";
+
     public static Fragment_Profile newInstance() {
         Fragment_Profile fragment = new Fragment_Profile();
         return fragment;
@@ -39,79 +40,77 @@ public class Fragment_Profile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FirebaseDatabase fbd=FirebaseDatabase.getInstance();
+        FirebaseDatabase fbd = FirebaseDatabase.getInstance();
 
         container.removeAllViews();
 
-             final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
-     final  TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
-     final  TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
-     final  TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
-     final  TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
-     final  TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
-     final  TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
-     mImageView  = (ImageView) fragmentView.findViewById(R.id.profile_image);
+        final View fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+        final TextView txt_name = (TextView) fragmentView.findViewById(R.id.txt_name);
+        final TextView txt_workplace = (TextView) fragmentView.findViewById(R.id.txt_workplace);
+        final TextView txt_role = (TextView) fragmentView.findViewById(R.id.txt_role);
+        final TextView txt_background = (TextView) fragmentView.findViewById(R.id.txt_background);
+        final TextView txt_email = (TextView) fragmentView.findViewById(R.id.txt_email);
+        final TextView txt_phone = (TextView) fragmentView.findViewById(R.id.txt_phone);
+        mImageView = (ImageView) fragmentView.findViewById(R.id.profile_image);
 
 
-
-
-     DatabaseReference FirebaseRef=fbd.getReference().child("users");
-     DatabaseReference ValueRef=fbd.getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL");
-
+        DatabaseReference FirebaseRef = fbd.getReference().child("users");
+        DatabaseReference ValueRef = fbd.getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL");
 
 
         FirebaseRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String s) {
-                FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-                String mail=firebaseAuth.getCurrentUser().getEmail();
-                User user=snapshot.getValue(User.class);
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                String mail = firebaseAuth.getCurrentUser().getEmail();
+                User user = snapshot.getValue(User.class);
                 String robust1 = StringLogic.EncodeString(mail.toLowerCase());
                 String robust2 = StringLogic.EncodeString(user.getEmail().toLowerCase());
-               if(robust1.equals(robust2)){
-                   txt_name.setText(user.getName());
-                   txt_workplace.setText(user.getWorkplace());
-                   txt_role.setText(user.getRole());
-                   txt_background.setText(user.getBackground());
-                   txt_email.setText(user.getEmail());
-                   txt_phone.setText(user.getPhone());
-            }}
-
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
+                if (robust1.equals(robust2)) {
+                    txt_name.setText(user.getName());
+                    txt_workplace.setText(user.getWorkplace());
+                    txt_role.setText(user.getRole());
+                    txt_background.setText(user.getBackground());
+                    txt_email.setText(user.getEmail());
+                    txt_phone.setText(user.getPhone());
                 }
+            }
 
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    return;
-                }
 
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
 
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                return;
+            }
 
-            });
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+        });
 
         ValueEventListener postListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            String post = dataSnapshot.getValue(String.class);
-            System.out.println(post);
-            Glide.with(fragmentView.getContext()).load(post).apply(RequestOptions.circleCropTransform()).into(mImageView);
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String post = dataSnapshot.getValue(String.class);
+                System.out.println(post);
+                Glide.with(fragmentView.getContext()).load(post).apply(RequestOptions.circleCropTransform()).into(mImageView);
 
-        }
+            }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
-ValueRef.addValueEventListener(postListener);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        ValueRef.addValueEventListener(postListener);
 
         return fragmentView;
     }

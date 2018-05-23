@@ -84,30 +84,26 @@ public class EditProfile extends AppCompatActivity {
                 FirebaseDatabase fbd = FirebaseDatabase.getInstance();
                 String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                 final String tempmail = StringLogic.EncodeString(mail);
-                if(currentUser.getName()!=null&&currentUser.getWorkplace()!=null&&currentUser.getBackground()!=null&&currentUser.getPhone()!=null&&currentUser.getRole()!=null&&image!=null){
-                FirebaseRef = fbd.getReference().child("users").child(tempmail);
-                FirebaseRef.child("email").setValue(mail);
-                FirebaseRef.child("name").setValue(StringLogic.formatString(currentUser.getName()));
-                FirebaseRef.child("workplace").setValue(currentUser.getWorkplace());
-                FirebaseRef.child("background").setValue(currentUser.getBackground());
-                FirebaseRef.child("role").setValue(currentUser.getRole());
-                FirebaseRef.child("phone").setValue(currentUser.getPhone());
+                if (currentUser.getName() != null && currentUser.getWorkplace() != null && currentUser.getBackground() != null && currentUser.getPhone() != null && currentUser.getRole() != null && image != null) {
+                    FirebaseRef = fbd.getReference().child("users").child(tempmail);
+                    FirebaseRef.child("email").setValue(mail);
+                    FirebaseRef.child("name").setValue(StringLogic.formatString(currentUser.getName()));
+                    FirebaseRef.child("workplace").setValue(currentUser.getWorkplace());
+                    FirebaseRef.child("background").setValue(currentUser.getBackground());
+                    FirebaseRef.child("role").setValue(currentUser.getRole());
+                    FirebaseRef.child("phone").setValue(currentUser.getPhone());
 
-                FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
+                    FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("photoURL").setValue(image.toString());
 
                     updateData();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-                }
-                else if(image==null){
-                    Toast.makeText(getApplicationContext(),"Please add a picture",Toast.LENGTH_LONG).show();
-                }
-
-
-                else{
-                    Toast.makeText(getApplicationContext(),"None of the fields can be empty",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (image == null) {
+                    Toast.makeText(getApplicationContext(), "Please add a picture", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "None of the fields can be empty", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -224,11 +220,10 @@ public class EditProfile extends AppCompatActivity {
                 role.setText(currentUser.getRole());
                 background.setText(currentUser.getBackground());
                 phone.setText(currentUser.getPhone());
-                if(currentUser.getPhotoURL()==null){
-                    Toast.makeText(getApplicationContext(),"Please add a picture",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    image=Uri.parse(currentUser.getPhotoURL());
+                if (currentUser.getPhotoURL() == null) {
+                    Toast.makeText(getApplicationContext(), "Please add a picture", Toast.LENGTH_LONG).show();
+                } else {
+                    image = Uri.parse(currentUser.getPhotoURL());
 
                 }
             }

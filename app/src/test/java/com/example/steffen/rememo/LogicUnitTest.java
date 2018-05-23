@@ -15,7 +15,7 @@ public class LogicUnitTest {
     }
 
     @Test
-    public void StringLogic_formatString() throws Exception{
-        assertEquals("Teste Tester Testet",StringLogic.formatString("tESTE tesTER TeSTet"));
+    public void StringLogic_formatString() throws Exception {
+        assertEquals("Teste Tester Testet", StringLogic.formatString("tESTE tesTER TeSTet"));
     }
 }

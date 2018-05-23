@@ -3,7 +3,6 @@ package com.example.steffen.rememo.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -123,10 +121,7 @@ public class Fragment_Feed extends Fragment {
                         }
 
                     }
-                    }, 0, 1, TimeUnit.MINUTES);
-
-
-
+                }, 0, 1, TimeUnit.MINUTES);
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -135,7 +130,7 @@ public class Fragment_Feed extends Fragment {
         mRecyclerView = (RecyclerView) fragmentView.findViewById(R.id.feed_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
-        refreshLayout=(SwipeRefreshLayout) fragmentView.findViewById(R.id.swiperefresh);
+        refreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swiperefresh);
         mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -251,12 +246,12 @@ public class Fragment_Feed extends Fragment {
             holder.tw_workplace.setText(temp.getWorkplace());
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhotoURL()).apply(RequestOptions.circleCropTransform()).into(holder.iw_picture);
-            if((position%2)==0){
+            if ((position % 2) == 0) {
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
                 holder.btn_appealing.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
                 holder.btn_contact.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
 
-            }else{
+            } else {
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
             }
@@ -310,7 +305,8 @@ public class Fragment_Feed extends Fragment {
         container.removeAllViews();
         container.addView(fragment);
     }
-    public void update(){
+
+    public void update() {
         mNearby.clear();
         list.clear();
 

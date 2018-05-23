@@ -48,23 +48,23 @@ public class LoginActivity extends AppCompatActivity {
         refreshData();
         String temp_email = sign_email.getText().toString();
         String temp_password = sign_password.getText().toString();
-        if(!isEmpty(temp_email,temp_password)) {
+        if (!isEmpty(temp_email, temp_password)) {
             fireSignIn(temp_email, temp_password);
         }
     }
 
-    public boolean isEmpty(String email, String password){
-        if(email.isEmpty() && password.isEmpty()){
+    public boolean isEmpty(String email, String password) {
+        if (email.isEmpty() && password.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please fill in email and password",
                     Toast.LENGTH_LONG).show();
             return true;
         }
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please fill in email",
                     Toast.LENGTH_LONG).show();
             return true;
         }
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please fill in password",
                     Toast.LENGTH_LONG).show();
             return true;
@@ -107,10 +107,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void createUser(View v) {
         refreshData();
-        if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
+        if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please fill all the fields",
                     Toast.LENGTH_LONG).show();
-        }else if(password.getText().toString().equals(retypePassword.getText().toString())) {
+        } else if (password.getText().toString().equals(retypePassword.getText().toString())) {
             createFireUser();
         } else {
             Toast.makeText(LoginActivity.this, "Passwords does not match",
