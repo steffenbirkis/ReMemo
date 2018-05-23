@@ -1,8 +1,11 @@
 package com.example.steffen.rememo.Activities;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
+
 import com.example.steffen.rememo.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +67,9 @@ public class EditProfile extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference();
         mSelectImage = (Button) findViewById(R.id.edit_picture);
         mImageView = (ImageView) findViewById(R.id.editprofile_image);
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 225);}
+
 
         cList = new ArrayList<Contact>();
         mSelectImage.setOnClickListener(new View.OnClickListener() {
