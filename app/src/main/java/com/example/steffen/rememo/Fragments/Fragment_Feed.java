@@ -75,6 +75,7 @@ public class Fragment_Feed extends Fragment {
     private ViewGroup container;
     private LayoutInflater inflater;
     private SwipeRefreshLayout refreshLayout;
+    private List<Contact> cList;
 
 
     @Override
@@ -85,11 +86,13 @@ public class Fragment_Feed extends Fragment {
         this.container = container;
         this.inflater = inflater;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference contactpath = mDatabase.child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        contactpath.addChildEventListener(contactlistener);
         geodb = FirebaseDatabase.getInstance().getReference().child("geofire");
         geoFire = new GeoFire(geodb);
         mNearby = new ArrayList<String>();
         list = new ArrayList<User>();
-
+        cList = new ArrayList<Contact>();
 
         SharedPreferences preferences = getActivity().getSharedPreferences("userprefs", Context.MODE_PRIVATE);
         mRange = Double.parseDouble(preferences.getString("range", "50")) / 1000;
@@ -164,6 +167,32 @@ public class Fragment_Feed extends Fragment {
             }
             mRecyclerView.setAdapter(new RecyclerViewAdapter(list));
 
+        }
+
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            System.out.println("The read failed: " + databaseError.getCode());
+        }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
+    };
+
+    ChildEventListener contactlistener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
+
+            Contact contact = snapshot.getValue(Contact.class);
+            cList.add(contact);
         }
 
 
@@ -272,10 +301,21 @@ public class Fragment_Feed extends Fragment {
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    contact.requestContact(currentUser, temp);
-                    Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                    if(contact.isAcknowledgement()&&contact.isRequest()){
+                        Toast.makeText(getActivity(), "Already contacted", Toast.LENGTH_SHORT).show();
 
+                    }else {
+                        for(Contact c: cList){
+                            if(StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))){
+                                if(c.isRequest()&&c.isAcknowledgement()){
+                                    Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
 
+                        contact.requestContact(currentUser, temp);
+                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
