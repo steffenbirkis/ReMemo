@@ -303,7 +303,6 @@ public class Fragment_Feed extends Fragment {
                 public void onClick(View v) {
 
                         if (!cList.isEmpty()) {
-
                             for (Contact c : cList) {
                                 if (StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
                                     if (c.isRequest() && c.isAcknowledgement()) {
@@ -314,6 +313,9 @@ public class Fragment_Feed extends Fragment {
                                     }
                                 }
                             }
+                        }else{
+                            contact.requestContact(currentUser, temp);
+                            Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
                         }
 
 
