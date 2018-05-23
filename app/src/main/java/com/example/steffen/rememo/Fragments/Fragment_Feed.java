@@ -124,12 +124,12 @@ public class Fragment_Feed extends Fragment {
                                     }
                                 }
                             });
-                        }else {
-                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 225);
+                        } else {
+                            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 225);
 
                         }
 
-                        }
+                    }
                 }, 0, 1, TimeUnit.MINUTES);
 
 
@@ -307,23 +307,30 @@ public class Fragment_Feed extends Fragment {
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean found = false;
 
-                        if (!cList.isEmpty()) {
-                            for (Contact c : cList) {
-                                if (StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
-                                    if (c.isRequest() && c.isAcknowledgement()) {
-                                        Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        contact.requestContact(currentUser, temp);
-                                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
-                                    }
+                    if (!cList.isEmpty()) {
+                        for (Contact c : cList) {
+                            if (StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
+                                if (c.isRequest() && c.isAcknowledgement()) {
+                                    Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                                    found = true;
+                                } else {
+                                    contact.requestContact(currentUser, temp);
+                                    Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                                    found = true;
                                 }
                             }
-                        }else{
-                            contact.requestContact(currentUser, temp);
-                            Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
                         }
-
+                    } else {
+                        contact.requestContact(currentUser, temp);
+                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                        found = true;
+                    }
+                    if (!found) {
+                        contact.requestContact(currentUser, temp);
+                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             });
