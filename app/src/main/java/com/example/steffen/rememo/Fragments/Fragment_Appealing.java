@@ -75,6 +75,7 @@ public class Fragment_Appealing extends Fragment {
 
         return fragmentView;
     }
+
     //Retrieves the list of appealed users
     ChildEventListener listener = new ChildEventListener() {
         @Override
@@ -202,6 +203,7 @@ public class Fragment_Appealing extends Fragment {
             return new RecyclerViewHolder(inflater, parent);
 
         }
+
         //Sets the data from object to the layout
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
@@ -211,11 +213,11 @@ public class Fragment_Appealing extends Fragment {
             holder.tw_workplace.setText(temp.getWorkplace());
             holder.tw_role.setText(temp.getRole());
             Glide.with(getContext()).load(temp.getPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.iw_image);
-            if((position%2)==0){
+            if ((position % 2) == 0) {
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
                 holder.btn_unappeal.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
                 holder.btn_contact.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primaryBackground));
-            }else{
+            } else {
                 holder.cw.setCardBackgroundColor(ContextCompat.getColor(getActivity(), R.color.white));
 
             }
@@ -286,7 +288,7 @@ public class Fragment_Appealing extends Fragment {
     }
 
     //Views profile of the user clicked on
-    public void viewProfile(Appealing appealing){
+    public void viewProfile(Appealing appealing) {
         View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
 
         TextView lp_name = (TextView) fragment.findViewById(R.id.lp_name);
