@@ -64,7 +64,7 @@ public class Fragment_Appealing extends Fragment {
         userpath.addChildEventListener(userlistener);
         list = new ArrayList<Appealing>();
         cList = new ArrayList<Contact>();
-        DatabaseReference contactpath = mDatabase.child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
+        DatabaseReference contactpath = FirebaseDatabase.getInstance().getReference().child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         contactpath.addChildEventListener(contactlistener);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         mail = firebaseAuth.getCurrentUser().getEmail();
