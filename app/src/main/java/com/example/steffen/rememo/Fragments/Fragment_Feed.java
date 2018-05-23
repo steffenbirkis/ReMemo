@@ -301,10 +301,7 @@ public class Fragment_Feed extends Fragment {
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (contact.isAcknowledgement() && contact.isRequest()) {
-                        Toast.makeText(getActivity(), "Already contacted", Toast.LENGTH_SHORT).show();
 
-                    } else {
                         if (!cList.isEmpty()) {
 
                             for (Contact c : cList) {
@@ -319,7 +316,7 @@ public class Fragment_Feed extends Fragment {
                             }
                         }
 
-                    }
+
                 }
             });
         }
