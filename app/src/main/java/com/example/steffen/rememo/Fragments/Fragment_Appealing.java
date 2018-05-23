@@ -71,7 +71,7 @@ public class Fragment_Appealing extends Fragment {
 
         return fragmentView;
     }
-
+    //Retrieves the list of appealed users
     ChildEventListener listener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
@@ -96,6 +96,7 @@ public class Fragment_Appealing extends Fragment {
         }
 
     };
+    //Retrieves currentuser
     ChildEventListener userlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
@@ -141,6 +142,7 @@ public class Fragment_Appealing extends Fragment {
             super(item);
         }
 
+        //Links to the cardview elements
         public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.cardview_appealing, container, false));
 
@@ -170,7 +172,7 @@ public class Fragment_Appealing extends Fragment {
             return new RecyclerViewHolder(inflater, parent);
 
         }
-
+        //Sets the data from object to the layout
         @Override
         public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
             final Appealing temp = mlist.get(position);
@@ -194,6 +196,7 @@ public class Fragment_Appealing extends Fragment {
                 }
             });
 
+            //Request contact with user onclick
             holder.btn_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -212,7 +215,7 @@ public class Fragment_Appealing extends Fragment {
 
                 }
             });
-
+            //Unappeals a user onclick
             holder.btn_unappeal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -232,6 +235,7 @@ public class Fragment_Appealing extends Fragment {
         }
     }
 
+    //Views profile of the user clicked on
     public void viewProfile(Appealing appealing){
         View fragment = inflater.inflate(R.layout.fragment_lesser_profile, container, false);
 

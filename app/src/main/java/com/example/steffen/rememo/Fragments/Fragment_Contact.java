@@ -71,7 +71,7 @@ public class Fragment_Contact extends Fragment {
             clickViewRequests(v);
         }
     };
-
+    //Retrieves the contacts which both sides have agreed
     ChildEventListener contactlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {

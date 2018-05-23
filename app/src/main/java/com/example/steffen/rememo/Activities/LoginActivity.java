@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
+    //Method triggered by button, attempt to login if the inputs are non empty
     public void signIn(View v) {
         refreshData();
         String temp_email = sign_email.getText().toString();
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Checks if the input fields are empty and throws response to user
     public boolean isEmpty(String email, String password) {
         if (email.isEmpty() && password.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please fill in email and password",
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+    // Firebase auth login method
     public void fireSignIn(String emails, String password) {
         mAuth.signInWithEmailAndPassword(emails, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -95,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    //Redirects user if login successful
     public void updateUI(FirebaseUser user) {
         if (user == null) {
             setContentView(R.layout.activity_login);
@@ -105,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Creates a firebase user if the input fields are filled in properly
     public void createUser(View v) {
         refreshData();
         if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
@@ -122,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
     }
 
+    //Method to create firbase user
     private void createFireUser() {
         String temp_email = email.getText().toString();
         String temp_password = password.getText().toString();
@@ -146,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    //Refreshes link between code and elements in layout
     private void refreshData() {
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText) findViewById(R.id.et_password);
