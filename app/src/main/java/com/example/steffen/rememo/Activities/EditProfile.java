@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.steffen.rememo.Logic.Appealing;
 import com.example.steffen.rememo.Logic.Contact;
 import com.example.steffen.rememo.Logic.StringLogic;
 import com.example.steffen.rememo.Logic.User;
@@ -48,6 +49,7 @@ public class EditProfile extends AppCompatActivity {
     private Uri image;
     private DatabaseReference mDatabase;
     private List<Contact> cList;
+    private List<Appealing> aList;
 
 
     @Override
@@ -58,6 +60,8 @@ public class EditProfile extends AppCompatActivity {
         currentUser = new User();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("contacts");
         mDatabase.addChildEventListener(contactlistener);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail())).child("appealing");
+        mDatabase.addChildEventListener(appealinglistener);
         DatabaseReference userpath = FirebaseDatabase.getInstance().getReference().child("users");
         userpath.addChildEventListener(userlistener);
         mStorage = FirebaseStorage.getInstance().getReference();
@@ -65,6 +69,7 @@ public class EditProfile extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.editprofile_image);
 
         cList = new ArrayList<Contact>();
+        aList = new ArrayList<Appealing>();
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +115,7 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
+    // Refreshes the link between code and layout elements
     public void refreshData() {
         name = (EditText) findViewById(R.id.edit_name);
         workplace = (EditText) findViewById(R.id.edit_workplace);
@@ -147,14 +153,15 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
+    // Updates the userdata in the database
     public void updateData() {
         DatabaseReference temp_path = FirebaseDatabase.getInstance().getReference().child("users");
-        List<String> emails = new ArrayList<String>();
+        List<String> contact_emails = new ArrayList<String>();
         String current = StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         for (Contact c : cList) {
-            emails.add(StringLogic.EncodeString(c.getMail()));
+            contact_emails.add(StringLogic.EncodeString(c.getMail()));
         }
-        for (String s : emails) {
+        for (String s : contact_emails) {
             temp_path.child(s).child("contacts").child(current).child("name").setValue(currentUser.getName());
             temp_path.child(s).child("contacts").child(current).child("workplace").setValue(currentUser.getWorkplace());
             temp_path.child(s).child("contacts").child(current).child("role").setValue(currentUser.getRole());
@@ -162,12 +169,27 @@ public class EditProfile extends AppCompatActivity {
             temp_path.child(s).child("contacts").child(current).child("phone").setValue(currentUser.getPhone());
             temp_path.child(s).child("contacts").child(current).child("photo").setValue(currentUser.getPhotoURL());
         }
-    }
 
+        List<String> appealing_emails = new ArrayList<String>();
+        String a_current = StringLogic.EncodeString(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        for (Contact c : cList) {
+            appealing_emails.add(StringLogic.EncodeString(c.getMail()));
+        }
+        for (String s : appealing_emails) {
+            temp_path.child(s).child("appealing").child(a_current).child("name").setValue(currentUser.getName());
+            temp_path.child(s).child("appealing").child(a_current).child("workplace").setValue(currentUser.getWorkplace());
+            temp_path.child(s).child("appealing").child(a_current).child("role").setValue(currentUser.getRole());
+            temp_path.child(s).child("appealing").child(a_current).child("background").setValue(currentUser.getBackground());
+            temp_path.child(s).child("appealing").child(a_current).child("phone").setValue(currentUser.getPhone());
+            temp_path.child(s).child("appealing").child(a_current).child("photo").setValue(currentUser.getPhotoURL());
+        }
+    }
+    // Updates the image in the layout
     public void updateImage(Uri pic) {
         Glide.with(this).load(pic).into(mImageView);
     }
 
+    //Update the global user object
     public void updateUser() {
         currentUser.setName(name.getText().toString());
         currentUser.setWorkplace(workplace.getText().toString());
@@ -176,6 +198,7 @@ public class EditProfile extends AppCompatActivity {
         currentUser.setPhone(phone.getText().toString());
     }
 
+    //Retrieves contact list to properly update database on user data changes
     ChildEventListener contactlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
@@ -200,7 +223,33 @@ public class EditProfile extends AppCompatActivity {
         }
 
     };
+    //Retrieves appealing list to properly update database on user data changes
+    ChildEventListener appealinglistener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot snapshot, String s) {
 
+            Appealing appealing = snapshot.getValue(Appealing.class);
+            aList.add(appealing);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            System.out.println("The read failed: " + databaseError.getCode());
+        }
+
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+            return;
+        }
+
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+        }
+
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        }
+
+    };
+
+    //Retrieve current users data and puts it into the textfields
     ChildEventListener userlistener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot snapshot, String s) {
