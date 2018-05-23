@@ -311,12 +311,14 @@ public class Fragment_Feed extends Fragment {
                                 if (StringLogic.EncodeString(temp.getEmail().toLowerCase()).equals(StringLogic.EncodeString(c.getMail().toLowerCase()))) {
                                     if (c.isRequest() && c.isAcknowledgement()) {
                                         Toast.makeText(getActivity(), "Already contacts", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        contact.requestContact(currentUser, temp);
+                                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
                         }
-                        contact.requestContact(currentUser, temp);
-                        Toast.makeText(getActivity(), "Request sent", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
